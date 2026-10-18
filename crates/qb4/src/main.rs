@@ -157,7 +157,12 @@ fn tune(cfg: &Cfg, s: &Settings) -> Cfg {
 }
 
 fn main() {
-    let s = Settings::qb4();
+    let mut s = Settings::qb4();
+    // Diagnostic only (default off): scale the evidence gain, for QB-6's fairness check.
+    if let Ok(g) = std::env::var("QB4_ETA_GAIN") {
+        s.eta *= g.parse::<f64>().unwrap_or(1.0);
+        println!("DIAGNOSTIC: eta x {g} = {}", s.eta);
+    }
     println!("QB-4: QB-3's task (identical worlds via qb-task); dev seeds {:?}, test seeds {:?}", s.dev_seeds, s.test_seeds);
     let mq = tune(&Cfg { name: "modular-quantum", kind: Kind::ModularQuantum, lambda: 0.0, eta_m: 1.0, detector: true }, &s);
     let mc = tune(&Cfg { name: "modular-classical", kind: Kind::ModularClassical, lambda: 0.0, eta_m: 1.0, detector: true }, &s);

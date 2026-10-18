@@ -1,0 +1,53 @@
+QB-6: amplification (gain / growth) per module on QB-5's kept system; dev 0..16, test 100..132
+base (QB-5 kept) on test: D F1 0.953, M fidelity 0.868, acc_resp 0.889
+
+== 1 D gain (repeat votes x G) (check: D)
+   dev D gain 1.2                 0.9585
+   dev D gain 1.5                 0.7643
+   dev D gain 2                   0.7643
+   dev: off 0.9585, best 0.9585 (plain wins)
+   test: off check 0.9526 / acc_resp 0.889; on check 0.9526 / acc_resp 0.889 -> not kept
+
+== 2 M growth (held item x G) (check: M)
+   dev M growth 1.5               0.8857
+   dev M growth 3                 0.8857
+   dev: off 0.8857, best 0.8857 (plain wins)
+   test: off check 0.8682 / acc_resp 0.889; on check 0.8682 / acc_resp 0.889 -> not kept
+
+== 3 M->T link gain (eta_m x G) (check: T)
+   dev link gain 2                0.8913
+   dev link gain 4                0.8840
+   dev link gain 8                0.8814
+   dev: off 0.9078, best 0.9078 (plain wins)
+   test: off check 0.8890 / acc_resp 0.889; on check 0.8890 / acc_resp 0.889 -> not kept
+
+== 4 T gain (eta x G) (check: T)
+   dev T gain 1.5                 0.9193
+   dev T gain 2                   0.9251
+   dev T gain 3                   0.9271
+   dev: off 0.9078, best 0.9271 (["t_gain 3"])
+   test: off check 0.8890 / acc_resp 0.889; on check 0.9146 / acc_resp 0.915 -> KEPT
+
+== 5 T growth (catalysed reinforcement) (check: T)
+   dev T growth kappa 0.5         0.9163
+   dev T growth kappa 1           0.9001
+   dev T growth kappa 2           0.8659
+   dev: off 0.9271, best 0.9271 (plain wins)
+   test: off check 0.9146 / acc_resp 0.915; on check 0.9146 / acc_resp 0.915 -> not kept
+
+final kept system on test: D F1 0.953, M fidelity 0.868, acc_resp 0.915 (QB-5 kept 0.889)
+
+diagnostics (after the run, not predictions): growth alone on QB-5's kept base
+   kappa 0.5: dev 0.9144, test 0.8967 (base dev 0.9078, test 0.889)
+   kappa 1: dev 0.9178, test 0.9014 (base dev 0.9078, test 0.889)
+   kappa 2: dev 0.9115, test 0.8994 (base dev 0.9078, test 0.889)
+   T gain 4 (beyond the grid): dev 0.9209, test 0.9121
+   T gain 6 (beyond the grid): dev 0.9067, test 0.8992
+
+HOLDS  A1 D gain not kept: kept: false
+HOLDS  A2 M growth is a dead stage: ties exactly: true
+HOLDS  A3 link gain not kept: kept: false
+HOLDS  A4 T gain kept, >= +0.003: kept true; test 0.889 -> 0.915
+FAILS  A5 T growth kept, >= +0.003: kept false; test 0.915 -> 0.915
+
+4 of 5 predictions hold; kill criterion (>= 3 fail): does not fire

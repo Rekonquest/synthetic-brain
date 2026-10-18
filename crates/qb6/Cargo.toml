@@ -1,0 +1,13 @@
+[package]
+name = "qb6"
+description = "QB-6: amplification (gain and growth) on and off, one module at a time."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+qb-amplitude = { path = "../qb-amplitude" }
+qb-classical = { path = "../qb-classical" }
+qb-chaos = { path = "../qb-chaos" }
+qb-task = { path = "../qb-task" }

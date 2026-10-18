@@ -63,3 +63,13 @@ dependencies = [
  "qb-classical",
  "qb-task",
 ]
+
+[[package]]
+name = "qb6"
+version = "0.1.0"
+dependencies = [
+ "qb-amplitude",
+ "qb-chaos",
+ "qb-classical",
+ "qb-task",
+]
