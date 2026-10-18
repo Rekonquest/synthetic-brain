@@ -1,0 +1,11 @@
+[workspace]
+resolver = "2"
+members = ["crates/qb-amplitude", "crates/qb-classical", "crates/qb1"]
+# atomdb/ is its own workspace (a copy of a-rag-atom's AtomDB); it is not a member here.
+exclude = ["atomdb"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+publish = false

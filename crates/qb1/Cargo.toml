@@ -1,0 +1,11 @@
+[package]
+name = "qb1"
+description = "QB-1: the first forward test of the quantum-base characters (orchestrator and runner)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+qb-amplitude = { path = "../qb-amplitude" }
+qb-classical = { path = "../qb-classical" }

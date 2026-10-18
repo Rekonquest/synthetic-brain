@@ -1,0 +1,23 @@
+QB-1: 8 options, 400 steps, best 2 -> 5 at t=200, 32 seeds
+
+arm                  acc1   acc2  latency decisive  changes
+born                0.927  0.937     38.9    0.843    0.247
+born-collapse       0.156  0.219    156.2    0.998    0.000
+born-collapse-mix   0.129  0.146     66.2    0.862    0.140
+born-mix            0.149  0.149    142.1    0.238    0.855
+born-phase          0.927  0.937     38.9    0.843    0.247
+born-mix-phase      0.202  0.182     47.9    0.350    0.791
+l1                  0.610  0.621     46.5    0.542    0.653
+greedy              1.000  1.000     38.2      NaN    0.010
+base-only           0.131  0.118    170.4    0.125    0.879
+
+HOLDS  P1 commit and stay committed: pinned on 32/32 seeds; acc1 0.156, acc2 0.219
+FAILS  P2 collapse+mix = Zeno-limited exploration: change rate 0.140; acc1 0.129 (collapse 0.156, born 0.927)
+HOLDS  P3 squaring peaks: born sharper on 32/32; acc1 born 0.927 vs l1 0.610; latency gap 7.6
+HOLDS  P4a phase inert without a mixer: born-phase identical to born on 32/32
+HOLDS  P4b phase active with a mixer: born-mix-phase differs from born-mix on 32/32
+HOLDS  P5 base alone gives no verdict: acc1 0.131, acc2 0.118
+FAILS  P6 mixing spreads and blurs: acc1 0.149 vs 0.927; decisive 0.238 vs 0.843; latency 142.1 vs 38.9
+HOLDS  P7 classical ties or wins at the target: greedy acc1 1.000 vs born 0.927
+
+6 of 8 predictions hold; kill criterion (>= 3 fail): does not fire
