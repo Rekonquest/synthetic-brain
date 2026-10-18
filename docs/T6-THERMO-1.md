@@ -108,3 +108,21 @@ The predictions stand unchanged for the next run.
 - a specialised bath loop, checked equal to T2's bath number for number;
 - optionally, a GPU adapter crate;
 - and per-configuration results streamed to disk, so a stopped run keeps what it finished.
+
+## Made ready to rerun (2026-10-18)
+
+The changes are speed and safety only. The precommitted design and predictions are unchanged.
+- **`thermo-bath-fast`:** T2's bath in planned form, with precomputed edge sweeps and inlined noise.
+  - Its unit test holds it **bit-identical** to `thermo-bath` over 40 steps, hot and cold, including
+    signed zeros.
+  - T6's own parity mode (`T6_PARITY=1`) runs a hot and a cold job both ways: **0 of 2,000 choices
+    differ**. A hot job takes 8.2 s against 34.9 s, and a cold job 1.9 s against 33.5 s.
+- **The job log** (`evidence/thermo-6/jobs.csv`) gets one line per finished (configuration, seed),
+  flushed as it finishes.
+  - A restart skips every logged job, and the means are taken in seed order (deterministic).
+  - `T6_SMOKE=1` checks it: a second pass reruns nothing and gives identical results.
+- **A thread cap** (`T6_THREADS`, default 8) keeps the room cool. The estimated full run is about
+  35 min.
+- **Noted while smoke-testing (no defect):** on seeds 100–101 the two brains score identically,
+  although their choices differ at 90–102 steps (27 of them scored). Where they disagree, both are
+  wrong.

@@ -269,6 +269,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "thermo-bath-fast"
+version = "0.1.0"
+dependencies = [
+ "thermo-bath",
+ "thermo-lattice",
+]
+
+[[package]]
 name = "thermo-carve"
 version = "0.1.0"
 
@@ -356,6 +364,7 @@ dependencies = [
  "qb-classical",
  "qb-task",
  "thermo-bath",
+ "thermo-bath-fast",
  "thermo-host",
  "thermo-lattice",
 ]

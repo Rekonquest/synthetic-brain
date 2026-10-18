@@ -1,0 +1,13 @@
+[package]
+name = "thermo-bath-fast"
+description = "T2's bath law, planned: precomputed edge lists and inlined noise, bit-identical to thermo-bath (which stays the law)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+thermo-lattice = { path = "../thermo-lattice" }
+
+[dev-dependencies]
+thermo-bath = { path = "../thermo-bath" }

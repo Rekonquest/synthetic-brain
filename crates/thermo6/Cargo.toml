@@ -9,6 +9,7 @@ publish.workspace = true
 [dependencies]
 thermo-lattice = { path = "../thermo-lattice" }
 thermo-bath = { path = "../thermo-bath" }
+thermo-bath-fast = { path = "../thermo-bath-fast" }
 thermo-host = { path = "../thermo-host" }
 qb-amplitude = { path = "../qb-amplitude" }
 qb-classical = { path = "../qb-classical" }
