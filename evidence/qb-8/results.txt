@@ -1,0 +1,67 @@
+QB-8: retest chaos and hot/cold per module on QB-7's composed stack; p_miss 0.4; dev 0..16, test 100..132
+base (QB-7 kept) on test: D F1 0.806, M fidelity 0.605, acc_resp 0.749 (cued 0.915, missed 0.492)
+
+== 1 D chaos before the gate (check: D)
+   dev D chaos 0.1 key 0            0.8286
+   dev D chaos 0.1 key 1            0.8286
+   dev D chaos 0.1 key 2            0.8286
+   dev D chaos 0.2 key 0            0.8286
+   dev D chaos 0.2 key 1            0.8286
+   dev D chaos 0.2 key 2            0.8286
+   dev D chaos 0.4 key 0            0.8261
+   dev D chaos 0.4 key 1            0.8288
+   dev D chaos 0.4 key 2            0.8262
+   dev: off 0.8286, best 0.8288 (variant)
+   test: off check 0.8062 / acc 0.749 (cued 0.915, missed 0.492); on check 0.8054 / acc 0.749 (cued 0.917, missed 0.491) -> not kept
+
+== 2 M phase chaos and heat (check: M)
+   dev M phase chaos 0.1            0.6186
+   dev M phase chaos 0.5            0.6186
+   dev M phase chaos 1              0.6186
+   dev M occupation heat 0.005      0.6187
+   dev M occupation heat 0.01       0.6188
+   dev M occupation heat 0.02       0.6177
+   dev: off 0.6186, best 0.6188 (variant)
+   test: off check 0.6049 / acc 0.749 (cued 0.915, missed 0.492); on check 0.6051 / acc 0.765 (cued 0.915, missed 0.534) -> KEPT
+
+== 3 T cold and hot (check: T)
+   dev T0 0.05                      0.7868
+   dev T0 0.15                      0.7822
+   dev T0 0.2                       0.7789
+   dev T0 0.3                       0.7661
+   dev T0 0.4                       0.7434
+   dev: off 0.7846, best 0.7868 (variant)
+   test: off check 0.7649 / acc 0.765 (cued 0.915, missed 0.534); on check 0.7665 / acc 0.767 (cued 0.916, missed 0.536) -> KEPT
+
+== 4 T governor (check: T)
+   dev governor hot 0.5 tau 3       0.7811
+   dev governor hot 0.5 tau 10      0.7767
+   dev governor hot 1 tau 3         0.7594
+   dev governor hot 1 tau 10        0.7324
+   dev: off 0.7868, best 0.7868 (plain wins)
+   test: off check 0.7665 / acc 0.767 (cued 0.916, missed 0.536); on check 0.7665 / acc 0.767 (cued 0.916, missed 0.536) -> not kept
+
+== 5 T amplitude chaos (off and on) (check: T)
+   dev amplitude chaos OFF          0.7869
+   dev amplitude chaos 0.05 key 0   0.7831
+   dev amplitude chaos 0.05 key 1   0.7861
+   dev amplitude chaos 0.05 key 2   0.7868
+   dev amplitude chaos 0.1 key 0    0.7775
+   dev amplitude chaos 0.1 key 1    0.7821
+   dev amplitude chaos 0.1 key 2    0.7831
+   dev amplitude chaos 0.2 key 0    0.7601
+   dev amplitude chaos 0.2 key 1    0.7622
+   dev amplitude chaos 0.2 key 2    0.7656
+   dev: off 0.7868, best 0.7869 (variant)
+   test: off check 0.7665 / acc 0.767 (cued 0.916, missed 0.536); on check 0.7680 / acc 0.768 (cued 0.917, missed 0.538) -> KEPT
+
+final kept system on test: acc_resp 0.768 (cued 0.917, missed 0.538); QB-7 kept 0.749
+amplitude chaos on test (round-5 base 0.7665): ["amplitude chaos OFF: 0.7680", "amplitude chaos 0.05 key 0: 0.7654", "amplitude chaos 0.05 key 1: 0.7647", "amplitude chaos 0.05 key 2: 0.7665", "amplitude chaos 0.1 key 0: 0.7590", "amplitude chaos 0.1 key 1: 0.7617", "amplitude chaos 0.1 key 2: 0.7620", "amplitude chaos 0.2 key 0: 0.7437", "amplitude chaos 0.2 key 1: 0.7457", "amplitude chaos 0.2 key 2: 0.7472"]
+
+HOLDS  R1 D chaos still neutral (not kept): kept false
+FAILS  R2 M still immune (phase and heat tie): phase ties true, heat ties false
+FAILS  R3 the best temperature moves warmer, raising missed: best T0 0.05; kept true; missed 0.534 -> 0.536
+HOLDS  R4 the governor still not kept: kept false
+FAILS  R5 amplitude chaos neutral (within 0.003): max deviation 0.0229
+
+2 of 5 predictions hold; kill criterion (>= 3 fail): FIRES

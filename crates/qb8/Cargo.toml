@@ -1,0 +1,13 @@
+[package]
+name = "qb8"
+description = "QB-8: retest chaos and hot/cold per module on the QB-7 composed stack."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+qb-amplitude = { path = "../qb-amplitude" }
+qb-classical = { path = "../qb-classical" }
+qb-chaos = { path = "../qb-chaos" }
+qb-task = { path = "../qb-task" }
