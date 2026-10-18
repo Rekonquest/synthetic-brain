@@ -3,6 +3,36 @@
 version = 4
 
 [[package]]
+name = "fabric-conductance"
+version = "0.1.0"
+
+[[package]]
+name = "fabric-ramp"
+version = "0.1.0"
+
+[[package]]
+name = "fabric-thread"
+version = "0.1.0"
+
+[[package]]
+name = "fabric-vibration"
+version = "0.1.0"
+
+[[package]]
+name = "fabric1"
+version = "0.1.0"
+dependencies = [
+ "fabric-conductance",
+ "fabric-ramp",
+ "fabric-thread",
+ "fabric-vibration",
+ "qb-amplitude",
+ "qb-chaos",
+ "qb-classical",
+ "qb-task",
+]
+
+[[package]]
 name = "qb-amplitude"
 version = "0.1.0"
 

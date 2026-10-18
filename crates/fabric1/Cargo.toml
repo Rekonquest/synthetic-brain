@@ -1,0 +1,17 @@
+[package]
+name = "fabric1"
+description = "FABRIC-1: the spiderweb fabric over the optimized nodes (the spider and runner)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+qb-amplitude = { path = "../qb-amplitude" }
+qb-classical = { path = "../qb-classical" }
+qb-chaos = { path = "../qb-chaos" }
+qb-task = { path = "../qb-task" }
+fabric-conductance = { path = "../fabric-conductance" }
+fabric-vibration = { path = "../fabric-vibration" }
+fabric-ramp = { path = "../fabric-ramp" }
+fabric-thread = { path = "../fabric-thread" }

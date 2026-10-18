@@ -1,0 +1,9 @@
+[package]
+name = "fabric-vibration"
+description = "Spiderweb fabric: a vibration - the mismatch between two readings' predictions, as an EMA, mapped to a level."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]

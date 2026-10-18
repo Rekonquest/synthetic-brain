@@ -1,0 +1,24 @@
+FABRIC-1: the spiderweb fabric over QB-9's optimized nodes; p_miss 0.4; dev 0..16, test 100..132
+frozen hand wiring (QB-9 reproduction): test 0.776 (cued 0.908, missed 0.572)
+
+arm                       rho  gamma  eta_l  eps_max      h   test acc (cued / missed)
+fabric                   0.05      4  0.025     0.02      1   0.719 (0.862 / 0.498)
+fabric-quantum-only       0.1      4  0.025     0.02      1   0.745 (0.902 / 0.502)
+fabric-classical-only    0.02      4   0.05     0.02      1   0.690 (0.800 / 0.519)
+-vibration               0.05      4  0.025     0.02      1   0.695 (0.812 / 0.513)
+-highway                 0.05      4  0.025     0.02      0   0.705 (0.834 / 0.505)
+
+DEC conductances on response steps (fabric, test): all [MQ 0.261, MC 0.113, TQ 0.318, TC 0.308]
+   cued trials [MQ 0.293, MC 0.085, TQ 0.319, TC 0.302]
+   missed trials [MQ 0.207, MC 0.154, TQ 0.318, TC 0.320]
+tracker memory inputs: MQ->TQ 0.669, MC->TQ 0.331, MQ->TC 0.669, MC->TC 0.331
+strongest thread into DEC: MQ -> DEC (strength 0.261)
+
+HOLDS  F1 threads emerge with the hand wiring's shape: trackers carry 0.627 of DEC
+FAILS  F2 the fabric is at least the hand wiring: fabric 0.719 vs hand-wired 0.776 (reproduced 0.776)
+FAILS  F3 routing by vibration: missed TC 0.320 vs TQ 0.318; cued TQ 0.319 vs TC 0.302; acc 0.719
+FAILS  F4 the vibration earns its place: missed: fabric 0.498 vs -vibration 0.513
+FAILS  F5 diversity pays (+0.005 over each): fabric 0.719; quantum-only 0.745; classical-only 0.690
+HOLDS  F6 the highway earns its place: cued: fabric 0.862 vs -highway 0.834
+
+2 of 6 predictions hold; kill criterion (>= 3 fail): FIRES

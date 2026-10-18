@@ -1,0 +1,9 @@
+[package]
+name = "fabric-ramp"
+description = "Spiderweb fabric: an on-ramp - a salient event promoted to a broadcast boost for the off-ramps."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]

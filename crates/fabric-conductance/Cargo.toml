@@ -1,0 +1,9 @@
+[package]
+name = "fabric-conductance"
+description = "Spiderweb fabric: threads form by use - a link's predictive score (EMA) and competitive conductances among a sink's inputs."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
