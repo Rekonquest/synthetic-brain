@@ -1,0 +1,51 @@
+QB-9: the retest round on QB-8's stack; p_miss 0.4; dev 0..16, test 100..132
+base (QB-8 kept) on test: M log-score -2.105, acc_resp 0.768 (cued 0.917, missed 0.538)
+
+== 1 M heat, judged by its log-score (check: MLog)
+   dev M heat 0               -7.7620
+   dev M heat 0.0025          -2.9085
+   dev M heat 0.005           -2.4231
+   dev M heat 0.02            -1.7483
+   dev M heat 0.04            -1.8185
+   dev: off -2.0030, best -1.7483 (variant)
+   test: off check -2.1054 / acc 0.768 (cued 0.917, missed 0.538); on check -1.8254 / acc 0.776 (cued 0.908, missed 0.572) -> KEPT
+
+== 2 T colder (check: T)
+   dev T0 0.02                0.7939
+   dev T0 0.03                0.7946
+   dev T0 0.04                0.7944
+   dev T0 0.07                0.7933
+   dev: off 0.7941, best 0.7946 (variant)
+   test: off check 0.7757 / acc 0.776 (cued 0.908, missed 0.572); on check 0.7756 / acc 0.776 (cued 0.908, missed 0.572) -> not kept
+
+== 3 T gain (check: T)
+   dev T gain 2               0.7887
+   dev T gain 4               0.7913
+   dev: off 0.7941, best 0.7941 (plain wins)
+   test: off check 0.7757 / acc 0.776 (cued 0.908, missed 0.572); on check 0.7757 / acc 0.776 (cued 0.908, missed 0.572) -> not kept
+
+== 4 T growth and brake (check: T)
+   dev kappa 0.5 iota 1       0.7963
+   dev kappa 1.5 iota 1       0.7930
+   dev kappa 1 iota 0.5       0.7929
+   dev kappa 1 iota 2         0.7929
+   dev: off 0.7941, best 0.7963 (variant)
+   test: off check 0.7757 / acc 0.776 (cued 0.908, missed 0.572); on check 0.7742 / acc 0.774 (cued 0.910, missed 0.564) -> not kept
+
+== 5 M->T link gain (check: T)
+   dev eta_m 0.025            0.7824
+   dev eta_m 0.1              0.7743
+   dev: off 0.7941, best 0.7941 (plain wins)
+   test: off check 0.7757 / acc 0.776 (cued 0.908, missed 0.572); on check 0.7757 / acc 0.776 (cued 0.908, missed 0.572) -> not kept
+
+final kept quantum system on test: acc_resp 0.776 (cued 0.908, missed 0.572); QB-8 kept 0.768
+same system with M heat 0: acc_resp 0.751 (cued 0.918, missed 0.493)
+fair classical comparator (576 configs tuned on dev; best Classical { floor: 0.05, gain: 4.0, kappa: 1.0, iota: 1.0, lambda: 0.05, eta_m: 0.1 }): test acc_resp 0.775 (cued 0.903, missed 0.578)
+
+HOLDS  Q1 the fixed check sees heat: best eps 0.02; missed 0.572 vs no-heat 0.493
+HOLDS  Q2 cold has saturated (<= 0.003): best T0 0.03; test change -0.0001
+HOLDS  Q3 amplification transfers (< 0.005): rounds 3-5 change test by +0.0000
+HOLDS  Q4 law 5: classical within 0.01: classical 0.775 vs quantum 0.776
+HOLDS  Q5 the profiles persist: cued q 0.908 / c 0.903; missed q 0.572 / c 0.578
+
+5 of 5 predictions hold; kill criterion (>= 3 fail): does not fire
