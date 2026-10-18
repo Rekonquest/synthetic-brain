@@ -1,0 +1,21 @@
+T2: the bath (gamma 0.2, kappa 0.3); burn 200, measure 400
+d=2: T 0.5: variance 0.4994 (error -0.11%)
+d=2: T 1: variance 0.9989 (error -0.11%)
+d=2: T 2: variance 1.9977 (error -0.11%)
+d=3: T 0.5: variance 0.5001 (error +0.03%)
+d=3: T 1: variance 1.0003 (error +0.03%)
+d=3: T 2: variance 2.0005 (error +0.03%)
+B3: push h 0.5 at one site (d=3, T 1): mean there 0.5216 (h*C00/T = 0.5), neighbours |mean| 0.0215
+B4: cold undamped drift 1.4e-14
+B5 chaos alpha 0.1: equipartition error 0.0003 (plain 0.0003)
+B5 chaos alpha 0.3: equipartition error 0.0002 (plain 0.0003)
+B6 amplification (noise x1.2): equipartition error 0.4404 (plain 0.0003)
+
+HOLDS  B1 equipartition within 2%
+HOLDS  B2 linearity within 3%
+HOLDS  B3 response equals fluctuation
+HOLDS  B4 cold conservation
+FAILS  B5 chaos not kept
+HOLDS  B6 amplification not kept
+
+5 of 6 hold

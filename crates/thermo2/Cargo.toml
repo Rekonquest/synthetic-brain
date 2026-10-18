@@ -1,0 +1,12 @@
+[package]
+name = "thermo2"
+description = "T2 runner: equipartition, linearity, static FDR, conservation, and the chaos/amplification rounds."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+thermo-lattice = { path = "../thermo-lattice" }
+thermo-bath = { path = "../thermo-bath" }
+qb-chaos = { path = "../qb-chaos" }

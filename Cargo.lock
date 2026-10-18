@@ -149,6 +149,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "thermo-bath"
+version = "0.1.0"
+dependencies = [
+ "thermo-lattice",
+]
+
+[[package]]
 name = "thermo-lattice"
 version = "0.1.0"
 
@@ -157,6 +164,15 @@ name = "thermo1"
 version = "0.1.0"
 dependencies = [
  "qb-chaos",
+ "thermo-lattice",
+]
+
+[[package]]
+name = "thermo2"
+version = "0.1.0"
+dependencies = [
+ "qb-chaos",
+ "thermo-bath",
  "thermo-lattice",
 ]
 

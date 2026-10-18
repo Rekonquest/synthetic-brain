@@ -1,0 +1,10 @@
+[package]
+name = "thermo-bath"
+description = "Thermal base, rung T2: couple a field on the lattice to a temperature with fluctuation-dissipation paired on every dissipative channel."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+thermo-lattice = { path = "../thermo-lattice" }
