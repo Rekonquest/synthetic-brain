@@ -97,3 +97,11 @@ before `gpu1` ran.
 - The order of operations in a kernel must match the CPU law's. A parity pass is safe to run in
   parallel, because no two edges in it share a site. T1's snapshot pass must read from a copy.
 - Every GPU answer is checked against the CPU law it replaces, bit for bit.
+
+**Jesse's fallback routes (2026-10-18), kept for GPU-2 if the Arc side fails:**
+- **Atom stacks that capture, then transform** to what we need: the compose-from-outside *transform*
+  form, applied over the GPU's own output;
+- **chemistry's axioms:** glue, combine and the like, joining partial results the way bonds join
+  fragments;
+- **quantum-reinforced axioms;**
+- **always as many small neurons working together,** never one monolith.
