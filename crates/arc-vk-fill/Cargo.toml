@@ -1,0 +1,10 @@
+[package]
+name = "arc-vk-fill"
+description = "BEAT-1 adapter: the Arc as a heat transmitter - Vulkan buffer fills through the existing loader and Mesa driver (dlopen, no crates)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+arc-sense = { path = "../arc-sense" }

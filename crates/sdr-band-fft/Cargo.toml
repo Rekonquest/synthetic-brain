@@ -1,0 +1,10 @@
+[package]
+name = "sdr-band-fft"
+description = "BEAT-1 perceive: Hann-windowed FFT band power from CU8 (replaces SENSE-1's boxcar for selectivity)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+

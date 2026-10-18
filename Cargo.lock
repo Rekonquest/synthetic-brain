@@ -19,6 +19,28 @@ name = "arc-sense"
 version = "0.1.0"
 
 [[package]]
+name = "arc-vk-fill"
+version = "0.1.0"
+dependencies = [
+ "arc-sense",
+]
+
+[[package]]
+name = "beat1"
+version = "0.1.0"
+dependencies = [
+ "arc-boil",
+ "arc-flux",
+ "arc-rc",
+ "arc-sense",
+ "arc-vk-fill",
+ "sdr-band-fft",
+ "sdr-frames",
+ "thermo-bath",
+ "thermo-host",
+]
+
+[[package]]
 name = "fabric-conductance"
 version = "0.1.0"
 
@@ -211,6 +233,10 @@ dependencies = [
  "qb-classical",
  "qb-task",
 ]
+
+[[package]]
+name = "sdr-band-fft"
+version = "0.1.0"
 
 [[package]]
 name = "sdr-band-power"

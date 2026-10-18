@@ -1,0 +1,25 @@
+BEAT-1: the heartbeat. pattern 1010101011000001111110011001010011110010000111011110100111010101
+H0 adapter: Ok(("Intel(R) Arc(tm) A380 Graphics (DG2)", 32902, 22181, true, 262144))
+sdr-stream exit exit status: 0; 7877 frames; Arc 116560 energy / 1166 slow samples; 41 transmit slots done
+H1 power channel: 100.0% of 56 bits; mean 1-bit minus 0-bit power 16.67 W (1-bits 35.85 W)
+H2 disconnected control: mean power over the clock's 1-slots minus 0-slots +0.001 W
+H3 temperature channel: rises per 8 s bit [5.0, 1.0, -3.0, 0.0, 4.0, -3.0, 5.0, 0.0, -3.0, 5.0] (bits [1, 1, 0, 0, 1, 0, 1, 1, 0, 1]); 9 of 10 decoded; pkg range 37.0-46.0 C
+H4 die law: power range 17.77 W over 126 points; fit Some(Fit { c_j_per_k: 158.89875328552782, r_k_per_w: 0.06327132881899204, t_amb_c: 40.16827706381123, r2: 0.04617602955178579, points: 125 })
+H6 radio: FFT contrast 10.79 dB; channel power 1-bits vs 0-bits -0.036 dB; stream gaps 0
+H5 thermal base: the probe's heat decodes 98.2% of 56 bits; together - (Arc + dongle) max 4.44e-16 of 3.604; plain exactly zero true
+H7 boiling: events per flag [0, 0, 0, 0, 0, 0, 0, 0] (pl1,pl2,pl4,prochot,ratl,thermal,vr_tdc,vr_thermalert)
+
+HOLDS  H0 the adapter runs (Arc found, readback exact, every submission fenced)
+HOLDS  H1 the heartbeat is received (>= 95%, >= 3 W)
+HOLDS  H2 no signal when disconnected (< 0.5 W)
+HOLDS  H3 the heartbeat is in real temperature (>= 1 C rise, >= 8 of 10)
+FAILS  H4 the die's law identifiable (R^2 >= 0.5, T_amb 15-40 C)
+HOLDS  H5 the heartbeat crosses the thermal base (>= 95%; sources add)
+HOLDS  H6 radio: FFT contrast >= 10 dB; GPU load leaves 93.3 MHz within 0.5 dB
+HOLDS  H7 no boiling
+
+7 of 8 hold
+
+real	2m43.831s
+user	0m38.080s
+sys	0m6.659s

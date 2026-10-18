@@ -1,0 +1,18 @@
+[package]
+name = "beat1"
+description = "BEAT-1 orchestrator: the heartbeat - transmit a known pattern as Arc load, receive in sensors, the dongle and the thermal base."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+arc-sense = { path = "../arc-sense" }
+arc-flux = { path = "../arc-flux" }
+arc-rc = { path = "../arc-rc" }
+arc-boil = { path = "../arc-boil" }
+arc-vk-fill = { path = "../arc-vk-fill" }
+sdr-frames = { path = "../sdr-frames" }
+sdr-band-fft = { path = "../sdr-band-fft" }
+thermo-bath = { path = "../thermo-bath" }
+thermo-host = { path = "../thermo-host" }

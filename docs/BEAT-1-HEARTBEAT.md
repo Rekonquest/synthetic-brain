@@ -95,3 +95,72 @@ nothing to select.
 - one CPU polling thread;
 - no settings are written and nothing is transmitted by radio;
 - the dongle's tuning is restored on exit.
+
+## Results (2026-10-18, `evidence/beat-1/`, a 2 min 44 s session)
+
+**Before the session, a one-second smoke test** of the transmitter (`arc-vk-fill`'s `smoke` example,
+not one of the checks):
+- the self-check read back all 262,144 words;
+- the load went from 16.17 W idle to 28.34 W, at 55 GB/s of fills.
+
+Mesa prints a warning that DG2 on the Xe kernel driver is "experimental". It is recorded, and every
+fenced submission completed regardless.
+
+| # | Result | Measured |
+|---|---|---|
+| H0 the adapter runs | **MEASURED** | the A380 found (0x8086 / 0x56a5); the readback exact; all 41 transmit slots completed their fenced submissions |
+| H1 the heartbeat is received | **MEASURED** | **100% of the 56 scored bits**; 1-bits averaged 35.85 W, **+16.67 W** over 0-bits |
+| H2 no signal when disconnected | **MEASURED** | +0.001 W between the clock's 1- and 0-slots with the transmitter off |
+| H3 the heartbeat is in real temperature | **MEASURED** | 9 of 10 slow bits; rises of +4 to +5 °C over a 1-bit; the package went 37 → 46 °C |
+| H4 the die's law identifiable | **FAILED** as written | the slope fit gives R² 0.046 (power range 17.8 W) |
+| H5 the heartbeat crosses the thermal base | **MEASURED** | the probe's heat decodes **98.2%**; together − (Arc + dongle) at most 4.4·10⁻¹⁶; plain exactly 0 |
+| H6 radio | **MEASURED** | FFT contrast **10.79 dB** (SENSE-1's boxcar gave 9.04); the GPU's load moves 93.3 MHz by only −0.036 dB |
+| H7 no boiling | **MEASURED** | 0 events on all 8 flags |
+
+**7 of 8 hold.**
+
+**H3's one miss** is bit 7, a 1 following a 1. The temperature read 0.0 change over it: after the
+previous 1-bit the die was already near its fast equilibrium, and the sensor's step is 1 °C.
+
+### H4, analysed (diagnostic after the run, `evidence/beat-1/diagnostic-die-law-trajectory-fit.txt`)
+
+**The precommitted fit was the wrong tool.** It regresses the slope dT/dt over 1 s steps, but the
+temperature reads in whole degrees, so almost every slope is 0 or ±1 °C/s, and the slope regression
+sees mostly quantization.
+
+Fitting the whole **trajectory** instead (output error, at 0.1 s):
+
+| model | R² | parameters |
+|---|---|---|
+| one node | 0.694 | τ 1.7 s, R 0.28 K/W, "T_amb" 34.8 °C |
+| **two nodes** (a fast die on a slow sink) | **0.953** | **τ_fast 0.4 s (R 0.21 K/W)**; τ_slow at the grid's 595 s edge (R 0.97 K/W) |
+
+- **The die has two time constants:**
+  - a fast one, under a second: the die and its spreader;
+  - a slow one, minutes or longer: the heatsink and the air.
+- A 2-minute session cannot resolve the slow one. So the **room temperature is not identifiable
+  yet**: the 34 °C is the sink's working point, not the room.
+- **To measure the room,** a session must run for several slow time constants: tens of minutes of
+  light duty, or cooling observed after a load.
+
+### What BEAT-1 settles
+
+**A known pattern put into real silicon heat is recovered:**
+- perfectly, in power;
+- 9 of 10 times, in raw 1 °C temperature;
+- at 98% after crossing the synthetic brain's thermal state.
+
+This is TA1's proof of concept, on real hardware, through the existing driver, with no driver
+rewritten.
+
+**The other measured facts:**
+- the disconnected control is clean (0.001 W);
+- the two real sources still add exactly in the linear base;
+- the GPU's memory traffic leaves no trace at 93.3 MHz;
+- the radio neuron's fix (Hann FFT) restored the 10 dB contrast.
+
+**Carried forward:**
+- the die is a two-node thermal system, with a fast node of about 0.4 s and a slow one of minutes or
+  more;
+- the fast node is the channel for signalling, and the slow node is the "state" that integrates
+  everything over minutes.

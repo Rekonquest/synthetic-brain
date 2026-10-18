@@ -1,0 +1,15 @@
+driver=rtl2832_sdr
+card=Realtek RTL2832 SDR
+bus=usb-0000:00:14.0-7
+capabilities=05310000
+original_tuner_0_hz=300000
+original_tuner_1_hz=50000000
+tuner_0_hz=2048000
+tuner_1_hz=93000000
+capture_complete=1
+complex_samples=258080768
+sequence_gaps=0
+intentional_discards=262144
+restored_tuner_0_hz=300000
+restored_tuner_1_hz=50000000
+settings_restored=1

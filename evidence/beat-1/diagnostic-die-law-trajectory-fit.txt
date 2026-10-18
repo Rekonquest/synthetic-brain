@@ -1,0 +1,4 @@
+trajectory fit over 126 s at 0.1 s: R^2 0.6927; tau 2.0 s; T_amb 34.61 C; R 0.286 K/W; C = tau/R 7.0 J/K
+power range 16.0-34.1 W; package temperature range 37-46 C
+one node, tau grid 0.2-600 s: R^2 0.6939; tau 1.7 s; T_amb 34.79 C; R 0.278 K/W
+two nodes (offset + fast + slow filtered power): R^2 0.9527; tau_fast 0.4 s (R 0.208 K/W), tau_slow 595.0 s (R 0.968 K/W); steady T at 0 W 34.22 C
