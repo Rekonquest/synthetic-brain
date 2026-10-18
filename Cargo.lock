@@ -7,6 +7,10 @@ name = "qb-amplitude"
 version = "0.1.0"
 
 [[package]]
+name = "qb-chaos"
+version = "0.1.0"
+
+[[package]]
 name = "qb-classical"
 version = "0.1.0"
 
@@ -15,5 +19,14 @@ name = "qb1"
 version = "0.1.0"
 dependencies = [
  "qb-amplitude",
+ "qb-classical",
+]
+
+[[package]]
+name = "qb2"
+version = "0.1.0"
+dependencies = [
+ "qb-amplitude",
+ "qb-chaos",
  "qb-classical",
 ]

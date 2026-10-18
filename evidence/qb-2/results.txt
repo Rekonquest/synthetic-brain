@@ -1,0 +1,40 @@
+QB-2: 8 options, 400 steps, best 2 -> 5 at t=200, 32 seeds
+
+arm                      acc1   acc2  latency decisive  changes
+born                    0.927  0.937     38.9    0.843    0.247
+l1                      0.610  0.621     46.5    0.542    0.653
+greedy                  1.000  1.000     38.2    0.542    0.010
+born-T0.25              1.000  1.000     37.8    0.978    0.031
+born-T0.5               0.998  0.998     37.2    0.952    0.067
+born-T2                 0.610  0.621     46.5    0.542    0.653
+born-T4                 0.324  0.327     69.6    0.298    0.838
+born-heat0.30           0.927  0.937     38.9    0.843    0.247
+born-heat1.00           0.927  0.937     38.9    0.843    0.247
+born-heat3.14           0.927  0.937     38.9    0.843    0.247
+born-frozen             0.927  0.937     38.9    0.843    0.247
+mix-heat0.00            0.149  0.149    142.1    0.238    0.855
+mix-heat0.30            0.181  0.177    106.2    0.330    0.801
+mix-heat1.00            0.173  0.152    112.4    0.338    0.801
+mix-heat3.14            0.273  0.250     57.9    0.374    0.777
+mix-frozen              0.671  0.752     51.6    0.666    0.476
+mix-changing            0.234  0.216     69.4    0.359    0.783
+collapse-mix-heatpi     0.129  0.146     66.2    0.862    0.140
+collapse-heatpi         0.156  0.219    156.2    0.998    0.000
+collapse-occ0.01        0.100  0.281    141.8    0.997    0.001
+collapse-occ0.05        0.117  0.126    135.2    0.978    0.020
+
+transport probe (ring 256, 100 steps), mean squared distance: ballistic 1363.0, phase heat 13.6, frozen chaos 1.5, changing chaos 18.3
+
+HOLDS  Q1 squaring is a cold knob: T=2 equals l1 on 32/32
+HOLDS  Q2 colder is sharper: acc1 over T 0.25..4: ["1.000", "0.998", "0.927", "0.610", "0.324"]
+HOLDS  Q3 hotter explores more: change rate over T: ["0.031", "0.067", "0.247", "0.653", "0.838"]
+HOLDS  Q4 phase noise inert without a mixer: identical to born on [32, 32, 32, 32] of 32
+FAILS  Q5 heat rescues the mixer: acc1 over heat 0..pi: ["0.149", "0.181", "0.173", "0.273"]; latency 142.1 -> 57.9
+HOLDS  Q6 heat cannot restore wiped memory: collapse+mix+heat acc1 0.129
+HOLDS  Q7a phase heat cannot unlock collapse: pinned on 32/32
+HOLDS  Q7b occupation heat unlocks, without memory: change rate 0.001 -> 0.020; acc1 0.100, 0.117
+HOLDS  Q8 frozen chaos traps transport: acc1 0.671 vs 0.149; latency 51.6 vs 142.1
+HOLDS  Q9 changing chaos acts like heat: acc1 0.234 vs heat 0.273
+HOLDS  Q10 the probe separates the mechanisms: frozen 1.5 < 0.25*heat 3.4; heat 13.6 < ballistic 1363.0; changing 18.3 within 2x of heat
+
+10 of 11 checks hold; predictions failed: ["Q5"]; kill criterion (>= 4 fail): does not fire

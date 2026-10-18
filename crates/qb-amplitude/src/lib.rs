@@ -6,7 +6,8 @@
 //! - `project`: destructive measurement — the state becomes the measured option alone;
 //! - `ring_mix`: a partial unitary between ring neighbours (even pairs, then odd pairs);
 //! - `rotate`: a phase rotation of one amplitude;
-//! - `scale` and `power_magnitudes`: the entry points classical hooks act through.
+//! - `scale` and `power_magnitudes`: the entry points classical hooks act through;
+//! - `excite`: add an amplitude to one option (a thermal occupation).
 
 /// A complex number.
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -106,6 +107,11 @@ impl State {
         self.a[k] = self.a[k].scale(f);
     }
 
+    /// Add an amplitude to option k (a thermal occupation of the mode; QB-2).
+    pub fn excite(&mut self, k: usize, c: C) {
+        self.a[k] = self.a[k].add(c);
+    }
+
     /// |a_i| ← |a_i|^p, phases kept.
     pub fn power_magnitudes(&mut self, p: f64) {
         for c in &mut self.a {
@@ -149,6 +155,19 @@ mod tests {
         assert!(s.a.iter().zip(&once.a).all(|(x, y)| (x.re - y.re).abs() < 1e-12 && (x.im - y.im).abs() < 1e-12));
         assert!((s.a[3].abs() - 1.0).abs() < 1e-12 && (s.a[3].im.atan2(s.a[3].re) - 1.0).abs() < 1e-12);
         assert!(s.a.iter().enumerate().all(|(i, c)| i == 3 || c.norm2() == 0.0));
+    }
+
+    #[test]
+    fn a_phase_kick_keeps_magnitudes_and_excite_lifts_a_zero() {
+        let mut s = State::uniform(8);
+        let before: Vec<f64> = s.a.iter().map(|c| c.abs()).collect();
+        for j in 0..8 {
+            s.rotate(j, 0.7 * j as f64);
+        }
+        assert!(s.a.iter().zip(&before).all(|(c, b)| (c.abs() - b).abs() < 1e-15));
+        s.project(2);
+        s.excite(5, C::polar(0.01, 1.0));
+        assert!(s.a[5].abs() > 0.0);
     }
 
     #[test]

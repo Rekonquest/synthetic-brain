@@ -1,0 +1,12 @@
+[package]
+name = "qb2"
+description = "QB-2: hot, cold and chaos on the quantum-base stacks (orchestrator and runner)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+qb-amplitude = { path = "../qb-amplitude" }
+qb-classical = { path = "../qb-classical" }
+qb-chaos = { path = "../qb-chaos" }
