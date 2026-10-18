@@ -1,0 +1,13 @@
+[package]
+name = "thermo3"
+description = "T3 runner: thread formation, erosion timescale, conduction gain, 3D, finite-size convergence, and the amplification/chaos/heat rounds."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+thermo-lattice = { path = "../thermo-lattice" }
+thermo-bath = { path = "../thermo-bath" }
+thermo-carve = { path = "../thermo-carve" }
+qb-chaos = { path = "../qb-chaos" }

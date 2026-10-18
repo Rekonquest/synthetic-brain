@@ -1,0 +1,9 @@
+[package]
+name = "thermo-carve"
+description = "Thermal base, rung T3: edge conductances maintained by flow and eroded without it (maintain-or-erase; Physarum-like)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]

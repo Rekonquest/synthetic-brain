@@ -51,9 +51,52 @@ pub fn exchange(field: &mut Lattice, temperature: f64, kappa: f64, h: &dyn Fn(us
     }
 }
 
+/// `exchange`, with a rate per edge (T3): `kappa(site, axis)` for the edge (site, forward), the noise
+/// scaled per edge by its own rate (σ_e² = Tκ_e(2 − κ_e)/2, so fluctuation–dissipation holds per
+/// edge). Returns each edge's deterministic flux, indexed `site * d + axis`.
+pub fn exchange_edges(field: &mut Lattice, temperature: f64, kappa: &dyn Fn(usize, usize) -> f64, h: &dyn Fn(usize) -> f64, noise: &dyn Fn(usize, usize) -> f64) -> Vec<f64> {
+    let d = field.dims.len();
+    let mut flux = vec![0.0; field.e.len() * d];
+    for axis in 0..d {
+        if field.dims[axis] < 2 {
+            continue;
+        }
+        for parity in [0, 1] {
+            for site in 0..field.e.len() {
+                if field.coord(site, axis) % 2 != parity {
+                    continue;
+                }
+                let j = field.forward(site, axis);
+                let k = kappa(site, axis);
+                let det = k / 2.0 * ((field.e[j] - h(j)) - (field.e[site] - h(site)));
+                let f = det + (temperature * k * (2.0 - k) / 2.0).sqrt() * noise(site, axis);
+                field.e[site] += f;
+                field.e[j] -= f;
+                flux[site * d + axis] = det;
+            }
+        }
+    }
+    flux
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn per_edge_exchange_at_a_uniform_rate_equals_exchange() {
+        let (mut a, mut b) = (Lattice::new(&[6, 4]), Lattice::new(&[6, 4]));
+        for (i, x) in a.e.iter_mut().enumerate() {
+            *x = (i as f64 * 0.7).sin();
+        }
+        b.e = a.e.clone();
+        let noise = |site: usize, axis: usize| ((site * 31 + axis * 7) % 11) as f64 / 11.0 - 0.5;
+        for _ in 0..20 {
+            exchange(&mut a, 0.5, 0.3, &|_| 0.0, &noise);
+            exchange_edges(&mut b, 0.5, &|_, _| 0.3, &|_| 0.0, &noise);
+        }
+        assert_eq!(a.e, b.e);
+    }
 
     #[test]
     fn cold_exchange_conserves_and_normal_is_standard() {

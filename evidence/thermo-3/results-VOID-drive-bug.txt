@@ -1,0 +1,28 @@
+T3: carving; kappa 0.3, mu 0.02, nu 0.002, c_min 0.05, c0 0.2, steps 3000
+C1 2D straight thread ratio 1.00; C3 current carved 0.00000 vs uncarved 0.00000 (x1.52)
+C2 erosion: fitted rate 0.00200 vs nu 0.002 (+0.1%)
+C4 3D thread ratio 1.00
+C5 convergence: 2D ratio 1.000 -> 1.000, current 0.00000 -> 0.00000; 3D ratio 1.000 -> 1.000, current 0.00000 -> 0.00000
+   amplification p variant (p 2, chaos 0 frozen false, T 0): dev selectivity 0.0015
+   amplification p variant (p 3, chaos 0 frozen false, T 0): dev selectivity 0.0015
+   amplification p: dev off 0.0017, best 0.0017; held-out 0.0017 -> 0.0017 -> not kept
+   chaos variant (p 1, chaos 0.1 frozen false, T 0): dev selectivity 0.0017
+   chaos variant (p 1, chaos 0.1 frozen true, T 0): dev selectivity 0.0017
+   chaos variant (p 1, chaos 0.3 frozen false, T 0): dev selectivity 0.0017
+   chaos variant (p 1, chaos 0.3 frozen true, T 0): dev selectivity 0.0017
+   chaos: dev off 0.0017, best 0.0017; held-out 0.0017 -> 0.0017 -> KEPT
+   heat variant (p 1, chaos 0.3 frozen true, T 0.005): dev selectivity 0.0016
+   heat variant (p 1, chaos 0.3 frozen true, T 0.02): dev selectivity 0.0015
+   heat: dev off 0.0017, best 0.0017; held-out 0.0017 -> 0.0017 -> not kept
+kept: p 1, chaos 0.3 (frozen true), T 0
+
+FAILS  C1 a thread forms (ratio >= 3)
+HOLDS  C2 erosion timescale within 10%
+HOLDS  C3 carved web conducts better (x1.5)
+FAILS  C4 the same in 3D (ratio >= 3)
+FAILS  C5 finite-size convergence (< 2%)
+FAILS  C6 amplification kept
+HOLDS  C7 chaos kept
+HOLDS  C8 heat not kept
+
+4 of 8 hold
