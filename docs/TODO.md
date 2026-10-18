@@ -37,6 +37,11 @@ Started 2026-10-18. Each item is precommitted before it is built, as usual.
     - preload (the spiderweb bus).
   - Report bytes delivered per byte sent.
 
+- [ ] **WAVE-1, atom antennas outside the thermodynamic state** (`docs/WAVE-1-ANTENNA.md`,
+  precommitted).
+  - A wave medium, tuned resonator receivers, and two channels multiplexed.
+  - Then a bath dial that turns the wave antenna thermal. Simulated and receive-only.
+
 ## Hardware notes (the Arc A380)
 
 - An **ITX card**: very small, one fan, **powered from the motherboard slot only** (no PSU cable).
