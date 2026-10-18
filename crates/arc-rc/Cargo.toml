@@ -1,0 +1,10 @@
+[package]
+name = "arc-rc"
+description = "SENSE-1 perceive: the lumped thermal law C dT/dt = P - (T - T_amb)/R fitted by least squares."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+

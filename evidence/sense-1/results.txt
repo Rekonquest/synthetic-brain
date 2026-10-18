@@ -1,0 +1,20 @@
+SENSE-1: receive only. Arc sensors at "/sys/class/hwmon/hwmon4"; dongle via sdr-stream (built unchanged from Jesse's source)
+sdr-stream exit exit status: 0; 3752 frames; Arc: 59548 energy samples, 596 slow samples
+S1 Arc: 64.7 s; counter monotone true; 918 distinct updates/s; mean power 16.13 W; pkg temp 37.0-37.0 C; vram 36.0 C; act_freq range 0-600 MHz
+S2 dongle: 3751 data frames (122912768 samples), gap markers 1, reported gaps 0; 93.3 MHz channel 9.04 dB over the off-channel
+calibration (first 5 s): Arc 16.120 W, dongle channel power 2.1467e-2
+feed: 5998 steps of 10 ms; probe mean heat: plain 0e0, Arc alone 0.009283, dongle alone 0.004553, together 0.013836
+S5 together - (Arc + dongle): max 8.88e-16 of the largest value 4.0859
+S6 die law: power range 0.04 W over 64 points; fit Some(Fit { c_j_per_k: -inf, r_k_per_w: NaN, t_amb_c: NaN, r2: 0.0, points: 63 }); UNIDENTIFIABLE AT IDLE (power varied < 3 W)
+S7 boiling: events per flag [0, 0, 0, 0, 0, 0, 0, 0] (pl1,pl2,pl4,prochot,ratl,thermal,vr_tdc,vr_thermalert); flags raised at any time: []
+
+HOLDS  S1 the Arc senses
+FAILS  S2 the dongle senses (>= 10 dB, no gaps)
+HOLDS  S3 zero in gives exactly zero heat
+HOLDS  S4 each source alone delivers heat
+HOLDS  S5 the sources add (<= 1e-12)
+HOLDS  S6 the die's thermal law (or unidentifiable at idle)
+HOLDS  S7 no boiling at idle
+
+6 of 7 hold
+(transcribed from the run's terminal output; tee could not open the file because the directory was created by the run itself)

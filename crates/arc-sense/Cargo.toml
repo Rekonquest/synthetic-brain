@@ -1,0 +1,10 @@
+[package]
+name = "arc-sense"
+description = "SENSE-1 sensor neuron: one reading of the Arc's existing xe sysfs sensors, CLOCK_MONOTONIC-stamped."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+

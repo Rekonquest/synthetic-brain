@@ -108,3 +108,59 @@ in. **Amplification** is the dongle's extra energy, tested as the four arms.
 - no GPU work is submitted, no setting is written, and nothing is transmitted;
 - the dongle's tuning is restored by `sdr-stream` on exit, as in SDR1;
 - the room heat is negligible: one polling thread for 60 s.
+
+## Results (2026-10-18, `evidence/sense-1/`, a 64.7 s session)
+
+`sdr-stream` was built unchanged from Jesse's source with `-Wall -Wextra -Werror`. Its log confirms:
+- the `rtl2832_sdr` driver;
+- 122,912,768 complex samples;
+- sequence gaps 0, and the intentional settle discard of 262,144 samples;
+- the original tuning (0.3 MHz / 50 MHz) restored on exit.
+
+| # | Result | Measured |
+|---|---|---|
+| S1 the Arc senses | **MEASURED** | the counter is monotone; 918 distinct updates/s; 16.13 W idle; package 37.0 °C and VRAM 36.0 °C throughout; act_freq 0–600 MHz |
+| S2 the dongle senses | **FAILED** (contrast) | the channel is 9.04 dB over the off-channel, against the 10 dB bar; the gap half holds (below) |
+| S3 zero in gives exactly zero heat | **MEASURED** | the plain arm is exactly 0, bit for bit, at every site and step |
+| S4 each source alone delivers heat | **MEASURED** | probe mean: Arc 0.009283, dongle 0.004553 |
+| S5 the sources add | **MEASURED** | together − (Arc + dongle) is at most 8.9·10⁻¹⁶ of a largest value of 4.09 |
+| S6 the die's thermal law | **UNIDENTIFIABLE AT IDLE**, as precommitted | the power varied by only 0.04 W over 64 s, so R and T_amb cannot be separated |
+| S7 no boiling at idle | **MEASURED** | 0 events on all 8 flags, and no flag ever raised |
+
+**6 of 7 hold.**
+
+### S2, analysed (diagnostic after the run, not a prediction)
+
+**The "gap marker" is the stream's footer.** `sdr-stream` writes a kind-2 frame once, at the end
+(`write footer`, line 111). My precommit read kind 2 as a gap; that was my misreading of the format.
+The stream's own counters (sequence gaps 0, reported gaps 0) show **no gaps**.
+
+**The contrast miss is my band filter, not the dongle.** A Hann-windowed FFT of the saved 0.25 s
+(`sdr-first-0.25s.cu8`) gives these band powers (±100 kHz, dB relative):
+
+| frequency | dB |
+|---|---|
+| 93.3 MHz | **52.1** |
+| 93.2 / 93.4 MHz | 49.2 / 49.6 |
+| the floor | 39–41 |
+| 92.5 MHz (the off-channel) | 41.6 |
+| another, weaker station at 92.2–92.3 MHz | 44.8 |
+
+- By that measure 93.3 MHz stands **10.5 dB** over the off-channel, and 11–13 dB over the floor.
+- The perceive neuron's 8-tap boxcar has sinc sidelobes at only −13 dB and a ±128 kHz main lobe, so
+  the strong channel and the band around it leak into the comparison band. That leakage lowered the
+  measured contrast to 9.0 dB.
+- **The fix is the neuron's selectivity:** a windowed filter or an FFT band power. The result is
+  recorded as FAILED as written.
+
+### What SENSE-1 settles
+
+- **The Arc's real heat feeds the thermal state through the existing driver, read only.** The energy
+  counter is a fast receiver (918 updates/s). At idle, temperature is flat at 1 °C resolution, so heat
+  shows as power, not degrees, until the Arc is loaded.
+- **The dongle's received RF feeds the same state, and the two sources add exactly.** The base is
+  linear, so there is no substitution. Substitution needs a nonlinear maintainer (T3's carving),
+  which is a future step.
+- **Zero in gives exactly zero heat**, the TA1 disconnected control, reproduced on real inputs.
+- **Receive-only cannot identify the die's thermal law.** The heartbeat (transmit) is what will
+  separate R, C and the room's temperature.

@@ -1,0 +1,10 @@
+[package]
+name = "sdr-band-power"
+description = "SENSE-1 perceive: CU8 -> mixed, boxcar-filtered band power at an offset."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+

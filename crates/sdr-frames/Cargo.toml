@@ -1,0 +1,10 @@
+[package]
+name = "sdr-frames"
+description = "SENSE-1: read Jesse's sdr-stream TDR1 frames (format of the observer's wire.rs)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+

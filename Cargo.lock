@@ -3,6 +3,22 @@
 version = 4
 
 [[package]]
+name = "arc-boil"
+version = "0.1.0"
+
+[[package]]
+name = "arc-flux"
+version = "0.1.0"
+
+[[package]]
+name = "arc-rc"
+version = "0.1.0"
+
+[[package]]
+name = "arc-sense"
+version = "0.1.0"
+
+[[package]]
 name = "fabric-conductance"
 version = "0.1.0"
 
@@ -194,6 +210,29 @@ dependencies = [
  "qb-chaos",
  "qb-classical",
  "qb-task",
+]
+
+[[package]]
+name = "sdr-band-power"
+version = "0.1.0"
+
+[[package]]
+name = "sdr-frames"
+version = "0.1.0"
+
+[[package]]
+name = "sense1"
+version = "0.1.0"
+dependencies = [
+ "arc-boil",
+ "arc-flux",
+ "arc-rc",
+ "arc-sense",
+ "sdr-band-power",
+ "sdr-frames",
+ "thermo-bath",
+ "thermo-host",
+ "thermo-lattice",
 ]
 
 [[package]]

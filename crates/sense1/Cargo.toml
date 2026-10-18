@@ -1,0 +1,18 @@
+[package]
+name = "sense1"
+description = "SENSE-1 orchestrator: record the Arc and the dongle, perceive, feed the thermal base through ports, four arms."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+arc-sense = { path = "../arc-sense" }
+arc-flux = { path = "../arc-flux" }
+arc-rc = { path = "../arc-rc" }
+arc-boil = { path = "../arc-boil" }
+sdr-frames = { path = "../sdr-frames" }
+sdr-band-power = { path = "../sdr-band-power" }
+thermo-lattice = { path = "../thermo-lattice" }
+thermo-bath = { path = "../thermo-bath" }
+thermo-host = { path = "../thermo-host" }
