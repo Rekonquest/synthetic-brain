@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = ["crates/qb-amplitude", "crates/qb-classical", "crates/qb-chaos", "crates/qb-task", "crates/qb1", "crates/qb2", "crates/qb3", "crates/qb4"]
+members = ["crates/qb-amplitude", "crates/qb-classical", "crates/qb-chaos", "crates/qb-task", "crates/qb1", "crates/qb2", "crates/qb3", "crates/qb4", "crates/qb5"]
 # atomdb/ is its own workspace (a copy of a-rag-atom's AtomDB); it is not a member here.
 exclude = ["atomdb"]
 

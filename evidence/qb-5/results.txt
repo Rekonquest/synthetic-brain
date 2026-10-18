@@ -1,0 +1,65 @@
+QB-5: chaos and hot/cold per module on QB-4's modular working memory; dev 0..16, test 100..132
+base (QB-4 modular-quantum) on test: D F1 0.953, M fidelity 0.868, acc_resp 0.877
+
+== D: chaos before the gate (check: D)
+   dev D alpha 0.1 key 0              0.9585
+   dev D alpha 0.1 key 1              0.9585
+   dev D alpha 0.1 key 2              0.9585
+   dev D alpha 0.2 key 0              0.9585
+   dev D alpha 0.2 key 1              0.9585
+   dev D alpha 0.2 key 2              0.9585
+   dev D alpha 0.4 key 0              0.9584
+   dev D alpha 0.4 key 1              0.9578
+   dev D alpha 0.4 key 2              0.9588
+   dev: off 0.9585, best 0.9588 (["d_alpha 0.4 key 2"])
+   test: off check 0.9526 / acc_resp 0.877; on check 0.9522 / acc_resp 0.877 -> not kept
+
+== M: phase chaos and heat (check: M)
+   dev M phase chaos 0.1              0.8857
+   dev M phase chaos 0.5              0.8857
+   dev M phase chaos 1                0.8857
+   dev M occupation heat 0.005        0.8857
+   dev M occupation heat 0.01         0.8857
+   dev M occupation heat 0.02         0.8857
+   dev: off 0.8857, best 0.8857 (plain wins)
+   test: off check 0.8682 / acc_resp 0.877; on check 0.8682 / acc_resp 0.877 -> not kept
+
+== T1: cold and hot (the knob) (check: T)
+   dev T0 0.1                         0.9073
+   dev T0 0.15                        0.9068
+   dev T0 0.2                         0.9035
+   dev T0 0.3                         0.8807
+   dev T0 0.4                         0.8254
+   dev: off 0.8966, best 0.9073 (["t0 0.1"])
+   test: off check 0.8774 / acc_resp 0.877; on check 0.8887 / acc_resp 0.889 -> KEPT
+
+== T2: governor (reheat on event, cool) (check: T)
+   dev governor hot 0.5 tau 3         0.8973
+   dev governor hot 0.5 tau 10        0.8863
+   dev governor hot 1 tau 3           0.8524
+   dev governor hot 1 tau 10          0.8029
+   dev: off 0.9073, best 0.9073 (plain wins)
+   test: off check 0.8887 / acc_resp 0.889; on check 0.8887 / acc_resp 0.889 -> not kept
+
+== T3: amplitude chaos (check: T)
+   dev T amplitude chaos 0.05 key 0   0.9063
+   dev T amplitude chaos 0.05 key 1   0.9076
+   dev T amplitude chaos 0.05 key 2   0.9078
+   dev T amplitude chaos 0.1 key 0    0.9059
+   dev T amplitude chaos 0.1 key 1    0.9076
+   dev T amplitude chaos 0.1 key 2    0.9066
+   dev T amplitude chaos 0.2 key 0    0.8839
+   dev T amplitude chaos 0.2 key 1    0.8838
+   dev T amplitude chaos 0.2 key 2    0.8871
+   dev: off 0.9073, best 0.9078 (["t_alpha 0.05 key 2"])
+   test: off check 0.8887 / acc_resp 0.889; on check 0.8890 / acc_resp 0.889 -> KEPT
+
+final kept system on test: D F1 0.953, M fidelity 0.868, acc_resp 0.889 (QB-4 base 0.877)
+
+HOLDS  P1 D chaos before the gate is neutral (not kept): kept: false
+FAILS  P2 M immune to phase chaos, harmed by heat: phase ties exactly: true; heat lowers fidelity: false; kept: false
+HOLDS  P3 T colder helps up to a point: best T0 0.1; test 0.877 -> 0.889
+HOLDS  P4 T governor adds nothing (<= +0.01): governor test 0.889 vs fixed 0.889
+FAILS  P5 T amplitude chaos not kept: kept: true
+
+3 of 5 predictions hold; kill criterion (>= 3 fail): does not fire

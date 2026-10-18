@@ -1,0 +1,13 @@
+[package]
+name = "qb5"
+description = "QB-5: chaos and hot/cold, one module at a time, on the QB-4 modular working memory."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+qb-amplitude = { path = "../qb-amplitude" }
+qb-classical = { path = "../qb-classical" }
+qb-chaos = { path = "../qb-chaos" }
+qb-task = { path = "../qb-task" }
