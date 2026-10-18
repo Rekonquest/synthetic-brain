@@ -1,0 +1,16 @@
+[package]
+name = "thermo6"
+description = "T6 runner, THERMO-1: the hosted brains in a base with a real temperature, swept cold to hot; uniform vs local; gain 1 vs 1000."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+thermo-lattice = { path = "../thermo-lattice" }
+thermo-bath = { path = "../thermo-bath" }
+thermo-host = { path = "../thermo-host" }
+qb-amplitude = { path = "../qb-amplitude" }
+qb-classical = { path = "../qb-classical" }
+qb-chaos = { path = "../qb-chaos" }
+qb-task = { path = "../qb-task" }

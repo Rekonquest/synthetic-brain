@@ -88,3 +88,23 @@ The runner `thermo6` copies T5's run and changes three things:
 - the uniform noise.
 
 Jobs are (configuration, seed) pairs run on a 24-thread pool.
+
+## Run 1: STOPPED, unrun (2026-10-18)
+
+Jesse stopped the run about 1 h 35 min in, at about 1,400 of the 1,920 batch-1 jobs, because the
+24-thread CPU load had made his room too hot. The runner only averages results when a batch finishes,
+so no accuracy was recorded.
+
+| # | Status |
+|---|---|
+| E0 | **MEASURED:** variance 0.05014 at θ 0.05 (+0.28%, bar 2%), printed before the batch |
+| P1–P5 | **UNRUN** |
+
+The predictions stand unchanged for the next run.
+
+**Before rerunning, made-for-speed changes that must not alter any result:**
+- at T = 0, the medium's exact linearity (T5's H2, 8.9·10⁻¹⁷) lets a pulse-response convolution
+  replace the lattice;
+- a specialised bath loop, checked equal to T2's bath number for number;
+- optionally, a GPU adapter crate;
+- and per-configuration results streamed to disk, so a stopped run keeps what it finished.

@@ -235,6 +235,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "thermo6"
+version = "0.1.0"
+dependencies = [
+ "qb-amplitude",
+ "qb-chaos",
+ "qb-classical",
+ "qb-task",
+ "thermo-bath",
+ "thermo-host",
+ "thermo-lattice",
+]
+
+[[package]]
 name = "web-lane-latch"
 version = "0.1.0"
 

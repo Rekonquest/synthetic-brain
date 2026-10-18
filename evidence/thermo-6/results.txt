@@ -1,0 +1,2 @@
+T6 THERMO-1: the hosted brains (M at r 2) in a base at temperature; grid [0.0, 0.01, 0.02, 0.05, 0.1, 0.2]
+E0: stationary variance at theta 0.05 = 0.05014 (+0.28%)
