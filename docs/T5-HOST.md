@@ -93,3 +93,74 @@ scores what its consumer uses. Plain wins ties, and a variant is kept only if be
 - The runner `thermo5`, which copies QB-9's run (the quantum brain) and classical (the classical
   brain) with the two ports. Its first check is that, with the wired path selected, it reproduces
   0.776 and 0.775.
+
+**Added before the run (an implementation note, not a change of prediction):** the check compares
+floating-point log-scores, so differences within 10⁻¹² count as ties. This keeps H6's exact tie from
+being decided by rounding in the gain's multiply-and-divide.
+
+## Results (2026-10-18, `evidence/thermo-5/results.txt`, 28 min 53 s on 24 threads)
+
+The tests passed: inject then sense round-trips, and injecting one species touches nothing else.
+
+| system (test seeds 100–131) | acc_resp | cued | missed | channel log-score |
+|---|---|---|---|---|
+| quantum, wired | 0.776 | 0.908 | 0.572 | −1.825 |
+| quantum, ideal medium | 0.776 | 0.908 | 0.572 | −1.825 (0 choices differ) |
+| classical, wired | 0.775 | 0.903 | 0.578 | −1.705 |
+| classical, ideal medium | 0.775 | 0.903 | 0.578 | −1.705 (0 choices differ) |
+| quantum, M remote r 1 (G_E 0.0090) | **0.778** | 0.915 | 0.567 | −1.760 |
+| quantum, r 2 (G_E 0.0060) | **0.778** | 0.916 | 0.566 | −1.749 |
+| quantum, r 3 (G_E 0.0018) | **0.778** | 0.917 | 0.563 | −1.759 |
+| classical, r 1 / 2 / 3 | 0.778 / 0.779 / 0.780 | 0.911–0.917 | 0.570–0.573 | −1.673 / −1.665 / −1.652 |
+| quantum, r 2, side 24 | 0.778 | 0.916 | 0.566 | −1.750 |
+
+**The rounds** (remote quantum brain, r 2, dev check = channel log-score; plain −1.682289, acc 0.794):
+
+| round | variants | verdict |
+|---|---|---|
+| amplification, gain 2 / 4 | −1.682289 / −1.682289 (identical to every printed digit) | not kept (tie) |
+| heat, T 10⁻⁶ / 10⁻⁵ | −5.895 (acc 0.773) / −10.397 (acc 0.747) | not kept |
+| chaos, frozen γ_L jitter 0.1 / 0.3 | −1.682300 / −1.682291 | not kept |
+
+| # | Result |
+|---|---|
+| H1 the ideal medium is the wiring | **MEASURED**: both brains, every choice identical on 32 seeds |
+| H2 linear and reciprocal | **FAILED**: superposition holds (8.9·10⁻¹⁷), reciprocity does not (0.40) |
+| H3 the remote quantum memory works | MEASURED: 0.778 at r 1, 2 and 3 |
+| H4 the remote classical memory works | MEASURED: 0.778–0.780 |
+| H5 the mesh is large enough | MEASURED: side 16 → 24 changes acc by 0.000 and the log-score by 0.0013 |
+| H6 amplification not kept (exact tie) | MEASURED |
+| H7 heat not kept | MEASURED |
+| H8 chaos not kept | MEASURED |
+
+**7 of 8 hold.**
+
+### H2: the checkerboard has a hidden handedness (diagnostic after the run, `evidence/thermo-5/diagnostic-reciprocity.txt`)
+
+The pulse response from x = 8 to x = 10 peaks at 0.00602 one step later. From x = 10 to x = 8 it
+peaks at only 0.00361. The mirrored pair (7 → 9 and 9 → 7) gives exactly the swapped numbers.
+
+- **This is not a direction; it is parity.** T2's exchange updates even edges and then odd edges.
+  Starting from an even site going up, a signal crosses two edges in one substep: the even one, then
+  the odd one just after. Starting from an even site going down, it crosses one.
+- **The responses converge after about six steps** (0.00008 both ways). So the medium is linear,
+  conserving and at equipartition (T2), but **not reciprocal at its fastest timescale**.
+- **This is a measured character of the transport, not a failure of the brain.** D → M happens to
+  ride the fast parity here. A future rung that needs symmetric signalling should alternate the sweep
+  order. That is a composition over the bath, not an edit to it.
+
+### What was found beyond the predictions
+
+- **A remote memory is slightly better than a wired one,** for both brains: +0.002 for quantum and
+  +0.003 to +0.005 for classical.
+  - The channel log-score improves too, −1.825 → −1.749.
+  - **The medium remembers.** Each received reading is a leaky sum of the last few readings, which
+    softens a confidently stale memory. That is the same benefit M's own heat gave in QB-9.
+  - **Labelled as an after-the-run reading, not a prediction.** The gain is small, inside the
+    seed-to-seed spread of a single comparison, and it is consistent across r and both brains.
+- **The medium's heat is a signalling problem first.** At r 2 the received signal is about 0.005 of
+  what was sent, against a noise of √T. At T 10⁻⁶ the channel is already damaged (log −5.9).
+  - So at T6 a base temperature anywhere near the modules' own (M's ε 0.02, T's 0.05) silences every
+    channel, **unless the signal is amplified**.
+  - That is Jesse's amplification as "making a signal stronger", and it is **where amplification
+    becomes necessary rather than a tie.**

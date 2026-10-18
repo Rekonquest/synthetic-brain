@@ -1,0 +1,10 @@
+[package]
+name = "thermo-host"
+description = "Thermal base T5: the port where a module meets the medium (inject into and sense the signal species at a site)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+thermo-lattice = { path = "../thermo-lattice" }

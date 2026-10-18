@@ -1,0 +1,42 @@
+T5: QB-9's brains hosted in the medium; QB-7 world (p_miss 0.4); dev 0..16, test 100..132
+  Quantum wired                      acc_resp 0.776 (cued 0.908, missed 0.572); channel log-score -1.8254
+  Quantum ideal medium               acc_resp 0.776 (cued 0.908, missed 0.572); channel log-score -1.8254
+    choices differing from the wiring: 0
+  Classical wired                    acc_resp 0.775 (cued 0.903, missed 0.578); channel log-score -1.7046
+  Classical ideal medium             acc_resp 0.775 (cued 0.903, missed 0.578); channel log-score -1.7046
+    choices differing from the wiring: 0
+  H2 linearity: superposition error 8.92e-17 of the peak; reciprocity error 4.00e-1
+  Quantum remote r 1 (G_E 0.0090)    acc_resp 0.778 (cued 0.915, missed 0.567); channel log-score -1.7602
+  Classical remote r 1 (G_E 0.0090)  acc_resp 0.778 (cued 0.911, missed 0.573); channel log-score -1.6726
+  Quantum remote r 2 (G_E 0.0060)    acc_resp 0.778 (cued 0.916, missed 0.566); channel log-score -1.7489
+  Classical remote r 2 (G_E 0.0060)  acc_resp 0.779 (cued 0.913, missed 0.573); channel log-score -1.6652
+  Quantum remote r 3 (G_E 0.0018)    acc_resp 0.778 (cued 0.917, missed 0.563); channel log-score -1.7587
+  Classical remote r 3 (G_E 0.0018)  acc_resp 0.780 (cued 0.917, missed 0.570); channel log-score -1.6516
+  Quantum remote r 2, side 24        acc_resp 0.778 (cued 0.916, missed 0.566); channel log-score -1.7502
+   amplification: plain dev log-score -1.682289 (acc 0.794)
+   amplification variant (gain 2, T 0e0, chaos 0): dev log-score -1.682289 (acc 0.794)
+   amplification variant (gain 4, T 0e0, chaos 0): dev log-score -1.682289 (acc 0.794)
+   amplification: plain wins on dev -> not kept
+   heat: plain dev log-score -1.682289 (acc 0.794)
+   heat variant (gain 1, T 1e-6, chaos 0): dev log-score -5.895008 (acc 0.773)
+   heat variant (gain 1, T 1e-5, chaos 0): dev log-score -10.396816 (acc 0.747)
+   heat: plain wins on dev -> not kept
+   chaos: plain dev log-score -1.682289 (acc 0.794)
+   chaos variant (gain 1, T 0e0, chaos 0.1): dev log-score -1.682300 (acc 0.794)
+   chaos variant (gain 1, T 0e0, chaos 0.3): dev log-score -1.682291 (acc 0.794)
+   chaos: plain wins on dev -> not kept
+
+HOLDS  H1 the ideal medium is the wiring (every choice identical)
+FAILS  H2 linear (<= 1e-12) and reciprocal (<= 1e-12)
+HOLDS  H3 a remote memory works (quantum)
+HOLDS  H4 a remote memory works (classical)
+HOLDS  H5 the mesh is large enough (side 16 -> 24)
+HOLDS  H6 amplification not kept (exact tie)
+HOLDS  H7 heat not kept
+HOLDS  H8 chaos not kept
+
+7 of 8 hold
+
+real	28m53.358s
+user	538m49.543s
+sys	0m35.950s

@@ -160,6 +160,13 @@ name = "thermo-carve"
 version = "0.1.0"
 
 [[package]]
+name = "thermo-host"
+version = "0.1.0"
+dependencies = [
+ "thermo-lattice",
+]
+
+[[package]]
 name = "thermo-lattice"
 version = "0.1.0"
 
@@ -212,6 +219,19 @@ dependencies = [
  "thermo-bath",
  "thermo-lattice",
  "thermo-shear",
+]
+
+[[package]]
+name = "thermo5"
+version = "0.1.0"
+dependencies = [
+ "qb-amplitude",
+ "qb-chaos",
+ "qb-classical",
+ "qb-task",
+ "thermo-bath",
+ "thermo-host",
+ "thermo-lattice",
 ]
 
 [[package]]

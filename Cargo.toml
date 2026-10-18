@@ -1,7 +1,7 @@
 [workspace]
 resolver = "2"
 members = ["crates/qb-amplitude", "crates/qb-classical", "crates/qb-chaos", "crates/qb-task", "crates/qb1", "crates/qb2", "crates/qb3", "crates/qb4", "crates/qb5", "crates/qb6", "crates/qb7", "crates/qb8", "crates/qb9", "crates/fabric-conductance", "crates/fabric-vibration", "crates/fabric-ramp", "crates/fabric-thread", "crates/fabric1", "crates/web-link-neuron", "crates/web-perceive", "crates/web-lane-latch", "crates/fabric2", "crates/thermo-lattice", "crates/thermo1", "crates/thermo-bath", "crates/thermo2", "crates/thermo-carve", "crates/thermo3", "crates/thermo-rotate",
-    "crates/thermo-shear", "crates/thermo4"]
+    "crates/thermo-shear", "crates/thermo4", "crates/thermo-host", "crates/thermo5"]
 # atomdb/ is its own workspace (a copy of a-rag-atom's AtomDB); it is not a member here.
 exclude = ["atomdb"]
 

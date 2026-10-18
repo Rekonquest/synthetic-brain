@@ -1,0 +1,16 @@
+[package]
+name = "thermo5"
+description = "T5 runner: QB-9's quantum and classical brains with their modules hosted at sites of the medium, signalling through it."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+thermo-lattice = { path = "../thermo-lattice" }
+thermo-bath = { path = "../thermo-bath" }
+thermo-host = { path = "../thermo-host" }
+qb-amplitude = { path = "../qb-amplitude" }
+qb-classical = { path = "../qb-classical" }
+qb-chaos = { path = "../qb-chaos" }
+qb-task = { path = "../qb-task" }
