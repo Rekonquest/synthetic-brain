@@ -1,0 +1,12 @@
+[package]
+name = "qb3"
+description = "QB-3: a complex stack on a working-memory task (orchestrator and runner)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+qb-amplitude = { path = "../qb-amplitude" }
+qb-classical = { path = "../qb-classical" }
+qb-chaos = { path = "../qb-chaos" }

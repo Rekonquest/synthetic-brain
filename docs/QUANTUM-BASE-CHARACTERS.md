@@ -195,6 +195,16 @@ All paths are under `~/Desktop/Projects/` unless stated otherwise.
 - **Bosonic three-wave Hamiltonian (P1):** real gain of +2.46 to 3.12 dB, but only after the body.
   A classical RK4 reference matches it (ratio 1.0001–1.0003).
 
+### 14. Complex inertia (a blend with the previous state): *mixing in time* (QB-3)
+
+- **What it does:** a ← (1 − μ)a + μ·a_prev on complex amplitudes is interference across time. It
+  makes phase load-bearing even with no mixer: frozen phase disorder costs 0.212 with inertia (0.190
+  against 0.402), where it is inert without it (QB-2 Q4).
+- **It fights per-step phase disorder:** it blends a state with a rotated copy of itself, so it cancels.
+  Removing it restores frozen chaos's localization (+0.171).
+- **The general form:** phase-carrying pieces interact pairwise through interference; their effects do
+  not add.
+
 ## Classical hooks observed on a quantum base
 
 - **Chaos placement decides what it is.**

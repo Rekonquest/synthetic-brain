@@ -1,0 +1,48 @@
+QB-3: 16 options, 40 trials x (cue 5 + delay 20 + response 25), dev seeds 0..16, test seeds 100..132
+
+classical sweep (development seeds): gate, lambda, acc_resp, acc_early, persev
+  false 0      0.151 0.109 0.188
+  false 0.005  0.355 0.178 0.412
+  false 0.01   0.531 0.238 0.390
+  false 0.02   0.729 0.414 0.230
+  false 0.05   0.796 0.540 0.051
+  false 0.1    0.684 0.393 0.029
+  false 0.2    0.538 0.343 0.035
+  true  0      0.174 0.140 0.186
+  true  0.005  0.379 0.225 0.406
+  true  0.01   0.557 0.339 0.388
+  true  0.02   0.749 0.556 0.234
+  true  0.05   0.804 0.709 0.060
+  true  0.1    0.642 0.424 0.036
+  true  0.2    0.560 0.314 0.038
+
+arm (test seeds)       lambda  gate acc_resp acc_early  persev
+classical-champion       0.05  true    0.815     0.716   0.049
+candidate-A              0.05  true    0.112     0.101   0.079
+candidate-B              0.02  true    0.234     0.155   0.196
+simple-cold-born         0.02 false    0.640     0.356   0.209
+simple-born (QB-1)       0.02 false    0.209     0.137   0.115
+base-only                   0 false    0.063     0.060   0.063
+replacement-base         0.05  true    0.114     0.085   0.063
+A -frozen                0.05  true    0.103     0.074   0.062
+A -mixer                 0.05  true    0.402     0.266   0.137
+A -gate                  0.05 false    0.139     0.119   0.093
+A -chemistry             0.05  true    0.089     0.086   0.070
+A -inertia               0.05  true    0.295     0.204   0.076
+A -chaotic-temp          0.05  true    0.113     0.099   0.079
+A warm (T0=1)            0.05  true    0.083     0.079   0.068
+
+order: |A - B| acc_resp = 0.122 (reported, no prediction)
+
+HOLDS  R1 classical ties or wins: champion 0.815 vs A 0.112, B 0.234
+FAILS  R2 the gate suppresses noise: champion gate true; A 0.112 vs -gate 0.139
+HOLDS  R3 mixing transports evidence away: -mixer 0.402 vs A 0.112
+FAILS  R4 frozen chaos localizes: A 0.112 vs -frozen 0.103
+HOLDS  R5 chaotic temperature blurs: -chaotic-temp 0.113 vs A 0.112
+HOLDS  R6 catalysis is rich-get-richer: persev -chemistry 0.070 vs A 0.079
+HOLDS  R7 inertia holds the old state: persev -inertia 0.076 vs A 0.079
+FAILS  R8 cold commits: A 0.112 vs warm 0.083
+HOLDS  R9 base alone gives no verdict: base-only 0.063
+FAILS  R10 the hold/forget trade-off exists: acc_early non-increasing: false; persev non-increasing: false
+
+6 of 10 predictions hold; kill criterion (>= 4 fail): FIRES

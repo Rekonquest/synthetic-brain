@@ -30,3 +30,12 @@ dependencies = [
  "qb-chaos",
  "qb-classical",
 ]
+
+[[package]]
+name = "qb3"
+version = "0.1.0"
+dependencies = [
+ "qb-amplitude",
+ "qb-chaos",
+ "qb-classical",
+]

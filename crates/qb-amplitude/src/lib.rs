@@ -7,7 +7,8 @@
 //! - `ring_mix`: a partial unitary between ring neighbours (even pairs, then odd pairs);
 //! - `rotate`: a phase rotation of one amplitude;
 //! - `scale` and `power_magnitudes`: the entry points classical hooks act through;
-//! - `excite`: add an amplitude to one option (a thermal occupation).
+//! - `excite`: add an amplitude to one option (a thermal occupation);
+//! - `blend`: inertia, mixing in the previous state.
 
 /// A complex number.
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -112,6 +113,13 @@ impl State {
         self.a[k] = self.a[k].add(c);
     }
 
+    /// Inertia (QB-3): a ← (1 − μ)·a + μ·prev, a complex combination; the caller renormalizes.
+    pub fn blend(&mut self, prev: &State, mu: f64) {
+        for (c, p) in self.a.iter_mut().zip(&prev.a) {
+            *c = c.scale(1.0 - mu).add(p.scale(mu));
+        }
+    }
+
     /// |a_i| ← |a_i|^p, phases kept.
     pub fn power_magnitudes(&mut self, p: f64) {
         for c in &mut self.a {
@@ -168,6 +176,15 @@ mod tests {
         s.project(2);
         s.excite(5, C::polar(0.01, 1.0));
         assert!(s.a[5].abs() > 0.0);
+    }
+
+    #[test]
+    fn blend_with_zero_inertia_is_the_identity() {
+        let mut s = State::uniform(4);
+        s.rotate(1, 0.4);
+        let keep = s.clone();
+        s.blend(&State::uniform(4), 0.0);
+        assert_eq!(s, keep);
     }
 
     #[test]
