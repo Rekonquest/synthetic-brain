@@ -370,6 +370,28 @@ dependencies = [
 ]
 
 [[package]]
+name = "wave-lattice"
+version = "0.1.0"
+dependencies = [
+ "thermo-lattice",
+]
+
+[[package]]
+name = "wave-resonator"
+version = "0.1.0"
+
+[[package]]
+name = "wave1"
+version = "0.1.0"
+dependencies = [
+ "qb-chaos",
+ "thermo-bath",
+ "thermo-lattice",
+ "wave-lattice",
+ "wave-resonator",
+]
+
+[[package]]
 name = "web-lane-latch"
 version = "0.1.0"
 

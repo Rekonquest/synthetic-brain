@@ -1,0 +1,36 @@
+WAVE-1: atom antennas in a wave medium; 3D side 48, sponge 8, dt 0.5, c 1
+W1 d=1: invariant drift 1.83e-15
+W1 d=2: invariant drift 7.00e-15
+W1 d=3: invariant drift 2.19e-14
+W2 m=1: omega 0.098145196 vs discrete law 0.098145196 (rel 4.24e-16)
+W2 m=4: omega 0.390802074 vs discrete law 0.390802074 (rel 1.56e-15)
+W2 m=8: omega 0.770115752 vs discrete law 0.770115752 (rel 2.02e-15)
+W3 arrivals at r [6, 10, 14]: [1.5, 5.5, 9.5]; speed 1.000 (c 1)
+W4 transmitter off: everything exactly 0 true; uncoupled receiver absorbs exactly 0 true
+W5 received power at r [6, 8, 10, 12]: ["3.621e-7", "1.864e-7", "8.875e-8", "6.698e-8"]; exponent -2.530 (want -2)
+W6 tuned 7.455e-5 vs detuned by 30% 1.201e-5: x6.2
+W7 decoding: channel 1 100.0%, channel 2 100.0%; own/other energy: receiver 1 x4.4, receiver 2 x58.2
+W8 decoding vs bath temperature [0.0, 1e-6, 1e-5, 0.0001, 0.001]: ["100.0%", "100.0%", "100.0%", "100.0%", "100.0%"]
+   amplification (receiver zeta 0.02): 100.0% (energy 8.824e-4) vs plain 100.0% (1.398e-3)
+   amplification (receiver zeta 0.1): 100.0% (energy 1.578e-3) vs plain 100.0% (1.398e-3)
+   amplification (drive x2 at T 1e-3): 100.0% vs plain 100.0%
+   amplification (drive x4 at T 1e-3): 100.0% vs plain 100.0%
+   chaos (frozen c^2 jitter 0.1): 100.0% (energy 1.418e-3) vs plain
+   chaos (frozen c^2 jitter 0.3): 100.0% (energy 1.469e-3) vs plain
+
+HOLDS  W1 the invariant is conserved (<= 1e-12, d = 1, 2, 3)
+HOLDS  W2 the discrete dispersion law (<= 1e-6)
+HOLDS  W3 waves travel at c (within 10%)
+HOLDS  W4 zero in gives exactly zero
+FAILS  W5 the far field falls as 1/r^2 (within 15%)
+FAILS  W6 tuning (>= 10x)
+FAILS  W7 two channels at once (>= 95% each, >= 10x selectivity)
+FAILS  W8 a bath turns it thermal (non-increasing; hottest < 75%)
+FAILS  W9 a sharper receiver not kept, a stronger drive kept under heat
+FAILS  W10 frozen disorder not kept
+
+4 of 10 hold (130 s)
+
+real	2m9.726s
+user	2m9.679s
+sys	0m0.033s

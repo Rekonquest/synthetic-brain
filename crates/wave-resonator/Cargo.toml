@@ -1,0 +1,10 @@
+[package]
+name = "wave-resonator"
+description = "WAVE-1 receiver: a damped oscillator coupled to the medium both ways; its dissipated energy is the received energy."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+

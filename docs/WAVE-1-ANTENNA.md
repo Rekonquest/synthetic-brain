@@ -77,3 +77,68 @@ on-off bit stream.
 - **Hot and cold:** W8 itself.
 
 **Room heat:** single-threaded, about 10⁹ site updates in total, so minutes.
+
+## Run 1: results (2026-10-18, `evidence/wave-1/results.txt`, 2 min 10 s on one thread)
+
+The unit tests passed first: the neighbours wrap both ways, and an uncoupled resonator rings at its
+period and absorbs exactly 0.
+
+| # | Result | Measured |
+|---|---|---|
+| W1 the invariant is conserved | **MEASURED** | drift 1.8·10⁻¹⁵ (1D), 7.0·10⁻¹⁵ (2D), 2.2·10⁻¹⁴ (3D) over 2,000 steps |
+| W2 the discrete dispersion law | **MEASURED** | m 1, 4, 8: agreement to 4·10⁻¹⁶ – 2·10⁻¹⁵ |
+| W3 waves travel at c | **MEASURED** | arrivals at 1.5, 5.5 and 9.5 for r 6, 10, 14: speed **1.000** |
+| W4 zero in gives exactly zero | **MEASURED** | transmitter off: everything exactly 0; uncoupled receiver: exactly 0 absorbed |
+| W5 the far field falls as 1/r² | **FAILED** | exponent −2.53; the power is not monotone in log r (r 10 → 12 is shallower) |
+| W6 tuning ≥ 10× | **FAILED** | ×6.2 |
+| W7 two channels | **FAILED (selectivity)** | **decoding 100% / 100%**; own against other energy ×4.4 (receiver 1) and ×58 (receiver 2) |
+| W8 a bath turns it thermal | **FAILED** | 100% decoding at every T up to 10⁻³; no transition was reached |
+| W9 amplification | **FAILED** (a flawed check) | |
+| W10 frozen disorder not kept | **FAILED** (a flawed check) | |
+
+**4 of 10 hold.** The medium is exact. Every miss is at the antenna and experiment level, and each is
+diagnosed below.
+
+### The misses, diagnosed (after the run, not predictions)
+
+1. **W6 and W7: the coupling detunes the receiver.** This is confirmed
+   (`diagnostic-coupling-detunes.txt`).
+   - The coupling spring κ_c adds stiffness, so ω_eff² = ω_r² + κ_c. At κ_c 0.05 against ω_r² 0.142,
+     the "0.06" receiver really resonates at 0.0697.
+   - **The scan:** with κ_c 0.05, absorption peaks at a nominal 0.048 (the law predicts 0.0483),
+     17× above the nominal 0.06. With κ_c 0.005, it peaks at 0.06 (the law predicts 0.0589).
+   - Receiver 1 was pushed toward channel 2, hence its ×4.4. Receiver 2, being stiffer (ω_r² 0.395),
+     shifted less, and still gave ×58.
+   - **My derivation miss:** I tuned the bare oscillator, not the coupled one.
+2. **W5: the box is too small for the wavelength.** This is likely, not confirmed.
+   - The 32-site interior holds under two wavelengths at 0.06 (λ 16.7).
+   - An 8-site quadratic sponge reflects part of each wave, so the receivers sit in a standing-wave
+     pattern rather than a clean outgoing field.
+   - That is Jesse's sizing rule again, here for waves: the mesh must be many wavelengths across, with
+     an absorber gentler than one wavelength.
+3. **W8: the temperatures were too low, and tuning rejects noise.**
+   - A resonant receiver integrates only the noise within its narrow band (Q ≈ 10), so its
+     signal-to-noise ratio rises with tuning. That is why real antennas are tuned.
+   - The transition must be looked for at higher T (10⁻² to 1).
+4. **W9 and W10: the round's tie-break was meaningless.**
+   - With decoding saturated at 100%, the tie-break (total absorbed energy) decided the rounds.
+   - Raw energy grows with drive (∝ A²), with receiver bandwidth and with disorder's focusing,
+     regardless of whether the link is any better.
+   - **The check must score what the consumer uses:** a decoding margin, meaning the separation
+     between 1-bit and 0-bit energy relative to their spread. That is the law learned in QB-9,
+     forgotten here.
+
+### What run 1 settles
+
+- **The atom wave medium is exact.**
+  - Its invariant holds to 10⁻¹⁴ in 1–3D, it follows the discrete dispersion law to rounding, and
+    waves travel at exactly c.
+  - Zero in gives exactly zero, TA1's control.
+- **An atom antenna works outside the thermodynamic state.** Two transmitters on two frequencies
+  sent two bit streams at once, and both were decoded at 100%. The thermal antenna can only do one
+  slow channel.
+- **Run 2's fixes are known:**
+  - tune the coupled resonator (nominal frequency √(ω_t² − κ_c));
+  - a larger box (several wavelengths) with a gentler sponge;
+  - a hotter T grid;
+  - a decoding-margin check for the rounds.

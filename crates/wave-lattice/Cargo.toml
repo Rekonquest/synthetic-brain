@@ -1,0 +1,10 @@
+[package]
+name = "wave-lattice"
+description = "WAVE-1 medium: the scalar wave equation on T1's d-dimensional lattice, leapfrog (kick/drift), with its exact invariant."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+thermo-lattice = { path = "../thermo-lattice" }
