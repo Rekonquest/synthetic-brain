@@ -1,0 +1,13 @@
+  200 of 1920 jobs
+  400 of 1920 jobs
+  600 of 1920 jobs
+  800 of 1920 jobs
+  1000 of 1920 jobs
+  1200 of 1920 jobs
+  1400 of 1920 jobs
+  1600 of 1920 jobs
+Terminated
+
+real	93m28.115s
+user	2223m19.252s
+sys	3m22.388s

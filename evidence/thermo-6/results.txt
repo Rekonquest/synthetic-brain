@@ -1,2 +1,37 @@
 T6 THERMO-1: the hosted brains (M at r 2) in a base at temperature; grid [0.0, 0.01, 0.02, 0.05, 0.1, 0.2]
 E0: stationary variance at theta 0.05 = 0.05014 (+0.28%)
+
+== Quantum brain, uniform base temperature (test)
+  gain      1: 0: 0.753 (0.925/0.489)  0.01: 0.727 (0.802/0.610)  0.02: 0.727 (0.802/0.611)  0.05: 0.727 (0.802/0.610)  0.1: 0.724 (0.799/0.608)  0.2: 0.709 (0.783/0.594)
+  gain   1000: 0: 0.753 (0.925/0.489)  0.01: 0.770 (0.920/0.539)  0.02: 0.777 (0.911/0.570)  0.05: 0.764 (0.870/0.599)  0.1: 0.741 (0.829/0.606)  0.2: 0.716 (0.794/0.594)
+  local grid on dev, gain 1000 (rows theta_A, columns theta_B):
+    theta_A 0     0.7727 0.7864 0.7953 0.7851 0.7666 0.7546
+    theta_A 0.01  0.7774 0.7867 0.7936 0.7849 0.7662 0.7548
+    theta_A 0.02  0.7787 0.7871 0.7931 0.7844 0.7660 0.7544
+    theta_A 0.05  0.7806 0.7878 0.7917 0.7827 0.7652 0.7533
+    theta_A 0.1   0.7803 0.7861 0.7895 0.7772 0.7600 0.7494
+    theta_A 0.2   0.7731 0.7757 0.7778 0.7621 0.7433 0.7333
+
+== Classical brain, uniform base temperature (test)
+  gain      1: 0: 0.705 (0.926/0.363)  0.01: 0.732 (0.811/0.608)  0.02: 0.732 (0.811/0.608)  0.05: 0.729 (0.808/0.607)  0.1: 0.721 (0.799/0.598)  0.2: 0.686 (0.763/0.566)
+  gain   1000: 0: 0.705 (0.926/0.363)  0.01: 0.746 (0.931/0.460)  0.02: 0.766 (0.930/0.514)  0.05: 0.777 (0.909/0.573)  0.1: 0.760 (0.870/0.587)  0.2: 0.709 (0.801/0.566)
+  local grid on dev, gain 1000 (rows theta_A, columns theta_B):
+    theta_A 0     0.7212 0.7625 0.7821 0.7973 0.7891 0.7719
+    theta_A 0.01  0.7317 0.7638 0.7823 0.7967 0.7881 0.7715
+    theta_A 0.02  0.7359 0.7650 0.7827 0.7964 0.7873 0.7714
+    theta_A 0.05  0.7446 0.7692 0.7836 0.7944 0.7845 0.7705
+    theta_A 0.1   0.7488 0.7704 0.7812 0.7872 0.7768 0.7607
+    theta_A 0.2   0.7423 0.7581 0.7639 0.7605 0.7432 0.7245
+
+Quantum: best uniform (dev) theta 0.02 -> test 0.777; best local (dev) (theta_A 0, theta_B 0.02) -> test 0.779; drop from the uniform peak to 0.2: 0.061; chaos 0.3 at the local pair: dev 0.7944 vs plain 0.7953 -> not kept
+
+Classical: best uniform (dev) theta 0.05 -> test 0.777; best local (dev) (theta_A 0, theta_B 0.05) -> test 0.779; drop from the uniform peak to 0.2: 0.069; chaos 0.3 at the local pair: dev 0.7959 vs plain 0.7973 -> not kept
+
+HOLDS  E0 the base has its set temperature (within 2%)
+HOLDS  P1 inverted U at gain 1000, both brains
+FAILS  P2 quantum peaks colder and degrades faster
+FAILS  P3 heat silences unamplified signalling
+FAILS  P4 local beats uniform, both brains (>= 0.003)
+HOLDS  P5 frozen chaos on the temperature field not kept
+
+3 of 6 hold

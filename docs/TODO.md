@@ -4,8 +4,9 @@ Started 2026-10-18. Each item is precommitted before it is built, as usual.
 
 ## Now
 
-- [ ] **T6 THERMO-1** (`docs/T6-THERMO-1.md`): running on 8 threads, with the resumable job log.
-  Record the results, analyse the misses, update memory, then commit.
+- [x] **T6 THERMO-1** (`docs/T6-THERMO-1.md`): done (run 2, 3 of 6). There is an inverted U in both
+  brains, through the memory's temperature. The quantum memory peaks colder (θ 0.02 against 0.05),
+  and both reach 0.779.
 
 ## Next: the real thermal state (the Arc and the dongle)
 

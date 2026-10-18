@@ -1,13 +1,46 @@
+  1920 jobs to run (0 already in the log), 8 threads
+  50 of 1920 jobs
+  100 of 1920 jobs
+  150 of 1920 jobs
   200 of 1920 jobs
+  250 of 1920 jobs
+  300 of 1920 jobs
+  350 of 1920 jobs
   400 of 1920 jobs
+  450 of 1920 jobs
+  500 of 1920 jobs
+  550 of 1920 jobs
   600 of 1920 jobs
+  650 of 1920 jobs
+  700 of 1920 jobs
+  750 of 1920 jobs
   800 of 1920 jobs
+  850 of 1920 jobs
+  900 of 1920 jobs
+  950 of 1920 jobs
   1000 of 1920 jobs
+  1050 of 1920 jobs
+  1100 of 1920 jobs
+  1150 of 1920 jobs
   1200 of 1920 jobs
+  1250 of 1920 jobs
+  1300 of 1920 jobs
+  1350 of 1920 jobs
   1400 of 1920 jobs
+  1450 of 1920 jobs
+  1500 of 1920 jobs
+  1550 of 1920 jobs
   1600 of 1920 jobs
-Terminated
+  1650 of 1920 jobs
+  1700 of 1920 jobs
+  1750 of 1920 jobs
+  1800 of 1920 jobs
+  1850 of 1920 jobs
+  1900 of 1920 jobs
+  96 jobs to run (0 already in the log), 8 threads
+  50 of 96 jobs
+  0 jobs to run (0 already in the log), 8 threads
 
-real	93m28.115s
-user	2223m19.252s
-sys	3m22.388s
+real	32m17.840s
+user	257m45.011s
+sys	0m0.508s
