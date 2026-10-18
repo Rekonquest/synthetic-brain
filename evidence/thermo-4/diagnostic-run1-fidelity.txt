@@ -1,0 +1,8 @@
+shape 0: peak 6.026; fidelity to the exact render at 30deg 0.9751 60deg 0.9431 90deg 0.9132 120deg 0.8863 150deg 0.8645 180deg 0.8463
+  same 90deg: max 0.9132 at step 30 (aligned is step 30; step-0 sim 0.5195, step-30 sim 0.9132)
+shape 1: peak 5.751; fidelity to the exact render at 30deg 0.9673 60deg 0.9303 90deg 0.8940 120deg 0.8642 150deg 0.8386 180deg 0.8152
+  same 90deg: max 0.8940 at step 30 (aligned is step 30; step-0 sim 0.4562, step-30 sim 0.8940)
+shape 2: peak 6.595; fidelity to the exact render at 30deg 0.9877 60deg 0.9679 90deg 0.9500 120deg 0.9330 150deg 0.9167 180deg 0.9028
+  same 90deg: max 0.9503 at step 29 (aligned is step 30; step-0 sim 0.7557, step-30 sim 0.9500)
+shape 3: peak 5.754; fidelity to the exact render at 30deg 0.9642 60deg 0.9224 90deg 0.8832 120deg 0.8517 150deg 0.8257 180deg 0.7999
+  same 90deg: max 0.8832 at step 30 (aligned is step 30; step-0 sim 0.2491, step-30 sim 0.8832)

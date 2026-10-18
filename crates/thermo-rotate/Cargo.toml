@@ -1,0 +1,10 @@
+[package]
+name = "thermo-rotate"
+description = "Thermal base, rung T4: advect the field by a rigid rotation in one plane (semi-Lagrangian), carrying the other axes; mental rotation."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+thermo-lattice = { path = "../thermo-lattice" }

@@ -1,0 +1,13 @@
+[package]
+name = "thermo4"
+description = "T4 runner: Shepard-Metzler same/different mental rotation in the medium, with the amplification/heat/chaos rounds."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+thermo-lattice = { path = "../thermo-lattice" }
+thermo-bath = { path = "../thermo-bath" }
+thermo-rotate = { path = "../thermo-rotate" }
+qb-chaos = { path = "../qb-chaos" }
