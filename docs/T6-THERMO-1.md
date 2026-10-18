@@ -91,7 +91,7 @@ Jobs are (configuration, seed) pairs run on a 24-thread pool.
 
 ## Run 1: STOPPED, unrun (2026-10-18)
 
-Jesse stopped the run about 1 h 35 min in, at about 1,400 of the 1,920 batch-1 jobs, because the
+Jesse stopped the run 93 min in, at 1,600 of the 1,920 batch-1 jobs, because the
 24-thread CPU load had made his room too hot. The runner only averages results when a batch finishes,
 so no accuracy was recorded.
 
