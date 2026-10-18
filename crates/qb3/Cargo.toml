@@ -10,3 +10,4 @@ publish.workspace = true
 qb-amplitude = { path = "../qb-amplitude" }
 qb-classical = { path = "../qb-classical" }
 qb-chaos = { path = "../qb-chaos" }
+qb-task = { path = "../qb-task" }

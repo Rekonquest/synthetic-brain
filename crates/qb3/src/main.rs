@@ -58,8 +58,8 @@ impl Settings {
             test_seeds: 100..132,
         }
     }
-    fn trial_len(&self) -> usize {
-        self.cue + self.delay + self.response
+    fn spec(&self) -> qb_task::Spec {
+        qb_task::Spec { n: self.n, trials: self.trials, cue: self.cue, delay: self.delay, response: self.response, p_cue: self.p_cue, p_response: self.p_response, min_jump: self.min_jump }
     }
 }
 
@@ -96,57 +96,7 @@ fn candidate(name: &str, order: Order, s: &Settings) -> Cfg {
     Cfg { name: name.to_owned(), base: Base::Amplitudes, order, hooks: true, mixer: true, frozen: true, gate: true, chem: true, inertia: true, chaos_temp: true, t0: s.t0, lambda: 0.0 }
 }
 
-/// SplitMix64.
-struct Rng(u64);
-
-impl Rng {
-    fn next(&mut self) -> u64 {
-        self.0 = self.0.wrapping_add(0x9E37_79B9_7F4A_7C15);
-        let mut z = self.0;
-        z = (z ^ (z >> 30)).wrapping_mul(0xBF58_476D_1CE4_E5B9);
-        z = (z ^ (z >> 27)).wrapping_mul(0x94D0_49BB_1331_11EB);
-        z ^ (z >> 31)
-    }
-    fn unit(&mut self) -> f64 {
-        (self.next() >> 11) as f64 / (1u64 << 53) as f64
-    }
-    fn below(&mut self, n: usize) -> usize {
-        ((self.unit() * n as f64) as usize).min(n - 1)
-    }
-}
-
-fn ring_distance(a: usize, b: usize, n: usize) -> usize {
-    let d = a.abs_diff(b);
-    d.min(n - d)
-}
-
-/// One seed's world: per-trial targets, the observation at every step, and the uniform stream.
-struct World {
-    targets: Vec<usize>,
-    obs: Vec<usize>,
-    uniforms: Vec<f64>,
-}
-
-fn world(s: &Settings, seed: u64) -> World {
-    let mut r = Rng(seed.wrapping_mul(0x2545_F491_4F6C_DD1D).wrapping_add(3));
-    let mut targets = vec![r.below(s.n)];
-    while targets.len() < s.trials {
-        let c = r.below(s.n);
-        if ring_distance(c, *targets.last().unwrap(), s.n) >= s.min_jump {
-            targets.push(c);
-        }
-    }
-    let mut obs = Vec::new();
-    for &c in &targets {
-        for step in 0..s.trial_len() {
-            let p = if step < s.cue { s.p_cue } else if step < s.cue + s.delay { 0.0 } else { s.p_response };
-            obs.push(if r.unit() < p { c } else { r.below(s.n) });
-        }
-    }
-    let mut u = Rng(seed ^ 0xA5A5_5A5A_DEAD_BEEF);
-    let uniforms = (0..obs.len()).map(|_| u.unit()).collect();
-    World { targets, obs, uniforms }
-}
+use qb_task::{world, Rng, World};
 
 /// Every choice of one configuration on one world.
 fn run(cfg: &Cfg, s: &Settings, seed: u64, w: &World) -> Vec<usize> {
@@ -257,39 +207,14 @@ fn run(cfg: &Cfg, s: &Settings, seed: u64, w: &World) -> Vec<usize> {
     choices
 }
 
-#[derive(Debug, Clone, Copy, Default)]
-struct Score {
-    acc_resp: f64,
-    acc_early: f64,
-    persev: f64,
-}
-
-fn score(s: &Settings, w: &World, c: &[usize]) -> Score {
-    let (mut resp, mut resp_ok, mut early, mut early_ok, mut pv, mut pv_n) = (0, 0, 0, 0, 0, 0);
-    for (k, &target) in w.targets.iter().enumerate() {
-        for step in s.cue + s.delay..s.trial_len() {
-            let t = k * s.trial_len() + step;
-            resp += 1;
-            resp_ok += usize::from(c[t] == target);
-            if step < s.cue + s.delay + 5 {
-                early += 1;
-                early_ok += usize::from(c[t] == target);
-            }
-            if k > 0 {
-                pv_n += 1;
-                pv += usize::from(c[t] == w.targets[k - 1]);
-            }
-        }
-    }
-    Score { acc_resp: resp_ok as f64 / resp as f64, acc_early: early_ok as f64 / early as f64, persev: pv as f64 / pv_n as f64 }
-}
+use qb_task::{score, Score};
 
 fn mean_score(cfg: &Cfg, s: &Settings, seeds: std::ops::Range<u64>) -> Score {
     let k = (seeds.end - seeds.start) as f64;
     let mut m = Score::default();
     for seed in seeds {
-        let w = world(s, seed);
-        let sc = score(s, &w, &run(cfg, s, seed, &w));
+        let w = world(&s.spec(), seed);
+        let sc = score(&s.spec(), &w, &run(cfg, s, seed, &w));
         m.acc_resp += sc.acc_resp / k;
         m.acc_early += sc.acc_early / k;
         m.persev += sc.persev / k;
@@ -421,10 +346,10 @@ mod tests {
     fn targets_jump_and_seed_sets_do_not_overlap() {
         let s = Settings::qb3();
         for seed in 0..20 {
-            let w = world(&s, seed);
+            let w = world(&s.spec(), seed);
             assert_eq!(w.targets.len(), s.trials);
-            assert!(w.targets.windows(2).all(|p| ring_distance(p[0], p[1], s.n) >= s.min_jump));
-            assert_eq!(w.obs.len(), s.trials * s.trial_len());
+            assert!(w.targets.windows(2).all(|p| qb_task::ring_distance(p[0], p[1], s.n) >= s.min_jump));
+            assert_eq!(w.obs.len(), s.trials * s.spec().trial_len());
         }
         assert!(s.dev_seeds.end <= s.test_seeds.start);
     }
@@ -432,10 +357,10 @@ mod tests {
     #[test]
     fn the_cue_is_strong_and_the_delay_is_pure_noise() {
         let s = Settings::qb3();
-        let w = world(&s, 7);
+        let w = world(&s.spec(), 7);
         let (mut cue, mut delay) = (0, 0);
         for (k, &c) in w.targets.iter().enumerate() {
-            let base = k * s.trial_len();
+            let base = k * s.spec().trial_len();
             cue += (0..s.cue).filter(|&i| w.obs[base + i] == c).count();
             delay += (s.cue..s.cue + s.delay).filter(|&i| w.obs[base + i] == c).count();
         }

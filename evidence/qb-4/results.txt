@@ -1,0 +1,22 @@
+QB-4: QB-3's task (identical worlds via qb-task); dev seeds 0..16, test seeds 100..132
+
+arm (test seeds)      lambda  eta_m acc_resp acc_early  persev
+modular-quantum         0.05   0.05    0.877     0.840   0.028
+modular-classical       0.05   0.05    0.887     0.871   0.021
+classical-champion      0.05      0    0.815     0.716   0.049
+simple-cold-born        0.02      0    0.640     0.356   0.209
+-memory                 0.05      0    0.523     0.303   0.060
+memory-only             0.05   0.05    0.842     0.816   0.018
+-detector               0.05   0.05    0.625     0.378   0.057
+monolith-A              0.05      -    0.112   (QB-3's run, identical worlds)
+
+HOLDS  S1 small stacks orchestrated beat one monolith: modular-quantum 0.877 vs monolith 0.112, simple-cold-born 0.640
+HOLDS  S2 collapse is a near-perfect holder: acc_early 0.840 (champion 0.716)
+HOLDS  S3 modular breaks the hold/forget trade-off: quantum 0.877, classical 0.887 vs champion 0.815
+HOLDS  S4 classical ties or wins (law 5): modular-classical 0.887 vs modular-quantum 0.877
+HOLDS  S5 the memory carries the delay: acc_early 0.840 vs -memory 0.303
+HOLDS  S6 the detector makes the memory hold: acc_early 0.840 vs -detector 0.378
+HOLDS  S7 one job each: memory-only acc_early 0.816, acc_resp 0.842 vs 0.877
+
+7 of 7 predictions hold; kill criterion (>= 3 fail): does not fire
+champion check: QB-3 measured 0.815 on these worlds; here 0.815

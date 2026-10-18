@@ -1,0 +1,9 @@
+[package]
+name = "qb-task"
+description = "The delayed cued tracking task (QB-3, QB-4): worlds and scores, shared so every experiment sees identical worlds."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]

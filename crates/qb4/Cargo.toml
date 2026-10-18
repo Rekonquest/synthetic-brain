@@ -1,0 +1,12 @@
+[package]
+name = "qb4"
+description = "QB-4: small stacks orchestrated (detector, collapse memory, cold tracker) on the working-memory task."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+qb-amplitude = { path = "../qb-amplitude" }
+qb-classical = { path = "../qb-classical" }
+qb-task = { path = "../qb-task" }
