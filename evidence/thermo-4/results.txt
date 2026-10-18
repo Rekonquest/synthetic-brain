@@ -1,0 +1,50 @@
+T4 run 2: mental rotation by three band-limited shears; 8 cubes, step 3 deg
+fidelity, dev shape 0: 60deg 0.999965 120deg 0.999971 180deg 0.999987
+fidelity, dev shape 1: 60deg 0.999973 120deg 0.999974 180deg 0.999989
+fidelity, dev shape 2: 60deg 0.999978 120deg 0.999975 180deg 0.999994
+fidelity, dev shape 3: 60deg 0.999975 120deg 0.999974 180deg 0.999986
+base: side 32, cube 2, sigma 0.8; threshold s* (dev) 0.9384
+  theta     0: same max sim 1.0000, mirror max sim 0.8244, mean RT 0.00 steps (20 of 20 reach s*)
+  theta    30: same max sim 1.0000, mirror max sim 0.8513, mean RT 5.60 steps (20 of 20 reach s*)
+  theta    60: same max sim 1.0000, mirror max sim 0.8389, mean RT 15.45 steps (20 of 20 reach s*)
+  theta    90: same max sim 1.0000, mirror max sim 0.8393, mean RT 25.45 steps (20 of 20 reach s*)
+  theta   120: same max sim 1.0000, mirror max sim 0.8416, mean RT 35.45 steps (20 of 20 reach s*)
+  theta   150: same max sim 1.0000, mirror max sim 0.8370, mean RT 45.45 steps (20 of 20 reach s*)
+  theta   180: same max sim 1.0000, mirror max sim 0.8545, mean RT 52.60 steps (20 of 20 reach s*)
+  test: accuracy 0.886; same mean max 1.0000 (min over theta 1.0000); RT vs theta R^2 0.9238, slope 0.3065 steps/deg (want 0.3333), 140 of 140 same pairs reach s*; max outer energy share 1.06e-5
+R8 enlarged: side 64, cube 4, sigma 1.6; threshold s* (dev) 0.9383
+  theta     0: same max sim 1.0000, mirror max sim 0.8243, mean RT 0.00 steps (20 of 20 reach s*)
+  theta    30: same max sim 1.0000, mirror max sim 0.8513, mean RT 5.60 steps (20 of 20 reach s*)
+  theta    60: same max sim 1.0000, mirror max sim 0.8389, mean RT 15.45 steps (20 of 20 reach s*)
+  theta    90: same max sim 1.0000, mirror max sim 0.8393, mean RT 25.45 steps (20 of 20 reach s*)
+  theta   120: same max sim 1.0000, mirror max sim 0.8415, mean RT 35.45 steps (20 of 20 reach s*)
+  theta   150: same max sim 1.0000, mirror max sim 0.8370, mean RT 45.45 steps (20 of 20 reach s*)
+  theta   180: same max sim 1.0000, mirror max sim 0.8545, mean RT 52.60 steps (20 of 20 reach s*)
+  test: accuracy 0.886; same mean max 1.0000 (min over theta 1.0000); RT vs theta R^2 0.9238, slope 0.3065 steps/deg (want 0.3333), 140 of 140 same pairs reach s*; max outer energy share 3.78e-12
+   amplification: plain dev accuracy 0.829, same mean max 1.0000
+   amplification variant (gamma 1.03, T 0e0, chaos 0): dev accuracy 0.686, same mean max 0.8968
+   amplification variant (gamma 1.08, T 0e0, chaos 0): dev accuracy 0.543, same mean max 0.7392
+   amplification: plain wins on dev -> not kept
+   heat: plain dev accuracy 0.829, same mean max 1.0000
+   heat variant (gamma 1, T 1e-7, chaos 0): dev accuracy 0.521, same mean max 0.7081
+   heat variant (gamma 1, T 1e-6, chaos 0): dev accuracy 0.514, same mean max 0.6468
+   heat: plain wins on dev -> not kept
+   chaos: plain dev accuracy 0.829, same mean max 1.0000
+   chaos variant (gamma 1, T 0e0, chaos 0.1): dev accuracy 0.829, same mean max 0.9999
+   chaos variant (gamma 1, T 0e0, chaos 0.3): dev accuracy 0.829, same mean max 0.9996
+   chaos: plain wins on dev -> not kept
+
+HOLDS  R1 the shape survives rotation (>= 0.90 at every theta)
+FAILS  R2 Shepard-Metzler: RT linear (R^2 >= 0.98), slope within 10%
+FAILS  R3 same vs mirror accuracy >= 0.90
+FAILS  R4 the mesh holds the rotation (outer energy share < 1e-6)
+HOLDS  R5 amplification not kept
+HOLDS  R6 heat not kept
+HOLDS  R7 chaos not kept
+HOLDS  R8 converges at side 64 (accuracy within 0.03, same mean max within 0.01)
+
+5 of 8 hold
+
+real	3m41.493s
+user	38m57.970s
+sys	0m1.163s

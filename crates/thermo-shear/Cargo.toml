@@ -1,0 +1,10 @@
+[package]
+name = "thermo-shear"
+description = "Thermal base T4 run 2: band-limited (Fourier) shear of the field, the atom rotation is composed from."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+thermo-lattice = { path = "../thermo-lattice" }

@@ -9,5 +9,5 @@ publish.workspace = true
 [dependencies]
 thermo-lattice = { path = "../thermo-lattice" }
 thermo-bath = { path = "../thermo-bath" }
-thermo-rotate = { path = "../thermo-rotate" }
+thermo-shear = { path = "../thermo-shear" }
 qb-chaos = { path = "../qb-chaos" }

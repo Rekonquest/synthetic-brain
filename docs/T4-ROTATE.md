@@ -119,7 +119,7 @@ run-1 record.
 **The new stack, `thermo-shear`:**
 - shifts every line along axis a by s·(coord_b − c_b), with the shift **band-limited** (Fourier: each
   line's DFT is multiplied by e^{−ikδ});
-- a Fourier shift is unitary, so it conserves Σe and Σe² exactly and loses no detail;
+- a Fourier shift conserves Σe exactly and loses no detail except the Nyquist bin (cos(πδ) there keeps the line real; corrected when the unit test measured Σe² −2.3e-10 relative, before any run);
 - the radix-2 FFT is written in the crate, with zero dependencies.
 
 **The orchestrator** composes rotation from three shears (Paeth 1986, Unser et al. 1995): shear_a by
@@ -156,3 +156,78 @@ re-derived:
 - R6: heat not kept.
 - R7: chaos not kept.
 - R8: converges.
+
+## Run 2: results (2026-10-18, `evidence/thermo-4/results.txt`, 3 min 41 s on 24 threads)
+
+The tests passed before the run:
+- an integer shear is an exact roll;
+- a fractional shear conserves Σe to 10⁻¹² and Σe² up to the Nyquist share;
+- three shears rotate a σ 2 blob by 40° to within 1.6·10⁻⁶ of a unit peak.
+
+**Fidelity** to the exact render, dev shapes 0–3: **0.99997–0.99999** at 60°, 120° and 180°. Run 1 had
+0.80–0.90 at 180°.
+
+| θ | 0 | 30 | 60 | 90 | 120 | 150 | 180 |
+|---|---|---|---|---|---|---|---|
+| same, mean max | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 |
+| mirror, mean max | 0.824 | 0.851 | 0.839 | 0.839 | 0.842 | 0.837 | 0.855 |
+| mean RT (steps), s* 0.938 | 0.00 | 5.60 | 15.45 | 25.45 | 35.45 | 45.45 | 52.60 |
+
+| # | Result |
+|---|---|
+| R1 the shape survives rotation | **MEASURED**: 1.0000 at every θ |
+| R2 RT linear, R² ≥ 0.98, slope within 10% | **FAILED**: R² 0.924, slope 0.307 (−8%, inside the band) |
+| R3 accuracy ≥ 0.90 | **FAILED**: 0.886 |
+| R4 outer energy share < 10⁻⁶ at side 32 | **FAILED**: 1.06·10⁻⁵ (at side 64: 3.8·10⁻¹²) |
+| R5 amplification not kept | MEASURED: γ 1.03 / 1.08 give dev 0.686 / 0.543 against plain 0.829 |
+| R6 heat not kept | MEASURED: T 10⁻⁷ / 10⁻⁶ give dev 0.521 / 0.514 |
+| R7 chaos not kept | MEASURED: α 0.1 / 0.3 tie on accuracy and lower the same-max (0.9999 / 0.9996) |
+| R8 converges at side 64 | **MEASURED**: accuracy 0.886 → 0.886, same-max 1.0000 → 1.0000, every RT identical |
+
+**5 of 8 hold.**
+
+### The three misses, from a diagnostic after the run (`evidence/thermo-4/diagnostic-run2-per-shape.txt`)
+
+**R2 and R3 are the stimuli, not the medium.** All 32 errors are mirror pairs passing s*, and they
+fall on 8 of the 20 shapes.
+
+| shape | mirror pairs passing s* |
+|---|---|
+| 111 | 7 of 7 |
+| 100, 110, 112 | 6 of 7 each |
+| 105 | 3 |
+| 119 | 2 |
+| 108, 116 | 1 each |
+
+- These chains' mirror images are within cosine 0.95–0.98 of a rotation of the original.
+- My chirality filter rejects only an *exact* mirror-equals-a-90°-turn. Shepard and Metzler
+  hand-picked shapes whose mirrors no rotation approaches; my random chains include near-achiral ones.
+- **R2's bend comes from the same shapes and from the clip at 0°:**
+  - shape 111 is exactly C2-symmetric about the vertical axis (its self-similarity at 180° is
+    1.0000), so its 180° target is matched at step 0;
+  - shapes 110, 119 and 105 are partly so, with RT 47, 50 and 53 at 180°;
+  - and at θ = 0 the RT cannot go below 0, against the fitted offset of −4.55.
+  - **From 60° to 150° the RT is exactly linear:** 15.45, 25.45, 35.45, 45.45, which is 1 step per 3°
+    with a constant 4.55-step lead (the similarity crosses s* about 14° before alignment).
+
+**R4 is resolution.** At σ 0.8 the splats carry about 4% of their spectrum at Nyquist, and the
+Fourier shear rings it out to the edge, at 10⁻⁵. At side 64 (σ 1.6), the same shape leaves
+3.8·10⁻¹² there. The mesh was wide enough but too coarse. **Jesse's sizing rule has a second half:**
+a mesh must be large enough in *extent* (T1) and fine enough in *resolution* (T4) for the operation
+done on it.
+
+### What T4 settles
+
+- **The medium can hold a 3D shape and turn it with no loss**, through any angle, in 3° steps. The
+  rotation is composed of three band-limited shears, a law written once for any plane in any
+  dimension.
+- **The time to match grows linearly with the angle, 1 step per 3°.** That is Shepard–Metzler's
+  signature, exact wherever the stimulus has no self-symmetry.
+- **Rotation is a conservative operation:**
+  - heat only corrupts it;
+  - sharpening distorts it;
+  - chaos on the rate only blurs the peak.
+
+  Plain wins all three rounds. Contrast T3, where carving is a competitive operation and heat helped.
+- **Carried up:** Fourier three-shear rotation. The resolution σ ≥ 1.6 sites for shapes that will be
+  rotated. Stimuli need a mirror margin, not just exact chirality.
