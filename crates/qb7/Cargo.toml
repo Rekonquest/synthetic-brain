@@ -1,0 +1,13 @@
+[package]
+name = "qb7"
+description = "QB-7: chemistry axioms as amplifiers, one module at a time, with missing cues."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+qb-amplitude = { path = "../qb-amplitude" }
+qb-classical = { path = "../qb-classical" }
+qb-chaos = { path = "../qb-chaos" }
+qb-task = { path = "../qb-task" }

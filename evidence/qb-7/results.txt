@@ -1,0 +1,45 @@
+QB-7: chemistry amplifiers per module; QB-3's world with p_miss 0.4; dev 0..16, test 100..132
+base (QB-6 kept) on test: D F1 0.806, M fidelity 0.605, acc_resp 0.723 (cued 0.915, missed 0.427)
+
+== 1 D cooperative binding (Hill) (check: D)
+   dev Hill n 2 window 4                0.5422
+   dev Hill n 2 window 8                0.5604
+   dev Hill n 4 window 4                0.6879
+   dev Hill n 4 window 8                0.6848
+   dev Hill n 8 window 4                0.7664
+   dev Hill n 8 window 8                0.7646
+   dev: off 0.8286, best 0.8286 (plain wins)
+   test: off check 0.8062 / acc 0.723 (cued 0.915, missed 0.427); on check 0.8062 / acc 0.723 (cued 0.915, missed 0.427) -> not kept
+
+== 2 M autocatalytic latch vs collapse (check: M)
+   dev latch                            0.6177
+   dev: off 0.6186, best 0.6186 (plain wins)
+   test: off check 0.6049 / acc 0.723 (cued 0.915, missed 0.427); on check 0.6049 / acc 0.723 (cued 0.915, missed 0.427) -> not kept
+
+== 3 T enzyme cascade (replacing the gain) (check: T)
+   dev cascade G 1                      0.6367
+   dev cascade G 2                      0.6512
+   dev cascade G 3                      0.6382
+   dev: off 0.7455, best 0.7455 (plain wins)
+   test: off check 0.7233 / acc 0.723 (cued 0.915, missed 0.427); on check 0.7233 / acc 0.723 (cued 0.915, missed 0.427) -> not kept
+
+== 4 T growth with product inhibition (check: T)
+   dev growth kappa 0.5 brake iota 1    0.7619
+   dev growth kappa 0.5 brake iota 2    0.7576
+   dev growth kappa 1 brake iota 1      0.7719
+   dev growth kappa 1 brake iota 2      0.7698
+   dev: off 0.7455, best 0.7719 (variant)
+   test: off check 0.7233 / acc 0.723 (cued 0.915, missed 0.427); on check 0.7488 / acc 0.749 (cued 0.915, missed 0.492) -> KEPT
+   reference (round 4 base + growth kappa 1 with no brake, dev): 0.7430
+
+final kept system on test: D F1 0.806, M fidelity 0.605, acc_resp 0.749 (cued 0.915, missed 0.492)
+classical modular comparator (lambda 0.1, eta_m 0.05): test acc_resp 0.747 (cued 0.868, missed 0.561)
+
+FAILS  C1 cooperative binding kept on D: F1 0.8062 -> 0.8062
+HOLDS  C2 the latch ties collapse (within 0.02): latch 0.6034 vs collapse 0.6049
+FAILS  C3 the cascade beats the plain gain (+0.005): kept false; 0.723 -> 0.723
+HOLDS  C4 product inhibition lets growth coexist (+0.003): kept true; 0.723 -> 0.749
+HOLDS  C5 classical ties or wins (law 5): classical 0.747 vs final 0.749
+HOLDS  C6 missed trials are much harder (>= 0.20): cued 0.915 vs missed 0.427
+
+4 of 6 predictions hold; kill criterion (>= 3 fail): does not fire

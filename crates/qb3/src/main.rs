@@ -59,7 +59,7 @@ impl Settings {
         }
     }
     fn spec(&self) -> qb_task::Spec {
-        qb_task::Spec { n: self.n, trials: self.trials, cue: self.cue, delay: self.delay, response: self.response, p_cue: self.p_cue, p_response: self.p_response, min_jump: self.min_jump }
+        qb_task::Spec { n: self.n, trials: self.trials, cue: self.cue, delay: self.delay, response: self.response, p_cue: self.p_cue, p_response: self.p_response, min_jump: self.min_jump, p_miss: 0.0 }
     }
 }
 

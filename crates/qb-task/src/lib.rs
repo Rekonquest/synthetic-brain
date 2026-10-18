@@ -15,6 +15,8 @@ pub struct Spec {
     pub p_cue: f64,
     pub p_response: f64,
     pub min_jump: usize,
+    /// The probability that a trial's cue is missing: its cue steps become pure noise (QB-7).
+    pub p_miss: f64,
 }
 
 impl Spec {
@@ -50,6 +52,8 @@ pub fn ring_distance(a: usize, b: usize, n: usize) -> usize {
 /// One seed's world: per-trial targets, the observation at every step, and the uniform stream.
 pub struct World {
     pub targets: Vec<usize>,
+    /// Per trial: was the cue missing?
+    pub missed: Vec<bool>,
     pub obs: Vec<usize>,
     pub uniforms: Vec<f64>,
 }
@@ -63,16 +67,19 @@ pub fn world(s: &Spec, seed: u64) -> World {
             targets.push(c);
         }
     }
+    // Missing cues come from their own stream, so worlds at p_miss = 0 are unchanged.
+    let mut mr = Rng(seed ^ 0x3155_3155_0000_0007);
+    let missed: Vec<bool> = targets.iter().map(|_| s.p_miss > 0.0 && mr.unit() < s.p_miss).collect();
     let mut obs = Vec::new();
-    for &c in &targets {
+    for (k, &c) in targets.iter().enumerate() {
         for step in 0..s.trial_len() {
-            let p = if step < s.cue { s.p_cue } else if step < s.cue + s.delay { 0.0 } else { s.p_response };
+            let p = if step < s.cue { if missed[k] { 0.0 } else { s.p_cue } } else if step < s.cue + s.delay { 0.0 } else { s.p_response };
             obs.push(if r.unit() < p { c } else { r.below(s.n) });
         }
     }
     let mut u = Rng(seed ^ 0xA5A5_5A5A_DEAD_BEEF);
     let uniforms = (0..obs.len()).map(|_| u.unit()).collect();
-    World { targets, obs, uniforms }
+    World { targets, missed, obs, uniforms }
 }
 
 #[derive(Debug, Clone, Copy, Default)]
@@ -104,7 +111,30 @@ pub fn score(s: &Spec, w: &World, c: &[usize]) -> Score {
 
 /// QB-3's task, as precommitted.
 pub fn qb3_spec() -> Spec {
-    Spec { n: 16, trials: 40, cue: 5, delay: 20, response: 25, p_cue: 0.9, p_response: 0.25, min_jump: 3 }
+    Spec { n: 16, trials: 40, cue: 5, delay: 20, response: 25, p_cue: 0.9, p_response: 0.25, min_jump: 3, p_miss: 0.0 }
+}
+
+/// QB-7's world: QB-3's task with 40% of cues missing.
+pub fn qb7_spec() -> Spec {
+    Spec { p_miss: 0.4, ..qb3_spec() }
+}
+
+/// acc_resp over the cued trials and over the missed trials.
+pub fn split_acc(s: &Spec, w: &World, c: &[usize]) -> (f64, f64) {
+    let (mut cued, mut cued_ok, mut miss, mut miss_ok) = (0, 0, 0, 0);
+    for (k, &target) in w.targets.iter().enumerate() {
+        for step in s.cue + s.delay..s.trial_len() {
+            let ok = usize::from(c[k * s.trial_len() + step] == target);
+            if w.missed[k] {
+                miss += 1;
+                miss_ok += ok;
+            } else {
+                cued += 1;
+                cued_ok += ok;
+            }
+        }
+    }
+    (cued_ok as f64 / cued.max(1) as f64, miss_ok as f64 / miss.max(1) as f64)
 }
 
 #[cfg(test)]
@@ -119,5 +149,23 @@ mod tests {
             assert!(w.targets.windows(2).all(|p| ring_distance(p[0], p[1], s.n) >= s.min_jump));
             assert_eq!(w.obs.len(), s.trials * s.trial_len());
         }
+    }
+
+    #[test]
+    fn missed_cues_are_noise_and_about_forty_percent() {
+        let s = qb7_spec();
+        let (mut missed, mut cue_hits) = (0, 0);
+        for seed in 0..20 {
+            let w = world(&s, seed);
+            for (k, &c) in w.targets.iter().enumerate() {
+                if w.missed[k] {
+                    missed += 1;
+                    cue_hits += (0..s.cue).filter(|&i| w.obs[k * s.trial_len() + i] == c).count();
+                }
+            }
+        }
+        let rate = missed as f64 / (20 * s.trials) as f64;
+        assert!((0.35..0.45).contains(&rate), "{rate}");
+        assert!((cue_hits as f64 / (missed * s.cue) as f64) < 0.12);
     }
 }
