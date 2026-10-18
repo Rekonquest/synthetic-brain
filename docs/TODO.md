@@ -21,6 +21,29 @@ Started 2026-10-18. Each item is precommitted before it is built, as usual.
 - [ ] **GPU-2:** GPU-1's exact binary64 capability running on the Arc itself, checked bit for bit
   against the CPU law.
 
+- [ ] **BW-1, bandwidth to and on the Arc:** measure, then amplify the *effective* bandwidth.
+  - **Measure:**
+    - the raw PCIe link (it currently runs **Gen4 ×4**; the card supports ×8, and the slot or BIOS lane
+      setting is Jesse's to check);
+    - fills per engine and queue family;
+    - overlapped against one-at-a-time submission (BEAT-1's fills ran 55 GB/s against the rated
+      ~186 GB/s of VRAM).
+  - **Amplify, in Jesse's generic sense:**
+    - send recipes, not data (keys that expand on the card);
+    - keep state resident, so only the ports cross;
+    - compress, then regrow on the other side;
+    - use every engine in parallel;
+    - preload (the spiderweb bus).
+  - Report bytes delivered per byte sent.
+
+## Hardware notes (the Arc A380)
+
+- An **ITX card**: very small, one fan, **powered from the motherboard slot only** (no PSU cable).
+- **Its power cap is 43 W** (`power2_max` = 43,000,000 µW, averaged over 28 s).
+  - BEAT-1's fill load peaked at 34.1 W (100 ms windows), about 79% of the cap.
+  - Keep loads light and short. With a single fan, sustained runs heat it faster than a full-size card.
+- Resizable BAR is on (an 8 GiB window). Mesa marks DG2 on the `xe` driver as "experimental".
+
 ## Later
 
 - [ ] **128-bit (binary128) for the brain.** Jesse: "a great fit later down the road for a synthetic
