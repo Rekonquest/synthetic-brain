@@ -1,0 +1,16 @@
+[package]
+name = "gpu1"
+description = "GPU-1 orchestrator: the CPU validation of the binary64 capability stack against native f64, and law parity with T1/T2."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+gpu-cap-wide = { path = "../gpu-cap-wide" }
+gpu-cap-binary64 = { path = "../gpu-cap-binary64" }
+gpu-cap-f64-add = { path = "../gpu-cap-f64-add" }
+gpu-cap-f64-mul = { path = "../gpu-cap-f64-mul" }
+gpu-cap-f64-cmp = { path = "../gpu-cap-f64-cmp" }
+thermo-lattice = { path = "../thermo-lattice" }
+thermo-bath = { path = "../thermo-bath" }

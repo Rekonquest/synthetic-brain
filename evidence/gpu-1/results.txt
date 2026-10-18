@@ -1,0 +1,36 @@
+GPU-1: binary64 from 32-bit integer words, validated on the CPU against native f64
+W1 Wide<u32> vs u64/u128: 0 mismatches
+W2 Wide<Wide<u32>> vs u128 (and a schoolbook 256-bit high half): 0 mismatches
+  F1 add                 edges x edges         0 mismatches of 961
+  F1 sub                 edges x edges         0 mismatches of 961
+  F2 mul                 edges x edges         0 mismatches of 961
+  F3 cmp                 edges x edges         0 mismatches of 961
+  A doubler vs composed  edges x edges         0 mismatches of 961
+  F1 add                 random bits           0 mismatches of 10000000
+  F1 sub                 random bits           0 mismatches of 10000000
+  F2 mul                 random bits           0 mismatches of 10000000
+  F3 cmp                 random bits           0 mismatches of 10000000
+  A doubler vs composed  random bits           0 mismatches of 10000000
+  F1 add                 exponents within 60   0 mismatches of 10000000
+  F1 sub                 exponents within 60   0 mismatches of 10000000
+  F2 mul                 exponents within 60   0 mismatches of 10000000
+  F3 cmp                 exponents within 60   0 mismatches of 10000000
+  A doubler vs composed  exponents within 60   0 mismatches of 10000000
+  F1 add                 subnormal range       0 mismatches of 1000000
+  F1 sub                 subnormal range       0 mismatches of 1000000
+  F2 mul                 subnormal range       0 mismatches of 1000000
+  F3 cmp                 subnormal range       0 mismatches of 1000000
+  A doubler vs composed  subnormal range       0 mismatches of 1000000
+F4 T1 exchange, random start: bit-identical (native subnormal values seen over the run: 0)
+F4 T2 bath exchange + damping, random start: bit-identical (native subnormal values seen over the run: 0)
+F4 T2 bath, pulse with leak 8 (subnormal tails): bit-identical (native subnormal values seen over the run: 20480)
+
+HOLDS  W1 the doubler works once
+HOLDS  W2 growth: the doubler applied again
+HOLDS  F1 add and subtract bit-identical
+HOLDS  F2 multiply bit-identical
+HOLDS  F3 compare identical
+HOLDS  F4 T1/T2 laws reproduced bit for bit
+HOLDS  A doubler product = composed product
+
+7 of 7 hold (2.0 s)

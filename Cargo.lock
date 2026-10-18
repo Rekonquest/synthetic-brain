@@ -47,6 +47,54 @@ dependencies = [
 ]
 
 [[package]]
+name = "gpu-cap-binary64"
+version = "0.1.0"
+dependencies = [
+ "gpu-cap-wide",
+]
+
+[[package]]
+name = "gpu-cap-f64-add"
+version = "0.1.0"
+dependencies = [
+ "gpu-cap-binary64",
+ "gpu-cap-wide",
+]
+
+[[package]]
+name = "gpu-cap-f64-cmp"
+version = "0.1.0"
+dependencies = [
+ "gpu-cap-binary64",
+ "gpu-cap-wide",
+]
+
+[[package]]
+name = "gpu-cap-f64-mul"
+version = "0.1.0"
+dependencies = [
+ "gpu-cap-binary64",
+ "gpu-cap-wide",
+]
+
+[[package]]
+name = "gpu-cap-wide"
+version = "0.1.0"
+
+[[package]]
+name = "gpu1"
+version = "0.1.0"
+dependencies = [
+ "gpu-cap-binary64",
+ "gpu-cap-f64-add",
+ "gpu-cap-f64-cmp",
+ "gpu-cap-f64-mul",
+ "gpu-cap-wide",
+ "thermo-bath",
+ "thermo-lattice",
+]
+
+[[package]]
 name = "qb-amplitude"
 version = "0.1.0"
 

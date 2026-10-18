@@ -1,0 +1,11 @@
+[package]
+name = "gpu-cap-f64-cmp"
+description = "GPU-1 capability: binary64 compare and max from integers."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+gpu-cap-wide = { path = "../gpu-cap-wide" }
+gpu-cap-binary64 = { path = "../gpu-cap-binary64" }

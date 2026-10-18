@@ -1,0 +1,11 @@
+[package]
+name = "gpu-cap-f64-mul"
+description = "GPU-1 capability: binary64 multiply from integers, its product from the doubler."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+gpu-cap-wide = { path = "../gpu-cap-wide" }
+gpu-cap-binary64 = { path = "../gpu-cap-binary64" }

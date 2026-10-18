@@ -66,3 +66,34 @@ perturbation is an error. Recorded as excluded, not skipped (as T1 did with ampl
 not a performance one. GPU-2 moves the same integer code onto the Arc.
 
 **Room heat:** the checks are single-threaded, and take seconds to minutes.
+
+## Results (2026-10-18, `evidence/gpu-1/results.txt`, 2.0 s on one thread)
+
+**Caught by a unit test before the precommitted checks ran:** the multiply first tested bit 53 of the
+product's high word to decide whether to normalize. The right bit is 52 (the significand product
+lies in [2¹¹⁵, 2¹¹⁷), and its high word in [2⁵¹, 2⁵³)). `0.1 × 0.2` exposed it, and it was fixed
+before `gpu1` ran.
+
+| # | Check | Result |
+|---|---|---|
+| W1 | `Wide<u32>` against native u64 and u128: about 10⁷ random pairs plus edges, with shifts 0–71 | **MEASURED**: 0 mismatches |
+| W2 | `Wide<Wide<u32>>` against native u128, and its 256-bit high half against an independent schoolbook | **MEASURED**: 0 mismatches |
+| F1 | add and subtract: edges × edges (961), 10⁷ random, 10⁷ near exponents, 10⁶ subnormal | **MEASURED**: 0 mismatches in 2.1·10⁷ pairs per op |
+| F2 | multiply, on the same sets | **MEASURED**: 0 mismatches |
+| F3 | <, == and max, on the same sets | **MEASURED**: 0 mismatches |
+| F4 | T1's exchange, T2's bath (random start) and T2's bath (pulse, leak 8), 16³ × 100 steps | **MEASURED**: bit-identical every step. The pulse run passed through 20,480 subnormal values |
+| A | the doubler's product against a composed native-u128 product | **MEASURED**: identical. The doubler is kept, and Jesse's fallback was not needed |
+
+**7 of 7 hold.**
+
+**What it settles:**
+- A GPU with only 32-bit integers can run the thermal base's binary64 laws **exactly**.
+- The one primitive it needs is the 32 × 32 → 64-bit product.
+- Growth by doubling (32 → 64 → 128) is one law applied to itself, and it works at both widths.
+
+**Carried to GPU-2 (moving the same integer code onto the Arc):**
+- SPIR-V leaves a shift by ≥ the bit width undefined. `Word::shl`/`shr`'s guards (n ≥ BITS → 0)
+  must stay in the shader code, not be "optimized" away.
+- The order of operations in a kernel must match the CPU law's. A parity pass is safe to run in
+  parallel, because no two edges in it share a site. T1's snapshot pass must read from a copy.
+- Every GPU answer is checked against the CPU law it replaces, bit for bit.

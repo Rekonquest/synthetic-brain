@@ -1,0 +1,10 @@
+[package]
+name = "gpu-cap-binary64"
+description = "GPU-1 contract: the binary64 format held in a Wide<u32>."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+gpu-cap-wide = { path = "../gpu-cap-wide" }
