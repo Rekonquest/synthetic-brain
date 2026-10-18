@@ -1,0 +1,9 @@
+[package]
+name = "web-link-neuron"
+description = "Web-neuron: a thread that senses its own contribution (beyond what its sink already predicted), starts dormant, grows by use and erodes."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]

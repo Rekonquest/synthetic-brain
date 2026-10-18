@@ -1,0 +1,17 @@
+[package]
+name = "fabric2"
+description = "FABRIC-2: the web built from many small web-neurons (link, mismatch, perception, lanes), over the optimized nodes."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+qb-amplitude = { path = "../qb-amplitude" }
+qb-classical = { path = "../qb-classical" }
+qb-chaos = { path = "../qb-chaos" }
+qb-task = { path = "../qb-task" }
+fabric-vibration = { path = "../fabric-vibration" }
+web-link-neuron = { path = "../web-link-neuron" }
+web-perceive = { path = "../web-perceive" }
+web-lane-latch = { path = "../web-lane-latch" }

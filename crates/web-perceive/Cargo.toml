@@ -1,0 +1,9 @@
+[package]
+name = "web-perceive"
+description = "Web-neuron: a named, revisable hypothesis with its evidence (here: the memory is stale), with hysteresis."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]

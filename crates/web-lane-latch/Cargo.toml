@@ -1,0 +1,9 @@
+[package]
+name = "web-lane-latch"
+description = "Web-neuron: lane neurons as an autocatalytic latch with mutual inhibition - one lane wins and holds; selection, not averaging."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]

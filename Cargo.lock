@@ -33,6 +33,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "fabric2"
+version = "0.1.0"
+dependencies = [
+ "fabric-vibration",
+ "qb-amplitude",
+ "qb-chaos",
+ "qb-classical",
+ "qb-task",
+ "web-lane-latch",
+ "web-link-neuron",
+ "web-perceive",
+]
+
+[[package]]
 name = "qb-amplitude"
 version = "0.1.0"
 
@@ -133,3 +147,15 @@ dependencies = [
  "qb-classical",
  "qb-task",
 ]
+
+[[package]]
+name = "web-lane-latch"
+version = "0.1.0"
+
+[[package]]
+name = "web-link-neuron"
+version = "0.1.0"
+
+[[package]]
+name = "web-perceive"
+version = "0.1.0"

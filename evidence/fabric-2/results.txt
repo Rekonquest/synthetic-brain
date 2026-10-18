@@ -1,0 +1,28 @@
+FABRIC-2: the web from many web-neurons; p_miss 0.4; dev 0..16, test 100..132
+hand wiring reproduction (fresh lane only, fixed link): test 0.776 (cued 0.908, missed 0.572)
+
+A4 stale-lane choice (dev, lane alone): TE missed 0.648 (cued 0.705); TC+MC missed 0.617 (cued 0.914) -> Te
+A5 oracle routing ceiling (test): 0.796 (cued 0.908, missed 0.623); gain over hand wiring +0.021
+
+tuned web (dev): theta 0.6, rho 0.05, alpha 0.05, eta_max 0.1
+   lane heat variant dev 0.7501 ((0.01, 0.1))
+   lane heat variant dev 0.7501 ((0.05, 0.1))
+   lane heat: dev off 0.7501, best 0.7501; test 0.732 -> 0.732 -> not kept
+   link amplification variant dev 0.7571 ((0.0, 0.2))
+   link amplification: dev off 0.7501, best 0.7571; test 0.732 -> 0.739 -> KEPT
+
+arm                        test acc (cued / missed)
+hand wiring                0.776 (0.908 / 0.572)
+oracle routing (ceiling)   0.796 (0.908 / 0.623)
+web                        0.739 (0.823 / 0.607)
+web -perception            0.745 (0.833 / 0.610)
+web -link learning         0.764 (0.888 / 0.573)
+web: 'stale' on cued 0.152 / missed 0.325; stale lane on missed 0.325; fresh lane on cued 0.848; link g cued 0.035 / missed 0.027
+
+FAILS  W3 perception senses staleness (+0.30): stale on missed 0.325 vs cued 0.152
+FAILS  W4 lanes route by perception: stale lane on missed 0.325; fresh on cued 0.848
+FAILS  W5 the web >= hand wiring, capturing routing: web 0.739; oracle gain +0.020
+FAILS  W6 lane heat kept: kept false
+HOLDS  W7 the link neuron senses contribution: g cued 0.035 vs missed 0.027
+
+1 of 5 predictions hold; kill criterion (>= 3 fail): FIRES
