@@ -1,0 +1,9 @@
+[package]
+name = "thermo-lattice"
+description = "Thermal base, rung T1: a d-dimensional periodic lattice and the local exchange (diffusion) law, written once for any d."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]

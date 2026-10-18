@@ -1,0 +1,11 @@
+[package]
+name = "thermo1"
+description = "T1 runner: the lattice's own checks (conservation, diffusion law, isotropy, positivity, dimension-agnostic) and its chaos round."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+thermo-lattice = { path = "../thermo-lattice" }
+qb-chaos = { path = "../qb-chaos" }

@@ -1,0 +1,23 @@
+T1: the d-dimensional lattice, kappa 0.2
+d=1: L1 drift 2.3e-16; L2 spread error mean 1.36e-8, worst 1.76e-7; L3 anisotropy 0.0e0; L4 positive true; per-axis m2 at t=40: ["8.000"]
+d=2: L1 drift 1.1e-15; L2 spread error mean 1.36e-8, worst 1.76e-7; L3 anisotropy 5.6e-16; L4 positive true; per-axis m2 at t=40: ["8.000", "8.000"]
+d=3: L1 drift 1.1e-16; L2 spread error mean 1.36e-8, worst 1.76e-7; L3 anisotropy 2.1e-14; L4 positive true; per-axis m2 at t=40: ["8.000", "8.000", "8.000"]
+d=4: L1 drift 4.4e-16; L2 spread error mean 3.06e-3, worst 1.62e-2; L3 anisotropy 3.6e-14; L4 positive true; per-axis m2 at t=40: ["7.870", "7.870", "7.870", "7.870"]
+L5: d=3 with a unit axis equals d=2 bit for bit: true
+
+L6 chaos round (check: spread fidelity, mean relative error; plain wins ties)
+d=1: plain 1.36e-8; best 1.36e-8 (plain)
+d=2: plain 1.36e-8; best 1.36e-8 (plain)
+d=3: plain 1.36e-8; best 1.36e-8 (plain)
+d=4: plain 3.06e-3; best 3.06e-3 (plain)
+diagnostic: d=4, side 16: worst spread error over t<=40 1.62e-2
+diagnostic: d=4, side 24: worst spread error over t<=40 1.17e-4
+
+HOLDS  L1 conservation
+FAILS  L2 the diffusion law (within 1%)
+HOLDS  L3 isotropy (within 1%)
+HOLDS  L4 positivity
+HOLDS  L5 the same law in every d
+HOLDS  L6 chaos not kept (plain wins on every d)
+
+5 of 6 hold

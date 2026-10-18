@@ -149,6 +149,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "thermo-lattice"
+version = "0.1.0"
+
+[[package]]
+name = "thermo1"
+version = "0.1.0"
+dependencies = [
+ "qb-chaos",
+ "thermo-lattice",
+]
+
+[[package]]
 name = "web-lane-latch"
 version = "0.1.0"
 
