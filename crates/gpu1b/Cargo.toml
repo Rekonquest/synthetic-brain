@@ -1,0 +1,16 @@
+[package]
+name = "gpu1b"
+description = "GPU-1b orchestrator: binary128 against GCC __float128, and precision as a diagnostic (medium, chaos source)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+gpu-cap-wide = { path = "../gpu-cap-wide" }
+gpu-cap-binary128 = { path = "../gpu-cap-binary128" }
+gpu-cap-f128-add = { path = "../gpu-cap-f128-add" }
+gpu-cap-f128-mul = { path = "../gpu-cap-f128-mul" }
+gpu-cap-f128-cmp = { path = "../gpu-cap-f128-cmp" }
+gpu-cap-f128-conv = { path = "../gpu-cap-f128-conv" }
+thermo-lattice = { path = "../thermo-lattice" }

@@ -66,7 +66,9 @@ Started 2026-10-18. Each item is precommitted before it is built, as usual.
 
 ## Later
 
-- [ ] **128-bit (binary128) for the brain.** Jesse: "a great fit later down the road for a synthetic
+- [x] **128-bit (binary128): the capability is built and validated on the CPU (GPU-1b, 7 of 7).** Using it in the brain is still to do.
+  - Next: wherever a chaotic stack runs long. Original note follows.
+- **128-bit (binary128) for the brain.** Jesse: "a great fit later down the road for a synthetic
   brain". It comes from the doubler applied again (`Wide` to 128-bit values and 256-bit products).
   - Uses:
     - long-lived state without drift;

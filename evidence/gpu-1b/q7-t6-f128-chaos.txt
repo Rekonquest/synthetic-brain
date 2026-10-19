@@ -1,0 +1,6 @@
+chaos values, 64 against 128: max |difference| 8.78e-9, mean 7.91e-12 over 10,000 keys
+Q7: 0 of 64000 choices differ over 32 test seeds; acc_resp 64-bit 0.7786, 128-bit chaos 0.7786
+
+real	8m44.204s
+user	8m43.666s
+sys	0m0.487s

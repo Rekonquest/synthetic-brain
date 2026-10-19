@@ -1,0 +1,10 @@
+[package]
+name = "gpu-cap-binary128"
+description = "GPU-1b contract: IEEE binary128 held in a Wide<Wide<u32>> (four 32-bit words)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+gpu-cap-wide = { path = "../gpu-cap-wide" }

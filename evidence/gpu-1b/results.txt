@@ -1,0 +1,17 @@
+GPU-1b: binary128 from 32-bit integer words, against GCC __float128
+  edges x edges          676 pairs: add 0, sub 0, mul 0, cmp 0 mismatches
+  random bits            1000000 pairs: add 0, sub 0, mul 0, cmp 0 mismatches
+  exponents within 120   1000000 pairs: add 0, sub 0, mul 0, cmp 0 mismatches
+  subnormal range        100000 pairs: add 0, sub 0, mul 0, cmp 0 mismatches
+Q4 conversions: widen 0 mismatches of 1000009; narrow(widen(x)) 0 failures; narrow 0 mismatches of 1000000
+Q5 linear medium: 128-bit against 64-bit, worst relative difference over 2000 steps 2.41e-15
+Q6 chaos source: 64-bit against 128-bit logistic, ln|difference| grows 0.6870 per step over 1000 starts (ln 2 = 0.6931)
+
+HOLDS  Q1 add and subtract bit-identical to __float128
+HOLDS  Q2 multiply bit-identical
+HOLDS  Q3 compare identical
+HOLDS  Q4 conversions (widen exact, round trip, narrow = C cast)
+HOLDS  Q5 the linear medium is not precision-limited (<= 1e-13)
+HOLDS  Q6 the chaos source is precision-limited (ln 2 per step, within 10%)
+
+6 of 6 hold (4 s); Q7 is thermo6's T6_F128 mode

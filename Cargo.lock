@@ -85,9 +85,48 @@ dependencies = [
 ]
 
 [[package]]
+name = "gpu-cap-binary128"
+version = "0.1.0"
+dependencies = [
+ "gpu-cap-wide",
+]
+
+[[package]]
 name = "gpu-cap-binary64"
 version = "0.1.0"
 dependencies = [
+ "gpu-cap-wide",
+]
+
+[[package]]
+name = "gpu-cap-f128-add"
+version = "0.1.0"
+dependencies = [
+ "gpu-cap-binary128",
+ "gpu-cap-wide",
+]
+
+[[package]]
+name = "gpu-cap-f128-cmp"
+version = "0.1.0"
+dependencies = [
+ "gpu-cap-binary128",
+ "gpu-cap-wide",
+]
+
+[[package]]
+name = "gpu-cap-f128-conv"
+version = "0.1.0"
+dependencies = [
+ "gpu-cap-binary128",
+ "gpu-cap-wide",
+]
+
+[[package]]
+name = "gpu-cap-f128-mul"
+version = "0.1.0"
+dependencies = [
+ "gpu-cap-binary128",
  "gpu-cap-wide",
 ]
 
@@ -129,6 +168,19 @@ dependencies = [
  "gpu-cap-f64-mul",
  "gpu-cap-wide",
  "thermo-bath",
+ "thermo-lattice",
+]
+
+[[package]]
+name = "gpu1b"
+version = "0.1.0"
+dependencies = [
+ "gpu-cap-binary128",
+ "gpu-cap-f128-add",
+ "gpu-cap-f128-cmp",
+ "gpu-cap-f128-conv",
+ "gpu-cap-f128-mul",
+ "gpu-cap-wide",
  "thermo-lattice",
 ]
 
@@ -359,6 +411,9 @@ dependencies = [
 name = "thermo6"
 version = "0.1.0"
 dependencies = [
+ "gpu-cap-f128-add",
+ "gpu-cap-f128-conv",
+ "gpu-cap-f128-mul",
  "qb-amplitude",
  "qb-chaos",
  "qb-classical",

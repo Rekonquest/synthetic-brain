@@ -1,0 +1,11 @@
+[package]
+name = "gpu-cap-f128-cmp"
+description = "GPU-1b capability: binary128 compare and max."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+gpu-cap-wide = { path = "../gpu-cap-wide" }
+gpu-cap-binary128 = { path = "../gpu-cap-binary128" }

@@ -15,3 +15,6 @@ qb-amplitude = { path = "../qb-amplitude" }
 qb-classical = { path = "../qb-classical" }
 qb-chaos = { path = "../qb-chaos" }
 qb-task = { path = "../qb-task" }
+gpu-cap-f128-add = { path = "../gpu-cap-f128-add" }
+gpu-cap-f128-mul = { path = "../gpu-cap-f128-mul" }
+gpu-cap-f128-conv = { path = "../gpu-cap-f128-conv" }

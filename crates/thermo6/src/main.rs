@@ -57,10 +57,33 @@ struct Cfg {
     chaos: f64,
 }
 
+/// GPU-1b's Q7 switch: compute the chaos source's logistic steps in binary128 (then narrow).
+static F128_CHAOS: std::sync::atomic::AtomicBool = std::sync::atomic::AtomicBool::new(false);
+
+/// `qb_chaos::keyed_unit` with its 16 logistic steps in binary128: the same hashed start (in f64,
+/// widened exactly), x ← (4·x)·(1 − x) in the same operation order, narrowed, then the same clamp.
+fn keyed_unit128(key: u64) -> f64 {
+    use gpu_cap_f128_add::sub;
+    use gpu_cap_f128_conv::{narrow, widen};
+    use gpu_cap_f128_mul::mul;
+    let mut z = key.wrapping_add(0x9E37_79B9_7F4A_7C15);
+    z = (z ^ (z >> 30)).wrapping_mul(0xBF58_476D_1CE4_E5B9);
+    z = (z ^ (z >> 27)).wrapping_mul(0x94D0_49BB_1331_11EB);
+    z ^= z >> 31;
+    let x0 = 0.01 + 0.98 * ((z >> 11) as f64 / (1u64 << 53) as f64);
+    let (four, one) = (widen(4.0), widen(1.0));
+    let mut x = widen(x0);
+    for _ in 0..16 {
+        x = mul(mul(four, x), sub(one, x));
+    }
+    narrow(x).clamp(1e-9, 1.0 - 1e-9)
+}
+
 /// QB-9's centred chaos for (seed, step, element, tag).
 fn chaos(seed: u64, t: usize, element: usize, tag: u64) -> f64 {
     let key = seed.wrapping_mul(0x9E37_79B9_7F4A_7C15) ^ (t as u64).wrapping_mul(0xC2B2_AE3D_27D4_EB4F) ^ (element as u64).wrapping_mul(0x1656_67B1_9E37_79F9) ^ tag.wrapping_mul(0xD6E8_FEB8_6659_FD93);
-    keyed_unit(key) - 0.5
+    let u = if F128_CHAOS.load(std::sync::atomic::Ordering::Relaxed) { keyed_unit128(key) } else { keyed_unit(key) };
+    u - 0.5
 }
 
 /// A unit-variance kick, uniform on [−√3, √3], from a SplitMix64 hash (labelled in the doc).
@@ -374,6 +397,32 @@ fn equipartition(theta: f64) -> f64 {
 
 fn main() {
     let (dev, test) = (0..16u64, 100..132u64);
+    if std::env::var_os("T6_F128").is_some() {
+        // GPU-1b Q7: T6's best quantum configuration, its chaos source in binary64 then binary128.
+        let spec = qb7_spec();
+        let c = Cfg { brain: Brain::Quantum, theta_a: 0.0, theta_b: 0.02, gain: 1000.0, chaos: 0.0 };
+        let diffs: Vec<f64> = (0..10_000u64).map(|k| (keyed_unit(k) - keyed_unit128(k)).abs()).collect();
+        println!("chaos values, 64 against 128: max |difference| {:.2e}, mean {:.2e} over 10,000 keys", diffs.iter().cloned().fold(0.0, f64::max), diffs.iter().sum::<f64>() / diffs.len() as f64);
+        let mut tot = (0usize, 0usize, 0.0f64, 0.0f64);
+        for seed in 100..132u64 {
+            let w = world(&spec, seed);
+            F128_CHAOS.store(false, std::sync::atomic::Ordering::Relaxed);
+            let a = run(&c, &spec, &w, seed);
+            F128_CHAOS.store(true, std::sync::atomic::Ordering::Relaxed);
+            let b = run(&c, &spec, &w, seed);
+            F128_CHAOS.store(false, std::sync::atomic::Ordering::Relaxed);
+            let d = a.iter().zip(&b).filter(|(x, y)| x != y).count();
+            tot.0 += d;
+            tot.1 += a.len();
+            tot.2 += score(&spec, &w, &a).acc_resp / 32.0;
+            tot.3 += score(&spec, &w, &b).acc_resp / 32.0;
+            if d > 0 {
+                println!("  seed {seed}: {d} of {} choices differ", a.len());
+            }
+        }
+        println!("Q7: {} of {} choices differ over 32 test seeds; acc_resp 64-bit {:.4}, 128-bit chaos {:.4}", tot.0, tot.1, tot.2, tot.3);
+        return;
+    }
     if std::env::var_os("T6_SMOKE").is_some() {
         // The job log's own check: a tiny batch, then the same batch again (nothing reruns).
         let jobs = vec![(Cfg { brain: Brain::Quantum, theta_a: 0.05, theta_b: 0.02, gain: 1000.0, chaos: 0.0 }, 100..102u64), (Cfg { brain: Brain::Classical, theta_a: 0.0, theta_b: 0.05, gain: 1000.0, chaos: 0.0 }, 100..102u64)];
