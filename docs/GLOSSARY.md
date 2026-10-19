@@ -145,3 +145,19 @@ give you more to choose from, not to replace yours.
   - *reaction–diffusion systems*. Alan Turing showed in 1952 that spreading plus reacting makes
     patterns.
   - Real chemical computers have been built this way (*Belousov–Zhabotinsky* computers).
+
+### 20. A medication is the math in matter form
+- **The field's words:**
+  - *substrate independence*, and in philosophy *multiple realizability*: what something does can be
+    carried by different materials;
+  - for medications: *pharmacokinetics* (PK, how the body moves a drug: absorption, distribution,
+    metabolism and elimination, modelled as compartments with rate equations) and
+    *pharmacodynamics* (PD, what the drug does at its target);
+  - the standard PD dose–response model is the *Emax* or *Hill* model, the same Hill function as your
+    QB-7 cooperative binding;
+  - whole-body versions: *quantitative systems pharmacology*, *in silico trials*, and *digital
+    twins* (a model tuned to one person).
+- **Plain meaning:** the pattern is the thing, and the material is how it is carried. A body can only
+  take in the matter form.
+- **The limit:** the computational form is only as close as its axioms are to the real mechanism, so
+  in-silico results are still checked in real trials. And only matter acts on a body.
