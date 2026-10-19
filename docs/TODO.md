@@ -65,6 +65,11 @@ Started 2026-10-18. Each item is precommitted before it is built, as usual.
     5. superposition folding (vector symbolic architectures: bind, superpose, unbind = tap);
     6. recipes (procedural).
   - Pair it with SCAR-1: how many items fold into one region before recall fails.
+  - **Jesse's lead (2026-10-18): folding the scars is likely the best.**
+    - A scar takes no *extra* space: carving only changes values the medium already has.
+    - A tap's recall happens in the same medium too, costing time and compute, not space.
+    - **So scars spend capacity, not footprint.** Measure the capacity (distinct scars per region,
+      unfolded against folded) and the recall cost.
 - **Precision decision (Jesse, 2026-10-18):** keep 128-bit as the top precision for now. Move to the
   RTX card later, **once Jesse is sure it is safe**.
 
