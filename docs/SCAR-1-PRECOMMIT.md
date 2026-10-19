@@ -77,3 +77,52 @@ Plain is the setting carried up from T3 (p 3, frozen chaos 0.3, T 0.005 while wr
   - **Prediction S10:** plain is kept. T3's inverted U puts T 0.005 above cold.
 
 **Room and system:** CPU only, 8 threads, a few minutes. No GPU, and no system settings touched.
+
+## Run 1: results (2026-10-18, `evidence/scar-1/results.txt`, 2 min 10 s on 8 threads)
+
+| # | Result | Measured |
+|---|---|---|
+| S1 control (uncarved) ≤ 0.2 | MEASURED | 0.076 (chance ≈ 0.067) |
+| S2 one scar recalls ≥ 0.9 | **FAILED** | **0.167** |
+| S3 folding | **FAILED** | P 1 0.167, P 2 0.146, P 4 0.104, P 8 0.052, P 16 0.086; capacity 0 |
+| S4 completion from 1 of 6 ≥ 0.5 | **FAILED** | 0.225 |
+| S5 scars fade without use | **FAILED** | idle T 0: 0.083 against a fresh 0.104 (there was little to fade) |
+| S6 noise keeps them alive | **FAILED** | 0.083 at every T |
+| S7 zero extra footprint | MEASURED | 98,304 bytes before and after writing; recall settles in about 45 steps |
+| S8–S10 the rounds | hold by the rule, but **vacuous**: every arm is near chance (plain dev 0.052) | |
+
+**5 of 10 hold, and the core failed:** recall is barely above chance, even for one memory.
+
+### Diagnosis (after the run, not predictions)
+
+**Diagnostic 1** (`diagnostic-run1.txt`):
+- **(a) The writing carved something:** after P 1, 85 edges have c > 0.5 (2 above 0.9).
+- **(b) But even ideal scars read badly:** a hand-made ring of c 1 threads through the six members
+  recalls only 1 of 3 missing members under the precommitted tap.
+- **So the tap's reading is a bottleneck.** It ranks cells by their *field*, and a cell that a hot
+  thread merely passes *beside* is as hot as one at the thread's end. With 48 cells in the medium,
+  about four bystanders sit beside any assembly's threads, about as many as the members sought.
+
+**Diagnostic 2** (`diagnostic-run1-absorbing-reading.txt`): the reading changed to Jesse's antenna
+receiver, in which every non-cue cell is a cold absorber (held at 0) and the score is the current it
+absorbs through its own edges.
+
+| case | recalled |
+|---|---|
+| the ideal ring, on an eroded background | **2 of 3** |
+| the carved scars (P 1), test seeds 10–17 | **8 / 24** with 100-step episodes; 8 / 24 with 300-step episodes |
+
+That is double run 1's 0.167. The longer episodes carved *fewer* strong edges (71).
+
+**So there are two gaps:**
+1. **The reading should be absorbed current, not field.** That is the receiver from TA1, and the
+   scar's terminus is what conducts into a member.
+2. **The writing does not carve connecting threads.** A hub driving five sinks at once, with T3's
+   selective p 3, carves stubs near the hub and the sinks rather than the paths between them. T3
+   needed about 3,000 steps of one steady pair to carve one 3D thread; here each pair gets a few
+   hundred steps, shared with four others.
+
+**Run 2 should:**
+- carve **pair by pair**, as T3 did (one held pair at a time, f_ref = κ / its distance, every pair
+  of the assembly, a T3-like duration);
+- **read absorbed current.**

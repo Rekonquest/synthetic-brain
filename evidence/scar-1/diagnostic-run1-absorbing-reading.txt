@@ -1,0 +1,4 @@
+(c) ideal ring, eroded background, absorbing cells: 2 of 3
+(d) run-1 writing (100-step episodes), absorbing cells: 1 of 3
+(e) 300-step episodes, absorbing cells: 1 of 3; edges > 0.5: 71
+over test seeds 10-17, P1, absorbing reading: 100-step episodes 8/24, 300-step episodes 8/24

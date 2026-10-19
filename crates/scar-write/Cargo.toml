@@ -1,0 +1,13 @@
+[package]
+name = "scar-write"
+description = "SCAR-1: carve memories into the medium as scars (driven episodes under T3's carving law; idling is the same law with no drive)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+thermo-lattice = { path = "../thermo-lattice" }
+thermo-bath = { path = "../thermo-bath" }
+thermo-carve = { path = "../thermo-carve" }
+qb-chaos = { path = "../qb-chaos" }

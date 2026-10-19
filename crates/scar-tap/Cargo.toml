@@ -1,0 +1,12 @@
+[package]
+name = "scar-tap"
+description = "SCAR-1: recall by tap - hold the cue, let the frozen scars conduct, read the cells."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+thermo-lattice = { path = "../thermo-lattice" }
+thermo-bath = { path = "../thermo-bath" }
+thermo-carve = { path = "../thermo-carve" }

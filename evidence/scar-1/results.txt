@@ -1,0 +1,28 @@
+SCAR-1: scars in a 3D medium (side 16), pool 48 cells, assemblies of 6; plain law Law { kappa: 0.3, mu: 0.02, nu: 0.002, c_min: 0.05, p: 3.0, chaos: 0.3, temperature: 0.005 }
+S1 control (uncarved): fidelity 0.076 (chance ~0.067)
+S3 folding: fidelity by P ["P1 0.167", "P2 0.146", "P4 0.104", "P8 0.052", "P16 0.086"]
+   capacity (largest P with fidelity >= 0.8): 0
+S4 completion (P1, cue 1 of 6): 0.225
+S5/S6 after 3000 idle steps (P4, fresh 0.104): T 0 0.083, T 0.005 0.083, T 0.02 0.083
+S7 footprint: medium bytes before 98304 after 98304 writing; recall settles in 45 steps (mean)
+   rounds: plain capacity score dev 0.0521, test 0.1189
+   amplification off (p 1): dev 0.0417 -> not kept
+   chaos off: dev 0.0417 -> not kept
+   cold writing (T 0): dev 0.0451 -> not kept
+
+HOLDS  S1 control <= 0.2
+FAILS  S2 one scar recalls (P1 >= 0.9)
+FAILS  S3 folding: >= 0.8 to P4, and P16 < P1
+FAILS  S4 completion from 1 of 6 >= 0.5
+FAILS  S5 scars fade without use (idle T0 <= half fresh)
+FAILS  S6 noise keeps them alive (best T >= T0 + 0.1)
+HOLDS  S7 zero extra footprint
+HOLDS  S8 amplification (p 3) kept over p 1
+HOLDS  S9 frozen chaos kept over none
+HOLDS  S10 warm writing kept over cold
+
+5 of 10 hold (130 s)
+
+real	2m9.759s
+user	12m38.531s
+sys	0m0.040s
