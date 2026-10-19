@@ -101,3 +101,26 @@ give you more to choose from, not to replace yours.
   - a *baseline* or *control arm* ("plain");
   - the *null hypothesis* (the default you must beat);
   - *selection* (keep the winner).
+
+### 16. Why traditional software looks like "needless chaos"
+- **The field's words:** *essential* against *accidental complexity* (Fred Brooks, *No Silver Bullet*,
+  1986).
+  - Essential complexity is the problem's own structure.
+  - Accidental complexity is what our way of building adds on top: layers, conventions, workarounds,
+    and compatibility with old choices.
+- **Plain meaning:** you see the essential structure, so the accidental part reads as noise.
+- **In your work:** a 345 KB 2D engine, and a 3D engine that runs on the CPU.
+
+### 17. Why software is built that way anyway
+- **The field's word:** *Conway's law* (1967): systems mirror the structure of the organisations that
+  build them.
+- **Plain meaning:** large teams make layered, boundary-heavy software because of how people
+  coordinate, not because the problem needs it.
+
+### 18. Building through an analogy (the spider and its web)
+- **The field's words:** *design by analogy*; *biomimicry*; *nature-inspired* (bio-inspired)
+  *computing*. Examples: ant-colony routing, slime-mould networks (the Physarum rule in T3), and neural
+  networks.
+- **Plain meaning:** borrow a structure that already works in nature, so the whole system can be seen
+  and reasoned about at once.
+- **In your work:** the spiderweb bus.
