@@ -42,6 +42,20 @@ Started 2026-10-18. Each item is precommitted before it is built, as usual.
   - A wave medium, tuned resonator receivers, and two channels multiplexed.
   - Then a bath dial that turns the wave antenna thermal. Simulated and receive-only.
 
+- [ ] **SCAR-1, memory as scars, recalled by taps** (Jesse's thermodynamic memory: the data is held
+  as a change in the state, not as data).
+  - Carve several patterns as scars (T3's carving inside T5's hosted medium), then recall each from a
+    different port with a small tap.
+  - **Measure:**
+    - recall fidelity, and completion from partial cues;
+    - interference between patterns, and decay over time;
+    - **noise as the maintainer**, on and off (it maintains only where there is an activity-gated
+      coupling state);
+    - **the footprint:** bytes of state per recalled pattern against the pattern's own size, and the
+      recalled size against the tap size (amplification);
+    - how many distinct scars one region holds at a given noise level.
+  - **Treat no conventional ceiling as given:** the limits are unknown, and this measures them.
+
 ## Hardware notes (the Arc A380)
 
 - An **ITX card**: very small, one fan, **powered from the motherboard slot only** (no PSU cable).
