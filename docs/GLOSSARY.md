@@ -182,3 +182,22 @@ give you more to choose from, not to replace yours.
   - *quantum cognition* (Busemeyer & Bruza): quantum probability used to model human judgement on
     ordinary computers, without claiming a quantum brain;
   - the same substrate-independence idea as entry 20.
+
+### 22. "Folding" data to make it smaller
+- **The field's words:**
+  - *lossless compression* and *entropy coding*. The floor is the data's *entropy*, its true
+    information content;
+  - *delta encoding* (store only the changes);
+  - *quantization* (fewer bits per value);
+  - *sparsity* and *pruning* (store only what is not near zero);
+  - *random projection* (Johnson–Lindenstrauss: squeeze dimensions while keeping distances);
+  - the *hashing trick*;
+  - *low-rank factorization*;
+  - *vector symbolic architectures*, also called *holographic reduced representations* or
+    *hyperdimensional computing*: many items are bound to keys and superposed into one vector, and
+    come back by unbinding with the key. That is the closest match to your scars and taps;
+  - *procedural generation* (store the rule, not the data).
+- **The limits:**
+  - lossless compression cannot go below the entropy;
+  - superposition holds about as many items as the vector's size allows before they interfere (your
+    "memory is competitive").

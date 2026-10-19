@@ -56,6 +56,18 @@ Started 2026-10-18. Each item is precommitted before it is built, as usual.
     - how many distinct scars one region holds at a given noise level.
   - **Treat no conventional ceiling as given:** the limits are unknown, and this measures them.
 
+- [ ] **FOLD-1, folding data smaller** (Jesse: "can we fold data to make it smaller").
+  - Measure each form on the brain's own data (fields, scars, memories), for size against fidelity:
+    1. lossless: entropy coding and delta encoding;
+    2. quantization (bits matched to need: about 4.7 bits per synapse in real brains);
+    3. sparsity;
+    4. dimension folding (random projection, the hashing trick, low rank);
+    5. superposition folding (vector symbolic architectures: bind, superpose, unbind = tap);
+    6. recipes (procedural).
+  - Pair it with SCAR-1: how many items fold into one region before recall fails.
+- **Precision decision (Jesse, 2026-10-18):** keep 128-bit as the top precision for now. Move to the
+  RTX card later, **once Jesse is sure it is safe**.
+
 ## Hardware notes (the Arc A380)
 
 - An **ITX card**: very small, one fan, **powered from the motherboard slot only** (no PSU cable).
