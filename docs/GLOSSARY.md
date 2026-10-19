@@ -161,3 +161,24 @@ give you more to choose from, not to replace yours.
   take in the matter form.
 - **The limit:** the computational form is only as close as its axioms are to the real mechanism, so
   in-silico results are still checked in real trials. And only matter acts on a body.
+
+### 21. Quantum everywhere, and the orchestrator as "observer"
+- **Quantum without quantum computers:**
+  - all chemistry, and every transistor, runs on quantum mechanics;
+  - *quantum biology* studies it in living things: photosynthesis, enzyme *tunnelling*, the
+    *radical-pair* compass of birds;
+  - *decoherence* is why quantum effects wash out at large scale, and why quantum computers fight to
+    keep them coherent for a narrow class of problems.
+- **The observer:**
+  - *the measurement problem* asks why a state settles when observed. In physics, "observing" means
+    *interacting*, which is what your orchestrator does when it reads and collapses the state;
+  - *the quantum Zeno effect*: observing often enough freezes the evolution (your re-collapsing memory
+    is close to it);
+  - *relational quantum mechanics* (Carlo Rovelli): a state has properties only relative to another
+    system that interacts with it. That is close to your "pure quantum is meaningless unless you give
+    it a reason to mean something".
+- **Quantum mathematics on classical machines:**
+  - *quantum-inspired algorithms*;
+  - *quantum cognition* (Busemeyer & Bruza): quantum probability used to model human judgement on
+    ordinary computers, without claiming a quantum brain;
+  - the same substrate-independence idea as entry 20.
