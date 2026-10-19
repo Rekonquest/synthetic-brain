@@ -42,7 +42,10 @@ Started 2026-10-18. Each item is precommitted before it is built, as usual.
   - A wave medium, tuned resonator receivers, and two channels multiplexed.
   - Then a bath dial that turns the wave antenna thermal. Simulated and receive-only.
 
-- [ ] **SCAR-1, memory as scars, recalled by taps** (Jesse's thermodynamic memory: the data is held
+- [ ] **SCAR-1, memory as scars, recalled by taps.** Run 1 is done (`docs/SCAR-1-PRECOMMIT.md`): recall near chance, diagnosed.
+  - **Next, run 2:** carve pair by pair (as T3 did) and read *absorbed current* at cold-receiver cells; about 10 min on 8 threads.
+  - The original plan follows.
+- **SCAR-1, memory as scars, recalled by taps** (Jesse's thermodynamic memory: the data is held
   as a change in the state, not as data).
   - Carve several patterns as scars (T3's carving inside T5's hosted medium), then recall each from a
     different port with a small tap.
