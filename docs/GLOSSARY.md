@@ -124,3 +124,24 @@ give you more to choose from, not to replace yours.
 - **Plain meaning:** borrow a structure that already works in nature, so the whole system can be seen
   and reasoned about at once.
 - **In your work:** the spiderweb bus.
+
+### 19. Chemistry axioms in classical computing
+- **The field's words:**
+  - *artificial chemistry*; *chemical computing*;
+  - *chemical reaction networks* (CRNs), with *molecular programming* as the field that proves
+    reaction networks alone can compute;
+  - the programming styles built on the idea: the *Chemical Abstract Machine* (Berry & Boudol, 1990)
+    and *Gamma* (a program as molecules reacting in a solution).
+- **The pieces you used** (QB-7, and your stacks):
+  - growth that speeds itself up = *autocatalysis*;
+  - "the brake" = *product inhibition* (*negative feedback*);
+  - the latch = a *bistable switch* (*chemical bistability*): two stable states, so it holds a
+    memory;
+  - the enzyme cascade = *signal amplification by cascade*;
+  - cooperative binding = the *Hill function* (*cooperativity*), a soft switch whose sharpness is set
+    by how many molecules must bind;
+  - rates in proportion to amounts = the *law of mass action* (*chemical kinetics*).
+- **Closest whole idea to your thermal base plus chemistry:**
+  - *reaction–diffusion systems*. Alan Turing showed in 1952 that spreading plus reacting makes
+    patterns.
+  - Real chemical computers have been built this way (*Belousov–Zhabotinsky* computers).
