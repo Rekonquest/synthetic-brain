@@ -42,8 +42,11 @@ Started 2026-10-18. Each item is precommitted before it is built, as usual.
   - A wave medium, tuned resonator receivers, and two channels multiplexed.
   - Then a bath dial that turns the wave antenna thermal. Simulated and receive-only.
 
-- [ ] **SCAR-1, memory as scars, recalled by taps.** Run 1 is done (`docs/SCAR-1-PRECOMMIT.md`): recall near chance, diagnosed.
-  - **Next, run 2:** carve pair by pair (as T3 did) and read *absorbed current* at cold-receiver cells; about 10 min on 8 threads.
+- [x] **SCAR-1, memory as scars, recalled by taps: done** (run 5, 11 of 12; `docs/SCAR-1-PRECOMMIT.md`).
+  - Jesse's C17 rebuilt from scratch: sealed traps, slow erosion, spectral-bridge recall.
+  - Fresh 0.953; noise keeps memories alive (0.891 at t 20,000, against 0.062 quiet).
+  - Folding 2 per region gives region-level recall 0.914.
+  - **Next: FOLD-1**, deeper folding and which memory a folded region holds.
   - The original plan follows.
 - **SCAR-1, memory as scars, recalled by taps** (Jesse's thermodynamic memory: the data is held
   as a change in the state, not as data).

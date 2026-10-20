@@ -432,3 +432,59 @@ All else is unchanged: the gain, μ_m, the stir, the keys, the seeds and the cue
    - **R9:** write gain × 2 kept;
    - **R10:** frozen μ chaos not kept;
    - **R11:** stir × 2 not kept.
+
+## Run 5: results (2026-10-20, `evidence/scar-1-run5/results.txt`, 3 min 57 s on 8 threads)
+
+**Top-1 recall at each drain time** (16 memories, one per region, the exact cue):
+
+| arm | t 0 | t 250 | t 2,000 | t 20,000 |
+|---|---|---|---|---|
+| stirred (noise on) | 0.953 | 0.953 | 0.953 | **0.891** |
+| quiet (no noise) | 1.000 | 1.000 | 0.992 | **0.062** |
+
+| # | Result | Measured |
+|---|---|---|
+| R1 control ≤ 0.15 | MEASURED | 0.062 |
+| R2 fresh ≥ 0.95 | MEASURED | 0.953 stirred, 1.000 quiet |
+| R3 maintain-or-erase | **MEASURED** | quiet collapses to 0.062 by t 20,000 (the material's lifetime is about 1/ν) |
+| R4 noise keeps them alive | **MEASURED** | stirred **0.891** at t 20,000, against quiet 0.062 |
+| R5 completion (3 of 6 bands) | MEASURED | 0.867 |
+| R6 noisy cue (+30% flat) | MEASURED | 0.953 |
+| R7a folding, 2 per region: region top-1 | **MEASURED** | **0.914** (32 memories in 16 regions) |
+| R7b folding: self-match falls ≥ 0.2 | **FAILED by margin** | 0.483 → 0.329 (−0.154) |
+| R8 zero extra footprint | MEASURED | 422,400 bytes before and after |
+| R9 write gain × 2 kept | MEASURED | dev 0.938 → 1.000, and better on test |
+| R10 frozen μ chaos not kept | MEASURED | a tie |
+| R11 stir × 2 not kept | MEASURED | dev 0.859 |
+
+**11 of 12 hold.**
+
+### What SCAR-1 settles
+
+- **Memory as scars works,** in Jesse's C17 form, rebuilt from scratch:
+  - a band spectrum held in its own region by carved trap material;
+  - recalled by his spectral bridge;
+  - completed from half its bands;
+  - robust to a noisy cue.
+- **Maintain-or-erase, measured.** Without noise, the memories outlive their writing by about 2,000
+  steps, then collapse when the material erodes.
+- **Jesse's claim that noise keeps them alive, measured:** stirred, they hold at 0.891 after 20,000
+  steps, against 0.062 quiet. The cost: the noise's flat spectrum dilutes each profile, so fresh
+  recall is 0.953 rather than 1.000, and self-match is about 0.48.
+- **Folding works at the region level.** Two memories share a region and both still find it (0.914),
+  so the medium holds 32 memories in the space of 16, with no extra bytes (Jesse's "fold the scars").
+  Inside a region the two profiles mix (self-match −0.154). Which of the two a region holds is the
+  next measurement (FOLD-1).
+- **Amplification (write gain × 2) is kept** and becomes the plain setting from here.
+
+**The laws that made it work, carried up:**
+1. **Sealed traps:** either carved end slows the flow.
+2. **Slow erosion:** C17's compound-c ν, 5·10⁻⁵.
+3. **A formation reference below the held energy.**
+4. **One region per memory** (or a folded few), with recall by the bridge.
+
+**The four failed runs, and what each taught:**
+- the field reading confuses bystanders;
+- a shared input face forces one shared network;
+- inhibition through sources is wrong;
+- unsealed regions leak.

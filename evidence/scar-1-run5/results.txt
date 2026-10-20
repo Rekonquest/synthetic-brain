@@ -1,0 +1,29 @@
+SCAR-1 run 5 (sealed law): C17 from scratch - spectra in regions; medium [20, 20, 4], 32 bands; reads at drain [0, 250, 2000, 20000]
+R1 control (nothing written, stirred, t 250): top-1 0.062
+R2-R4 top-1 at drain t 0 / 250 / 2000 / 20000: stirred 0.953 / 0.953 / 0.953 / 0.891; quiet 1.000 / 1.000 / 0.992 / 0.062
+R5 completion (3 of 6 bands, t 250): 0.867; R6 noisy cue (+30% flat): 0.953
+R7 folding (2 per region, t 250): region top-1 0.914; self-match 0.329 against one-per-region 0.483
+R8 footprint: 422400 bytes, unchanged by writing: true
+   rounds: plain dev 0.938 (self-match 0.2002), test 0.891 (0.1998)
+   amplification (write gain x2): dev 1.000 (self-match 0.2127) -> KEPT
+   chaos (frozen mu jitter 0.3): dev 0.938 (self-match 0.2002) -> not kept
+   heat (stir x2): dev 0.859 (self-match 0.1941) -> not kept
+
+HOLDS  R1 control <= 0.15
+HOLDS  R2 fresh recall >= 0.95
+HOLDS  R3 maintain-or-erase: quiet t20000 <= fresh - 0.3
+HOLDS  R4 noise maintains: stirred t20000 >= 0.75 and >= quiet + 0.3
+HOLDS  R5 completion >= 0.8
+HOLDS  R6 noisy cue >= 0.9
+HOLDS  R7a folding: region top-1 >= 0.8
+FAILS  R7b folding: self-match falls >= 0.2
+HOLDS  R8 zero extra footprint
+HOLDS  R9 amplification kept
+HOLDS  R10 chaos not kept
+HOLDS  R11 heat x2 not kept
+
+11 of 12 hold (237 s)
+
+real	3m57.105s
+user	25m12.173s
+sys	0m0.063s
