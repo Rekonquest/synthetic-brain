@@ -70,6 +70,12 @@ fn keys(seed: u64) -> Vec<Vec<usize>> {
         .collect()
 }
 
+/// Run 3's lateral inhibition while writing (the other regions held at the key's +1); `INHIBIT=0`
+/// reproduces run 2.
+fn inhibit() -> bool {
+    std::env::var("INHIBIT").map(|v| v != "0").unwrap_or(true)
+}
+
 /// Write the first P memories (key m → region m), interleaved, with or without the budget.
 fn write(p: usize, law: &Law, budget: bool, seed: u64) -> Carving {
     let (ks, rs) = (keys(seed), regions());
@@ -80,7 +86,8 @@ fn write(p: usize, law: &Law, budget: bool, seed: u64) -> Carving {
     let mut t = 0;
     for _ in 0..ROUNDS {
         for m in 0..p {
-            let holds: Vec<(usize, f64)> = ks[m].iter().map(|&s| (s, 1.0)).chain(rs[m].iter().map(|&s| (s, -1.0))).collect();
+            let others: Vec<(usize, f64)> = if inhibit() { rs.iter().enumerate().filter(|(j, _)| *j != m).flat_map(|(_, r)| r.iter().map(|&s| (s, 1.0))).collect() } else { Vec::new() };
+            let holds: Vec<(usize, f64)> = ks[m].iter().map(|&s| (s, 1.0)).chain(rs[m].iter().map(|&s| (s, -1.0))).chain(others).collect();
             for x in l.e.iter_mut() {
                 *x = 0.0;
             }
@@ -161,7 +168,29 @@ fn parallel<T: Send>(seeds: &[u64], f: impl Fn(u64) -> T + Sync) -> Vec<T> {
     })
 }
 
+/// Diagnostic, added after run 2 (not a prediction): which region each cue picks, and how the
+/// carved conductance is shared among the regions' entrances.
+fn diagnose() {
+    let seed = 10;
+    for p in [2usize, 4, 16] {
+        let k = write(p, &PLAIN, true, seed);
+        let (ks, rs) = (keys(seed), regions());
+        let picks: Vec<usize> = (0..p)
+            .map(|m| {
+                let cur = scar_tap::recall_regions(&DIMS, &k, PLAIN.kappa, &ks[m][..KEY / 2], &rs, RECALL);
+                (0..16).max_by(|&a, &b| cur[a].partial_cmp(&cur[b]).unwrap()).unwrap()
+            })
+            .collect();
+        // Each region's entrance: the summed conductance of the edges into its sites from x - 1.
+        let entrance: Vec<f64> = rs.iter().map(|r| r.iter().map(|&s| k.c[(s - 1) * 3]).sum::<f64>()).collect();
+        println!("P{p}: picks {picks:?}; entrance conductance per region {:?}", entrance.iter().take(p.max(4)).map(|x| format!("{x:.2}")).collect::<Vec<_>>());
+    }
+}
+
 fn main() {
+    if std::env::var_os("SCAR_DIAG").is_some() {
+        return diagnose();
+    }
     let t0 = std::time::Instant::now();
     let (test, dev): (Vec<u64>, Vec<u64>) = ((10..18).collect(), (0..4).collect());
     println!("SCAR-1 run 2: keys carved into their own regions; medium {DIMS:?}; plain law {PLAIN:?}, budget {BUDGET}");

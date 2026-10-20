@@ -238,3 +238,45 @@ from the bands at x = 0:
 Like T3's run 1, the wiring made the comparison vacuous, so none of its verdicts stand. **The repair:**
 the output face moves to x = 12, halfway round, 12 steps from the bands either way, with f_ref = κ / 12.
 The predictions are unchanged.
+
+## Run 2: results (2026-10-20, `evidence/scar-1-run2/results.txt`, 4 min 39 s on 8 threads)
+
+| # | Result | Measured |
+|---|---|---|
+| S1 control | MEASURED | 0.078 |
+| S2 capacity | **FAILED** | **P 1 1.000**, P 2 0.562, P 4 0.188, P 8 0.141, P 16 0.078 |
+| S3 completion | FAILED | 0.086 |
+| S4 noisy cue | FAILED | 0.070 |
+| S5 the budget is load-bearing | FAILED | off 0.086, on 0.078 (both at chance at P 16) |
+| S6 fading | holds, but vacuously (nothing to fade at P 16) | |
+| S7 noise keeps them alive | FAILED | |
+| S8 zero extra footprint | MEASURED | |
+| S9–S11 rounds | all at chance; cold writing "kept" by tie-break margin only | |
+
+**5 of 11 hold.** **One scar now recalls perfectly (P 1 = 1.000).** Two or more do not.
+
+### Diagnosis (`diagnostic-picks.txt`; after the run, not a prediction)
+
+- **Every region's entrance is carved:** a summed conductance of 4.9–7.5 into each of the 16 regions
+  at P 16.
+- **But recall picks region 0 or 2 for almost every cue:** at P 16 the picks were 0, 2, 0, 2, 2, 1,
+  2, 0, 5, 2, 3, 0, 1, 2, 0, 0.
+- **The carving built one shared network**, the slime-mould effect: many source–sink pairs grow a
+  single connected web, a Steiner-tree-like network. From any key the current reaches every region
+  through the web, and geometry, not the memory, picks the winner.
+
+**What is missing is inhibition.** While memory m is written, nothing says "not the other regions".
+**Run 3** adds one change: during memory m's episodes, the other 15 regions are held at the key's
+potential (+1). No current is carved from key m toward them, and erosion plus the budget prune the
+shared routes. This is *lateral inhibition* from neuroscience, the "not this" signal of contrastive
+Hebbian learning.
+
+## Run 3: PRECOMMITTED (2026-10-20), before any run-3 code
+
+Run 3 is identical to run 2 except for the writing: during memory m's episode, the patches of every
+other region are held at +1 (inhibited).
+
+**Predictions S1–S11 as in run 2, with these re-derived:**
+- **S2:** P 16 top-1 ≥ 0.9.
+- **S5:** inhibition is the load-bearing change. Run 2 (no inhibition) is the arm against it, and run
+  3 must beat it at P 16 by ≥ 0.3.
