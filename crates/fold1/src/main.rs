@@ -124,7 +124,93 @@ fn parallel<T: Send>(seeds: &[u64], f: impl Fn(u64) -> T + Sync) -> Vec<T> {
     })
 }
 
+/// Region top-1 by the containment reading (FOLD-3).
+fn top1_contain(spectra: &[Vec<f64>], ks: &[Vec<f64>], f: usize) -> f64 {
+    (0..ks.len()).filter(|&i| (0..16).max_by(|&a, &b| spec_contain::containment(&ks[i], &spectra[a]).partial_cmp(&spec_contain::containment(&ks[i], &spectra[b])).unwrap()).unwrap() == i / f).count() as f64 / ks.len() as f64
+}
+
+/// FOLD-3 (docs/FOLD-3-PRECOMMIT.md): FOLD-2's simulations read both ways.
+fn fold3() {
+    let t0 = std::time::Instant::now();
+    let test: Vec<u64> = (10..18).collect();
+    let fs = [1usize, 2, 4, 8, 16];
+    let mut caps = Vec::new();
+    let mut f1 = Vec::new();
+    for &b in &[32usize, 64, 128] {
+        let mut row = Vec::new();
+        for &f in &fs {
+            let v = parallel(&test, |sd| {
+                let ks = keys(sd ^ 0xF02, 16 * f, b);
+                let (snaps, _) = simulate(b, f, &ks, &[250], sd);
+                (measure(&snaps[0], &ks, f).0, top1_contain(&snaps[0], &ks, f))
+            });
+            let (br, co) = (v.iter().map(|x| x.0).sum::<f64>() / 8.0, v.iter().map(|x| x.1).sum::<f64>() / 8.0);
+            println!("  B {b:3} F {f:2}: bridge {br:.3}, containment {co:.3}");
+            row.push((br, co));
+        }
+        let cap = |i: usize| fs.iter().zip(&row).filter(|x| if i == 0 { x.1 .0 } else { x.1 .1 } >= 0.8).map(|x| *x.0).max().unwrap_or(0);
+        println!("  B {b}: capacity bridge {}, containment {}", cap(0), cap(1));
+        caps.push((cap(0), cap(1)));
+        f1.push(row[0].1);
+    }
+    let v = [
+        ("FX1 containment capacity >= 2x the bridge's at every B", caps.iter().all(|(b, c)| *c >= 2 * b)),
+        ("FX2 containment scales with bands (F*(128) >= 2 F*(32))", caps[2].1 >= 2 * caps[0].1),
+        ("FX3 nothing lost at one per region (F1 containment >= 0.95)", f1.iter().all(|&x| x >= 0.95)),
+    ];
+    println!();
+    for (name, ok) in &v {
+        println!("{} {name}", if *ok { "HOLDS " } else { "FAILS " });
+    }
+    println!("\n{} of {} hold ({:.0} s); capacities (bridge, containment) {caps:?}", v.iter().filter(|x| x.1).count(), v.len(), t0.elapsed().as_secs_f64());
+}
+
+/// FOLD-2 (docs/FOLD-2-PRECOMMIT.md): the capacity law, bands B against fold depth F.
+fn fold2() {
+    let t0 = std::time::Instant::now();
+    let test: Vec<u64> = (10..18).collect();
+    let fs = [1usize, 2, 4, 8, 16];
+    let mut grid = Vec::new();
+    for &b in &[32usize, 64, 128] {
+        let mut row = Vec::new();
+        for &f in &fs {
+            let v = parallel(&test, |sd| {
+                let ks = keys(sd ^ 0xF02, 16 * f, b);
+                let (snaps, _) = simulate(b, f, &ks, &[250], sd);
+                measure(&snaps[0], &ks, f)
+            });
+            let (a, s) = (v.iter().map(|x| x.0).sum::<f64>() / 8.0, v.iter().map(|x| x.1).sum::<f64>() / 8.0);
+            println!("  B {b:3} F {f:2}: region top-1 {a:.3}, set recall {s:.3}");
+            row.push((a, s));
+        }
+        let cap = fs.iter().zip(&row).filter(|x| x.1 .0 >= 0.8).map(|x| *x.0).max().unwrap_or(0);
+        println!("  B {b}: capacity F* = {cap}");
+        grid.push((cap, row));
+    }
+    let caps: Vec<usize> = grid.iter().map(|g| g.0).collect();
+    let same_load = [grid[0].1[1].0, grid[1].1[2].0, grid[2].1[3].0];
+    let mean = same_load.iter().sum::<f64>() / 3.0;
+    let track = grid.iter().all(|g| g.1.iter().all(|(a, s)| *s >= a - 0.1));
+    println!("  same load F = B/16: {same_load:.3?} (mean {mean:.3})");
+    let v = [
+        ("FC1 capacity linear in bands (F* 2, 4, 8)", caps == vec![2, 4, 8]),
+        ("FC2 scale invariance at F = B/16 (within 0.08 of the mean)", same_load.iter().all(|x| (x - mean).abs() <= 0.08)),
+        ("FC3 contents track identity (set recall >= top-1 - 0.1)", track),
+    ];
+    println!();
+    for (name, ok) in &v {
+        println!("{} {name}", if *ok { "HOLDS " } else { "FAILS " });
+    }
+    println!("\n{} of {} hold ({:.0} s); capacities {caps:?}", v.iter().filter(|x| x.1).count(), v.len(), t0.elapsed().as_secs_f64());
+}
+
 fn main() {
+    if std::env::var_os("FOLD3").is_some() {
+        return fold3();
+    }
+    if std::env::var_os("FOLD2").is_some() {
+        return fold2();
+    }
     let t0 = std::time::Instant::now();
     let test: Vec<u64> = (10..18).collect();
     println!("FOLD-1: SCAR-1 run 5's laws, F memories per region (16 regions), stirred, read at drain t 250");

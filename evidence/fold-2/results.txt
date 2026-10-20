@@ -1,0 +1,29 @@
+  B  32 F  1: region top-1 1.000, set recall 1.000
+  B  32 F  2: region top-1 0.965, set recall 0.992
+  B  32 F  4: region top-1 0.666, set recall 0.771
+  B  32 F  8: region top-1 0.373, set recall 0.524
+  B  32 F 16: region top-1 0.216, set recall 0.231
+  B 32: capacity F* = 2
+  B  64 F  1: region top-1 1.000, set recall 1.000
+  B  64 F  2: region top-1 0.980, set recall 1.000
+  B  64 F  4: region top-1 0.850, set recall 0.939
+  B  64 F  8: region top-1 0.488, set recall 0.672
+  B  64 F 16: region top-1 0.286, set recall 0.347
+  B 64: capacity F* = 4
+  B 128 F  1: region top-1 1.000, set recall 1.000
+  B 128 F  2: region top-1 0.996, set recall 1.000
+  B 128 F  4: region top-1 0.943, set recall 0.990
+  B 128 F  8: region top-1 0.609, set recall 0.866
+  B 128 F 16: region top-1 0.345, set recall 0.457
+  B 128: capacity F* = 4
+  same load F = B/16: [0.965, 0.850, 0.609] (mean 0.808)
+
+FAILS  FC1 capacity linear in bands (F* 2, 4, 8)
+FAILS  FC2 scale invariance at F = B/16 (within 0.08 of the mean)
+HOLDS  FC3 contents track identity (set recall >= top-1 - 0.1)
+
+1 of 3 hold (899 s); capacities [2, 4, 4]
+
+real	14m59.172s
+user	117m29.869s
+sys	0m2.508s

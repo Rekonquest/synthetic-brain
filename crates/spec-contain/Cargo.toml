@@ -1,0 +1,9 @@
+[package]
+name = "spec-contain"
+description = "FOLD-3: the containment reading - is a cue's spectrum present in a (folded) region's spectrum, above its noise floor."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]

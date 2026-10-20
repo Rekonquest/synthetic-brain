@@ -30,3 +30,10 @@ spectra, at B ∈ {32, 64, 128} and F ∈ {1, 2, 4, 8, 16}.
 3. **FX3, nothing is lost at one per region:** at F 1, containment top-1 ≥ 0.95 at every B.
 
 CPU only, 8 threads, about 15 min.
+
+**A pre-run correction** (the unit test caught it before any result): the precommitted floor, *the
+median band*, is only the noise floor while most bands are empty. In a folded region more than half
+the bands can carry memories (6F of B), and then the median *is* the memory level, so the reading
+collapses. The test's 8-band region with 4 bands active showed exactly that. **The floor is now the
+least-filled band**, a band no stored memory uses. A run already started with the median was stopped
+before it produced anything. The predictions are unchanged.

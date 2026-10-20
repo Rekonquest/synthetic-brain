@@ -89,6 +89,7 @@ name = "fold1"
 version = "0.1.0"
 dependencies = [
  "spec-bridge",
+ "spec-contain",
  "spec-step",
  "spec-stir",
  "spec-trap",
@@ -381,6 +382,10 @@ dependencies = [
 
 [[package]]
 name = "spec-bridge"
+version = "0.1.0"
+
+[[package]]
+name = "spec-contain"
 version = "0.1.0"
 
 [[package]]

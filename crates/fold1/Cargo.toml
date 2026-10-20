@@ -12,3 +12,4 @@ spec-step = { path = "../spec-step" }
 spec-trap = { path = "../spec-trap" }
 spec-stir = { path = "../spec-stir" }
 spec-bridge = { path = "../spec-bridge" }
+spec-contain = { path = "../spec-contain" }
