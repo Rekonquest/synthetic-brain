@@ -48,3 +48,39 @@ stated.
 stack in SCAR-1 run 5 (neither kept), and the fold depth is a measurement, not a new stack.
 
 CPU only, 8 threads, a few minutes.
+
+## Results (2026-10-20, `evidence/fold-1/results.txt`, 2 min on 8 threads)
+
+| memories per region (F) | memories in the medium | region top-1 | set recall | bytes per memory |
+|---|---|---|---|---|
+| 1 | 16 | 1.000 | 1.000 | 26,400 |
+| 2 | 32 | **0.938** | **0.996** | 13,200 |
+| 4 | 64 | 0.656 | 0.730 | 6,600 |
+| 8 | 128 | 0.355 | 0.502 | 3,300 |
+| **4, at 64 bands** | 64 | **0.869** | **0.949** | — |
+
+**F 2's lifetime:** stirred, region top-1 is **0.812** at t 20,000.
+
+| # | Result |
+|---|---|
+| F1 a ceiling (F 2 ≥ 0.9, F 4 ≥ 0.7, F 8 < 0.5) | **FAILED by margin:** F 4 is 0.656 (bar 0.7). F 2 (0.938) and F 8 (0.355) hold. The capacity at 32 bands is **F 2** |
+| F2 contents readable at F 2, and falling with F | MEASURED: **0.996** at F 2, then 0.730 and 0.502 |
+| F3 growth (64 bands) raises the ceiling | **MEASURED: F 4 goes 0.656 → 0.869 (+0.213)**, set recall 0.730 → 0.949 |
+| F4 footprint per memory halves with each doubling | MEASURED (by construction): a fixed 422,400 bytes for 16 to 128 memories |
+| F5 folded memories live | MEASURED: 0.812 at t 20,000 |
+
+**4 of 5 hold.**
+
+### What it settles
+
+- **Folding is real, and it has a ceiling set by the band space.**
+  - At 32 bands a region holds 2 memories cleanly: each finds its region at 0.938, and the region's
+    contents read back at 0.996, so it is clear *which* memories a region holds.
+  - At 4 and 8, the mixtures crowd the 32 bands, and identity falls.
+- **Growth raises the ceiling.** Doubling the bands to 64 lifts 4-per-region from 0.656 to 0.869,
+  and its contents from 0.730 to 0.949. This is Jesse's amplification as "more of what exists":
+  capacity grows with the dimension of the state, not with more space.
+- **Folded memories live as long:** noise keeps them alive at 0.812 after 20,000 steps.
+- **The footprint per memory falls as folding deepens.** The medium never grows; folding spends
+  capacity, as Jesse said.
+- **The next measurement:** how capacity scales with bands (32 → 64 → 128), the capacity law.

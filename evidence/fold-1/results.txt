@@ -1,0 +1,20 @@
+FOLD-1: SCAR-1 run 5's laws, F memories per region (16 regions), stirred, read at drain t 250
+  F 1: region top-1 1.000, set recall 1.000; 16 memories in 422400 bytes = 26400 bytes per memory
+  F 2: region top-1 0.938, set recall 0.996; 32 memories in 422400 bytes = 13200 bytes per memory
+  F 4: region top-1 0.656, set recall 0.730; 64 memories in 422400 bytes = 6600 bytes per memory
+  F 8: region top-1 0.355, set recall 0.502; 128 memories in 422400 bytes = 3300 bytes per memory
+  capacity (largest F with region top-1 >= 0.8): 2
+  growth: 64 bands at F 4: region top-1 0.869 (32 bands 0.656), set recall 0.949
+  folded lifetime: F 2 at t 20000: region top-1 0.812
+
+FAILS  F1 folding has a ceiling (F2 >= 0.9, F4 >= 0.7, F8 < 0.5)
+HOLDS  F2 contents readable at F2 (set recall >= 0.8) and falling with F
+HOLDS  F3 growth: 64 bands lifts F4 by >= 0.1
+HOLDS  F4 footprint per memory halves with each doubling (fixed medium)
+HOLDS  F5 folded memories live (F2 at t20000 >= 0.75)
+
+4 of 5 hold (120 s)
+
+real	1m59.574s
+user	15m46.355s
+sys	0m0.032s

@@ -62,7 +62,11 @@ Started 2026-10-18. Each item is precommitted before it is built, as usual.
     - how many distinct scars one region holds at a given noise level.
   - **Treat no conventional ceiling as given:** the limits are unknown, and this measures them.
 
-- [ ] **FOLD-1, folding data smaller** (Jesse: "can we fold data to make it smaller").
+- [x] **FOLD-1: done** (4 of 5; `docs/FOLD-1-PRECOMMIT.md`).
+  - At 32 bands a region holds 2 memories cleanly (0.938, contents 0.996).
+  - 64 bands lift 4 per region from 0.656 to 0.869. Folded memories live (0.812 at t 20,000).
+  - Next: the capacity law against bands.
+- **FOLD-1, folding data smaller** (Jesse: "can we fold data to make it smaller").
   - Measure each form on the brain's own data (fields, scars, memories), for size against fidelity:
     1. lossless: entropy coding and delta encoding;
     2. quantization (bits matched to need: about 4.7 bits per synapse in real brains);

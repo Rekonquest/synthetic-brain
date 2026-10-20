@@ -85,6 +85,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "fold1"
+version = "0.1.0"
+dependencies = [
+ "spec-bridge",
+ "spec-step",
+ "spec-stir",
+ "spec-trap",
+ "thermo-host",
+]
+
+[[package]]
 name = "gpu-cap-binary128"
 version = "0.1.0"
 dependencies = [
