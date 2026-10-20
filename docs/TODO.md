@@ -65,7 +65,9 @@ Started 2026-10-18. Each item is precommitted before it is built, as usual.
 - [x] **FOLD-1: done** (4 of 5; `docs/FOLD-1-PRECOMMIT.md`).
   - At 32 bands a region holds 2 memories cleanly (0.938, contents 0.996).
   - 64 bands lift 4 per region from 0.656 to 0.869. Folded memories live (0.812 at t 20,000).
-  - Next: the capacity law against bands.
+  - FOLD-2 (the capacity law): sublinear, F* 2, 4, 4 at 32, 64, 128 bands.
+  - FOLD-3 (a containment reading): better at moderate depth (128 bands at F 8: 0.609 → 0.797); capacity is set by band occupancy.
+  - **Next folding levers:** sparser keys, and orthogonal (vector-symbolic) codes.
 - **FOLD-1, folding data smaller** (Jesse: "can we fold data to make it smaller").
   - Measure each form on the brain's own data (fields, scars, memories), for size against fidelity:
     1. lossless: entropy coding and delta encoding;

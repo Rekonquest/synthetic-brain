@@ -1,0 +1,28 @@
+  B  32 F  1: bridge 1.000, containment 1.000
+  B  32 F  2: bridge 0.965, containment 0.953
+  B  32 F  4: bridge 0.666, containment 0.740
+  B  32 F  8: bridge 0.373, containment 0.448
+  B  32 F 16: bridge 0.216, containment 0.169
+  B 32: capacity bridge 2, containment 2
+  B  64 F  1: bridge 1.000, containment 1.000
+  B  64 F  2: bridge 0.980, containment 1.000
+  B  64 F  4: bridge 0.850, containment 0.924
+  B  64 F  8: bridge 0.488, containment 0.615
+  B  64 F 16: bridge 0.286, containment 0.202
+  B 64: capacity bridge 4, containment 4
+  B 128 F  1: bridge 1.000, containment 1.000
+  B 128 F  2: bridge 0.996, containment 1.000
+  B 128 F  4: bridge 0.943, containment 0.988
+  B 128 F  8: bridge 0.609, containment 0.797
+  B 128 F 16: bridge 0.345, containment 0.211
+  B 128: capacity bridge 4, containment 4
+
+FAILS  FX1 containment capacity >= 2x the bridge's at every B
+HOLDS  FX2 containment scales with bands (F*(128) >= 2 F*(32))
+HOLDS  FX3 nothing lost at one per region (F1 containment >= 0.95)
+
+2 of 3 hold (882 s); capacities (bridge, containment) [(2, 2), (4, 4), (4, 4)]
+
+real	14m41.612s
+user	116m32.134s
+sys	0m0.139s
