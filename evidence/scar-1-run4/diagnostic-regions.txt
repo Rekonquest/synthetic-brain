@@ -1,0 +1,16 @@
+region  0 (written 3750 steps before the drain): energy 1.717e0, self-match 0.282
+region  1 (written 3500 steps before the drain): energy 7.761e-1, self-match 0.183
+region  2 (written 3250 steps before the drain): energy 1.751e0, self-match 0.176
+region  3 (written 3000 steps before the drain): energy 3.627e0, self-match 0.139
+region  4 (written 2750 steps before the drain): energy 7.455e-1, self-match 0.409
+region  5 (written 2500 steps before the drain): energy 5.015e-1, self-match 0.206
+region  6 (written 2250 steps before the drain): energy 7.746e-1, self-match 0.168
+region  7 (written 2000 steps before the drain): energy 1.076e0, self-match 0.183
+region  8 (written 1750 steps before the drain): energy 1.718e0, self-match 0.163
+region  9 (written 1500 steps before the drain): energy 7.765e-1, self-match 0.177
+region 10 (written 1250 steps before the drain): energy 1.752e0, self-match 0.417
+region 11 (written 1000 steps before the drain): energy 3.632e0, self-match 0.325
+region 12 (written 750 steps before the drain): energy 3.629e0, self-match 0.464
+region 13 (written 500 steps before the drain): energy 1.110e0, self-match 0.139
+region 14 (written 250 steps before the drain): energy 3.676e0, self-match 0.186
+region 15 (written 0 steps before the drain): energy 1.460e1, self-match 0.987

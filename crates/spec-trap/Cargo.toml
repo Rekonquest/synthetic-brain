@@ -1,0 +1,10 @@
+[package]
+name = "spec-trap"
+description = "SCAR-1 run 4: the trap material's maintain-or-erase, formed by the site's held energy."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+thermo-carve = { path = "../thermo-carve" }

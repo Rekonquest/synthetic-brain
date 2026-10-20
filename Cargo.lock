@@ -329,6 +329,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "scar1r4"
+version = "0.1.0"
+dependencies = [
+ "qb-chaos",
+ "spec-bridge",
+ "spec-step",
+ "spec-stir",
+ "spec-trap",
+ "thermo-host",
+ "thermo-lattice",
+]
+
+[[package]]
 name = "sdr-band-fft"
 version = "0.1.0"
 
@@ -353,6 +366,32 @@ dependencies = [
  "thermo-bath",
  "thermo-host",
  "thermo-lattice",
+]
+
+[[package]]
+name = "spec-bridge"
+version = "0.1.0"
+
+[[package]]
+name = "spec-step"
+version = "0.1.0"
+dependencies = [
+ "thermo-host",
+ "thermo-lattice",
+]
+
+[[package]]
+name = "spec-stir"
+version = "0.1.0"
+dependencies = [
+ "thermo-host",
+]
+
+[[package]]
+name = "spec-trap"
+version = "0.1.0"
+dependencies = [
+ "thermo-carve",
 ]
 
 [[package]]

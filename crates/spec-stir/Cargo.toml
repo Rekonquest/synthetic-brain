@@ -1,0 +1,10 @@
+[package]
+name = "spec-stir"
+description = "SCAR-1 run 4: the noise law as sparse kicks - random sites gain a little energy in one random band."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+thermo-host = { path = "../thermo-host" }

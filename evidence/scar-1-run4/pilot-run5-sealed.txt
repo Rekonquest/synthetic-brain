@@ -1,0 +1,2 @@
+pilot sealed, stirred false: top-1 at drain t 0 / 250 / 2000 = 1.000 / 1.000 / 0.992
+pilot sealed, stirred true: top-1 at drain t 0 / 250 / 2000 = 0.953 / 0.953 / 0.953

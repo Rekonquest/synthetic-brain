@@ -1,0 +1,10 @@
+[package]
+name = "spec-bridge"
+description = "Jesse's spectral bridge (universum-substrate field.rs): 1 - half the L1 distance between normalised spectra."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+

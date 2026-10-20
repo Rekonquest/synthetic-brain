@@ -1,0 +1,11 @@
+[package]
+name = "spec-step"
+description = "SCAR-1 run 4: one step of the band medium - band-blind diffusion gated by trap material, then a material-gated leak."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+thermo-lattice = { path = "../thermo-lattice" }
+thermo-host = { path = "../thermo-host" }

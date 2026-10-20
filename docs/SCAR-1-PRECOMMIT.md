@@ -379,3 +379,56 @@ re-derives the same cue).
   - **Prediction R11:** not kept. A flat noise spectrum dilutes the profiles.
 
 The cold side of hot/cold is R3/R4's quiet arm. CPU only, small, about a minute.
+
+## Run 4: results (2026-10-20, `evidence/scar-1-run4/results.txt`, 81 s)
+
+**4 of 12 hold.** Fresh recall is at chance: stirred 0.094, quiet 0.125. Self-match is 0.19, folding
+0.070, and the rounds are all vacuous at chance.
+
+**Diagnosis** (`diagnostic-regions.txt`; after the run):
+- **The last-written region is perfect** (self-match 0.987, energy 14.6).
+- **Every earlier region has lost its own memory.** Its energy (0.5–3.6) is mostly spillover from
+  later writes, and self-match is 0.14–0.46.
+
+My precommitted physics was too weak in two places:
+1. **Regions were not sealed.** The mobility w_e = 1 − ½(m_i + m_j)τ only slows flow where *both*
+   ends are carved, so the edge from a carved region into its moat kept half its mobility.
+2. **The trap faded.** E_ref 1 sat above the held energy (about 0.9 per site), so formation was weak,
+   and erosion ν 0.002 is far faster than C17's compound-c (5·10⁻⁵).
+
+**The pilot** (`pilot-run5-sealed.txt`; labelled) uses:
+- the **sealed** mobility, w_e = (1 − τm_i)(1 − τm_j), so *either* carved end slows the flow;
+- τ 0.99, E_ref 0.3, ν 5·10⁻⁵ (C17's coupling erosion).
+
+| arm | drain t 0 | t 250 | t 2,000 |
+|---|---|---|---|
+| quiet | 1.000 | 1.000 | 0.992 |
+| stirred | 0.953 | 0.953 | 0.953 |
+
+**The memories hold.** At ν 5·10⁻⁵ the material lives about 20,000 steps, so maintain-or-erase needs
+a much longer drain to show.
+
+## Run 5: PRECOMMITTED (2026-10-20), before the run
+
+Run 5 is run 4 with:
+- the **sealed law** (`spec-step::step_sealed`), τ 0.99, E_ref 0.3, ν 5·10⁻⁵;
+- reads at drain t = 0, 250, 2,000 and **20,000**.
+
+All else is unchanged: the gain, μ_m, the stir, the keys, the seeds and the cues.
+
+**Predictions** (test seeds):
+1. **R1, the control:** ≤ 0.15.
+2. **R2, fresh:** ≥ 0.95.
+3. **R3, maintain-or-erase:** quiet at t 20,000 ≤ fresh − 0.3 (the material's lifetime is about
+   1/ν).
+4. **R4, noise maintains:** stirred at t 20,000 ≥ 0.75, and ≥ quiet + 0.3.
+5. **R5, completion** (3 of 6 bands, t 250): ≥ 0.8.
+6. **R6, noisy cue** (+30% flat): ≥ 0.9.
+7. **R7, folding** (2 per region, t 250):
+   - **(a)** region top-1 ≥ 0.8;
+   - **(b)** self-match falls by ≥ 0.2 from one per region.
+8. **R8, zero extra footprint.**
+9. **Rounds** (dev: stirred t 20,000 top-1, then self-match):
+   - **R9:** write gain × 2 kept;
+   - **R10:** frozen μ chaos not kept;
+   - **R11:** stir × 2 not kept.

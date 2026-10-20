@@ -1,0 +1,16 @@
+[package]
+name = "scar1r4"
+description = "SCAR-1 run 4 orchestrator: C17 rebuilt from scratch - spectra held in regions, recalled by the spectral bridge."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+thermo-lattice = { path = "../thermo-lattice" }
+thermo-host = { path = "../thermo-host" }
+qb-chaos = { path = "../qb-chaos" }
+spec-step = { path = "../spec-step" }
+spec-trap = { path = "../spec-trap" }
+spec-stir = { path = "../spec-stir" }
+spec-bridge = { path = "../spec-bridge" }
