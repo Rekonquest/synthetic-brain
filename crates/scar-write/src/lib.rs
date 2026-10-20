@@ -33,7 +33,12 @@ fn hash_unit(key: u64) -> f64 {
 /// index `t0` (for the noise keys). `f_ref` is the carving's flux reference.
 pub fn run(l: &mut Lattice, k: &mut Carving, holds: &[(usize, f64)], steps: usize, law: &Law, f_ref: f64, seed: u64, t0: usize) {
     let d = l.dims.len();
-    let held = |s: usize| holds.iter().find(|h| h.0 == s).map(|h| h.1);
+    // A dense lookup of the held sites (identical results to a search; faster with many holds).
+    let mut map: Vec<Option<f64>> = vec![None; l.e.len()];
+    for &(s, v) in holds.iter().rev() {
+        map[s] = Some(v); // reversed so the first listed hold wins, as the search did
+    }
+    let held = |s: usize| map[s];
     let hot = law.temperature > 0.0;
     for t in t0..t0 + steps {
         let z = |s: usize, tag: u64| {

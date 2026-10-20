@@ -280,3 +280,32 @@ other region are held at +1 (inhibited).
 - **S2:** P 16 top-1 ≥ 0.9.
 - **S5:** inhibition is the load-bearing change. Run 2 (no inhibition) is the arm against it, and run
   3 must beat it at P 16 by ≥ 0.3.
+
+## Run 3: results (2026-10-20, `evidence/scar-1-run3/results.txt`, 4 min 18 s)
+
+**S2 capacity:** P 1 **0.000**, P 2 0.000, P 4 0.031, P 8 0.031, P 16 0.109. **4 of 11 hold**, and
+it is worse than run 2.
+
+**My inhibition design was wrong.** Holding the other 15 regions at +1 did not make them "not this";
+it made them **sources**:
+- current flowed from all of them into the region being written;
+- that carved region-to-region channels along the output face and starved the key's own route, so
+  even a single memory is lost.
+
+Run 2 had already left the other regions *free* (neutral). **So run 2's merging was not a missing
+inhibition. It comes from the architecture:** every memory shares one input face and one medium, so
+their routes must share one network.
+
+### What Jesse's C17 actually did (CHANGES.md, C17 design and amendment)
+
+- Each memory's key spectrum was **carved inside its own region**, so the scars are local and no
+  network is shared between memories.
+- Recall re-derived the cue and **compared it against each region's carved key** through the
+  *spectral bridge* routing law (`battery.rs`). The top region won.
+- So the tap reads each region's scar, and the bridge does the matching.
+
+**Run 4 should follow that:**
+- local carving per region;
+- recall by matching the cue against what each region's scars hold.
+
+The bridge law's exact form is Jesse's (`battery.rs`), so read it, or ask him, before building.
