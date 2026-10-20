@@ -317,6 +317,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "scar1r2"
+version = "0.1.0"
+dependencies = [
+ "scar-tap",
+ "scar-write",
+ "thermo-bath",
+ "thermo-budget",
+ "thermo-carve",
+ "thermo-lattice",
+]
+
+[[package]]
 name = "sdr-band-fft"
 version = "0.1.0"
 
@@ -355,6 +367,13 @@ name = "thermo-bath-fast"
 version = "0.1.0"
 dependencies = [
  "thermo-bath",
+ "thermo-lattice",
+]
+
+[[package]]
+name = "thermo-budget"
+version = "0.1.0"
+dependencies = [
  "thermo-lattice",
 ]
 

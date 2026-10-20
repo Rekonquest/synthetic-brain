@@ -30,3 +30,34 @@ pub fn recall(dims: &[usize], scars: &Carving, kappa: f64, leak: f64, cells: &[u
     }
     (rank(&l), settled)
 }
+
+/// Region-level recall (SCAR-1 run 2; Jesse's antenna receiver, aggregated by region as in C17).
+/// The cue sites are held at +1; every region site is a cold absorber held at 0; the frozen scars
+/// conduct for `steps`; the score per region is the current its sites absorb through their own edges.
+pub fn recall_regions(dims: &[usize], scars: &Carving, kappa: f64, cue: &[usize], regions: &[Vec<usize>], steps: usize) -> Vec<f64> {
+    let mut l = Lattice::new(dims);
+    let d = dims.len();
+    let mut role = vec![0u8; l.e.len()]; // 1 cue, 2 absorber
+    for &s in cue {
+        role[s] = 1;
+    }
+    for r in regions {
+        for &s in r {
+            role[s] = 2;
+        }
+    }
+    let mut flux = vec![0.0; l.e.len() * d];
+    for _ in 0..steps {
+        damp(&mut l, 0.0, &|s| if role[s] > 0 { 1.0 } else { 0.0 }, &|s| if role[s] == 1 { 1.0 } else { 0.0 }, &|_| 0.0);
+        flux = exchange_edges(&mut l, 0.0, &|s, a| kappa * scars.c[s * d + a], &|_| 0.0, &|_, _| 0.0);
+    }
+    let mut inflow = vec![0.0; l.e.len()];
+    for s in 0..l.e.len() {
+        for a in 0..d {
+            let f = flux[s * d + a];
+            inflow[s] += f;
+            inflow[l.forward(s, a)] -= f;
+        }
+    }
+    regions.iter().map(|r| r.iter().map(|&s| inflow[s]).sum()).collect()
+}

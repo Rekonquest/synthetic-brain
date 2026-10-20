@@ -106,3 +106,11 @@ pub fn write_pairs(l: &mut Lattice, k: &mut Carving, pairs: &[(usize, usize)], e
     }
     t - t0
 }
+
+/// `run`, with a hook called after every carving step (for a composed stack such as a budget).
+pub fn run_with(l: &mut Lattice, k: &mut Carving, holds: &[(usize, f64)], steps: usize, law: &Law, f_ref: f64, seed: u64, t0: usize, after: &dyn Fn(&mut Carving)) {
+    for t in t0..t0 + steps {
+        run(l, k, holds, 1, law, f_ref, seed, t);
+        after(k);
+    }
+}

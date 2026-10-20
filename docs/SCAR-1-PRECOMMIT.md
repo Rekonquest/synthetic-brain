@@ -226,3 +226,15 @@ Jesse left the choice to me. It is built from scratch, stack by stack, carrying 
   - **Prediction S11:** not kept. T3's inverted U puts T 0.005 above cold.
 
 CPU only, 8 threads, a few minutes.
+
+### Run 2, first attempt: VOID (a geometry bug; `evidence/scar-1-run2/results-VOID-periodic-wrap.txt`)
+
+Everything came out at chance (P 1 0.25, P 16 0.094), and the correct region's current was far below
+the others (margin −6.7). The lattice is **periodic**, so the output face at x = 23 is one wrap-step
+from the bands at x = 0:
+- every band sat beside the patch with its own (y, z);
+- carving and recall both went across the wrap, regardless of the memory.
+
+Like T3's run 1, the wiring made the comparison vacuous, so none of its verdicts stand. **The repair:**
+the output face moves to x = 12, halfway round, 12 steps from the bands either way, with f_ref = κ / 12.
+The predictions are unchanged.

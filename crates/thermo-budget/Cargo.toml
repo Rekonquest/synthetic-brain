@@ -1,0 +1,10 @@
+[package]
+name = "thermo-budget"
+description = "Synaptic scaling for the carved medium: each site's incident conductance capped at a budget, so used routes win at the expense of unused ones."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+thermo-lattice = { path = "../thermo-lattice" }
