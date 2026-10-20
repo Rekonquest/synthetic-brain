@@ -309,3 +309,73 @@ their routes must share one network.
 - recall by matching the cue against what each region's scars hold.
 
 The bridge law's exact form is Jesse's (`battery.rs`), so read it, or ask him, before building.
+
+## Run 4: PRECOMMITTED (2026-10-20), before any run-4 code. C17 rebuilt from scratch
+
+Jesse confirmed it ("as long as it works and stays true to the architecture"): a C17 memory is a
+**band spectrum held in its own region**, kept by carved material and the noise law, and recalled by
+matching the cue against each region's spectrum with his **spectral bridge**:
+match = 1 − ½ · L1(a/Σa, b/Σb), from `universum-substrate/src/field.rs`.
+
+### The stack (one function per crate; T5's multi-species medium carries the bands)
+
+**The medium:**
+- 32 band fields (species) on a 3D lattice of 20 × 20 × 4;
+- 16 regions of 4 × 4 × 4, on a 4 × 4 grid at spacing 5, so a one-site **moat** separates regions;
+- moat sites are uncarved, so they are leaky and mobile, and act as absorbers between regions.
+
+**The four new crates:**
+
+| crate | its one job |
+|---|---|
+| `spec-step` | one medium step: band-blind diffusion (T1's exchange) at κ·w_e with w_e = 1 − ½(m_i + m_j)·τ, then a leak e ← e·(1 − δ(1 − τ·m_s)). Carved material **traps**: low mobility and low leak |
+| `spec-trap` | the material's maintain-or-erase: m ← m + μ_m·g(E_s/E_ref)·(1 − m) − ν_m·m, with E_s the site's total band energy and g T3's x^p/(1 + x^p) |
+| `spec-stir` | the noise law as sparse kicks: each step, each site with probability q gains ε in one random band (keyed, deterministic) |
+| `spec-bridge` | Jesse's spectral bridge, as a crate |
+
+**Settings:** κ 0.2, δ 0.01, τ 0.9, μ_m 0.02, ν_m 0.002, E_ref 1, p 3; stir q 0.02, ε 0.05; write
+gain 0.01 per step.
+
+**Keys:** 6 active bands of 32, with random weights, normalised.
+
+**Writing:** memory m's key spectrum, times the gain, is injected at every site of region m for 250
+steps. The memories are written one after another (C17's write protocol), then the medium drains
+with no input.
+- the **stirred** arm runs the noise during the write and the drain;
+- the **quiet** arm has no noise.
+
+**Recall:** each region's spectrum is the sum of its sites' band energies. The cue is matched against
+every region by the bridge, and the top-1 region is the recalled one. *Self-match* is the bridge
+between a region's spectrum and its own key.
+
+**Reads:** at drain t = 0, 250 and 2,000.
+
+**Seeds:** keys from dev 0–3 and test 10–17. The cue is the exact key unless stated otherwise (C17
+re-derives the same cue).
+
+### Predictions (test seeds, P 16, one memory per region)
+
+1. **R1, the control:** with nothing written (stirred), top-1 ≤ 0.15.
+2. **R2, fresh recall:** at drain t = 0, top-1 ≥ 0.95.
+3. **R3, maintain-or-erase:** the quiet arm at t = 2,000 falls at least 0.3 below fresh. (C17's quiet
+   collapse was 3%.)
+4. **R4, noise maintains (C16):** the stirred arm at t = 2,000 is ≥ 0.75, and ≥ 0.3 above quiet.
+5. **R5, completion:** at t = 250 stirred, a cue of 3 of the key's 6 bands gives ≥ 0.8.
+6. **R6, noisy cue:** at t = 250 stirred, the key plus 30% flat noise gives ≥ 0.9.
+7. **R7, folding, 2 memories per region** (32 keys; each region written with two, one after the
+   other):
+   - **(a)** at t = 250 stirred, region-level top-1 (each cue finds its region) ≥ 0.8;
+   - **(b)** the mean self-match falls by ≥ 0.2 from the one-per-region value. A region's spectrum
+     becomes a mixture, as Jesse's law "competitive, not superposable" says.
+8. **R8, zero extra footprint:** the medium's bytes are unchanged by writing.
+
+### Rounds (dev: stirred t = 2,000 top-1, then mean self-match; kept only if better on test; plain wins ties)
+
+- **Amplification:** write gain × 2.
+  - **Prediction R9:** kept. More held energy, and material that saturates sooner.
+- **Chaos:** frozen per-site jitter of μ_m, α 0.3.
+  - **Prediction R10:** not kept.
+- **Heat:** stir × 2 (q 0.04).
+  - **Prediction R11:** not kept. A flat noise spectrum dilutes the profiles.
+
+The cold side of hot/cold is R3/R4's quiet arm. CPU only, small, about a minute.
