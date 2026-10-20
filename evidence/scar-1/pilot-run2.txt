@@ -1,0 +1,21 @@
+seed 10 nu 0.002: recalled 0 of 3; edges > 0.5: 16
+seed 10 nu 0.00002: recalled 1 of 3; edges > 0.5: 12288
+seed 11 nu 0.002: recalled 0 of 3; edges > 0.5: 20
+seed 11 nu 0.00002: recalled 0 of 3; edges > 0.5: 12288
+seed 12 nu 0.002: recalled 0 of 3; edges > 0.5: 26
+seed 12 nu 0.00002: recalled 0 of 3; edges > 0.5: 12288
+seed 13 nu 0.002: recalled 1 of 3; edges > 0.5: 16
+seed 13 nu 0.00002: recalled 0 of 3; edges > 0.5: 12288
+seed 14 nu 0.002: recalled 1 of 3; edges > 0.5: 47
+seed 14 nu 0.00002: recalled 0 of 3; edges > 0.5: 12288
+seed 15 nu 0.002: recalled 0 of 3; edges > 0.5: 5
+seed 15 nu 0.00002: recalled 1 of 3; edges > 0.5: 7921
+seed 16 nu 0.002: recalled 0 of 3; edges > 0.5: 23
+seed 16 nu 0.00002: recalled 0 of 3; edges > 0.5: 12288
+seed 17 nu 0.002: recalled 0 of 3; edges > 0.5: 19
+seed 17 nu 0.00002: recalled 0 of 3; edges > 0.5: 12288
+pilot: T3's nu 2/24, nu/100 2/24
+
+real	1m47.867s
+user	1m47.756s
+sys	0m0.092s

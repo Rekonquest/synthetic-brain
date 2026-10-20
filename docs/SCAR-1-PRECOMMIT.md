@@ -126,3 +126,42 @@ That is double run 1's 0.167. The longer episodes carved *fewer* strong edges (7
 - carve **pair by pair**, as T3 did (one held pair at a time, f_ref = κ / its distance, every pair
   of the assembly, a T3-like duration);
 - **read absorbed current.**
+
+## Pilot for run 2 (2026-10-20; labelled, not a prediction; `evidence/scar-1/pilot-run2.txt`)
+
+**The setup:**
+- one memory per seed, carved pair by pair as a nearest-neighbour ring of 6 threads (1,500 steps
+  each, the T3 way);
+- read by absorbed current;
+- test seeds 10–17.
+
+| erosion ν | recalled | strong edges (c > 0.5) after writing |
+|---|---|---|
+| T3's 0.002 | **2 / 24** | 5–47: only the last thread survives |
+| 0.002 / 100 | **2 / 24** | **all 12,288**: everything saturates |
+
+**The carving law alone cannot store several threads.**
+- **Fast erosion:** an unused scar lives about 1/ν = 500 steps, so each thread erodes while the
+  next is carved.
+- **Slow erosion:** the drive's diffuse flux and the writing heat (T 0.005) maintain *every* edge, so
+  the contrast vanishes.
+- **What is missing is competition**, a budget that makes threads compete.
+
+### Jesse's own solution, found in universum-substrate (CHANGES.md, C17)
+
+Mother's 106 memories were carved and recalled at 100% top-1 through t = 2,000, under three
+conditions SCAR-1 broke:
+1. **One region per memory.** Memory is competitive, so each pattern has its own write position (a
+   text-key → region), not one shared space.
+2. **Compound-c:** strong coupling formation (0.285) with very slow coupling erosion (about 7× slower
+   than the default, 5·10⁻⁵), plus tuned dissipation and radiation and the noise law. This is
+   validated at 120 facts.
+3. **Region-aggregated recall:** cue → route → read the region as a whole, not single sites. The
+   per-site identity there was weak too (46–51%).
+
+**So run 2 should follow his proven design**, not my overlapping-assemblies design:
+- regions keyed per memory;
+- a compound-c-like balance (strong formation, slow erosion, dissipation as the competition);
+- region-level reading.
+
+Folding (more than one memory per region) is then the measured question on top.

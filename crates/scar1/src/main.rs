@@ -68,6 +68,19 @@ fn memories(seed: u64) -> (Vec<usize>, Vec<Vec<usize>>) {
     (pool, assemblies)
 }
 
+/// An assembly reordered as a greedy nearest-neighbour tour from its first member (shorter threads).
+fn tour(a: &[usize]) -> Vec<usize> {
+    let l = Lattice::new(&DIMS);
+    let mut left: Vec<usize> = a[1..].to_vec();
+    let mut out = vec![a[0]];
+    while !left.is_empty() {
+        let last = *out.last().unwrap();
+        let (i, _) = left.iter().enumerate().map(|(i, &c)| (i, dist(&l, last, c))).fold((0, f64::MAX), |b, x| if x.1 < b.1 { x } else { b });
+        out.push(left.remove(i));
+    }
+    out
+}
+
 /// (fidelity, settle step) of recalling `a` from its first `cue` members.
 fn fidelity(k: &Carving, pool: &[usize], a: &[usize], cue: usize) -> (f64, usize) {
     let (ranked, settled) = scar_tap::recall(&DIMS, k, PLAIN.kappa, LEAK, pool, &a[..cue], M - cue, RECALL_STEPS);
@@ -200,6 +213,27 @@ fn absorbed(k: &Carving, pool: &[usize], cue: &[usize], steps: usize) -> Vec<(us
 }
 
 fn main() {
+    if std::env::var_os("SCAR_PILOT").is_some() {
+        // Pilot for run 2 (labelled; not a prediction): one memory per seed, carved as a nearest-
+        // neighbour ring of 6 pair threads (1500 steps each), read by absorbed current, at T3's ν and
+        // a 100x slower ν.
+        let mut tot = [0usize; 2];
+        for sd in 10..18u64 {
+            let (pool, asm) = memories(sd);
+            let a = tour(&asm[0]);
+            let pairs: Vec<(usize, usize)> = (0..M).map(|i| (a[i], a[(i + 1) % M])).collect();
+            for (i, nu) in [PLAIN.nu, PLAIN.nu / 100.0].iter().enumerate() {
+                let mut l = Lattice::new(&DIMS);
+                let mut k = Carving::uniform(l.e.len() * 3, C0);
+                scar_write::write_pairs(&mut l, &mut k, &pairs, 1500, &Law { nu: *nu, ..PLAIN }, sd, 0);
+                let h = absorbed(&k, &pool, &a[..3], RECALL_STEPS)[..3].iter().filter(|x| a.contains(&x.0)).count();
+                tot[i] += h;
+                println!("seed {sd} nu {nu}: recalled {h} of 3; edges > 0.5: {}", k.c.iter().filter(|&&v| v > 0.5).count());
+            }
+        }
+        println!("pilot: T3's nu {}/24, nu/100 {}/24", tot[0], tot[1]);
+        return;
+    }
     if std::env::var_os("SCAR_ABSORB").is_some() {
         // (c) ideal ring on an eroded background (c_min), (d) the run-1 writing, (e) 3x longer episodes.
         let seed = 10;

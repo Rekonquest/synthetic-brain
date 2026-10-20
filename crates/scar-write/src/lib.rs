@@ -82,3 +82,27 @@ pub fn write(l: &mut Lattice, k: &mut Carving, assemblies: &[Vec<usize>], rounds
     }
     t
 }
+
+/// Carve the given cell pairs one at a time, as T3 carved one thread: `a` held at +1 and `b` at −1
+/// for `episode` steps, f_ref = κ / their distance, the field reset at each episode. The pairs are
+/// carved in the order given (the caller interleaves memories). Returns the steps used.
+pub fn write_pairs(l: &mut Lattice, k: &mut Carving, pairs: &[(usize, usize)], episode: usize, law: &Law, seed: u64, t0: usize) -> usize {
+    let geo = Lattice::new(&l.dims.clone());
+    let dist = |a: usize, b: usize| -> f64 {
+        (0..geo.dims.len())
+            .map(|ax| {
+                let d = geo.coord(a, ax).abs_diff(geo.coord(b, ax));
+                d.min(geo.dims[ax] - d) as f64
+            })
+            .sum()
+    };
+    let mut t = t0;
+    for &(a, b) in pairs {
+        for x in l.e.iter_mut() {
+            *x = 0.0;
+        }
+        run(l, k, &[(a, 1.0), (b, -1.0)], episode, law, law.kappa / dist(a, b), seed, t);
+        t += episode;
+    }
+    t - t0
+}
