@@ -165,3 +165,64 @@ conditions SCAR-1 broke:
 - region-level reading.
 
 Folding (more than one memory per region) is then the measured question on top.
+
+## Run 2: PRECOMMITTED (2026-10-20), before any run-2 code. Jesse's C17 design, from scratch
+
+Jesse left the choice to me. It is built from scratch, stack by stack, carrying his proven laws:
+- one region per memory;
+- a compound-c-like balance;
+- region-level recall.
+
+**The medium:** 3D, 24 × 16 × 16, κ 0.3, c₀ 0.2, c_min 0.05.
+- **Keys:** the input face x = 0 has 256 *bands* (sites). A memory's key is 16 random bands.
+- **Regions:** the output face x = 23 is split into 16 patches of 4 × 4. Memory m is written to
+  patch m, so each memory has its own region.
+
+**Writing (`scar-write`, unchanged):**
+- one episode holds the key's bands at +1 and its patch's 16 sites at −1 (γ 1), for 300 steps while
+  carving;
+- 4 rounds, with the memories interleaved round-robin (rehearsal);
+- f_ref = κ / 23.
+
+**The balance (compound-c-like):**
+- formation μ 0.05, with erosion ν 2·10⁻⁴: 250× slower than formation, against T3's 10×;
+- **the new stack `thermo-budget`** (synaptic scaling, borrowed from neuroscience): after each
+  carving step, each site's total incident conductance is capped at a budget B (1.5 = 1.25 × 6c₀) by
+  scaling its edges (each edge takes the smaller of its two ends' factors, clamped at c_min). Used
+  routes then grow at the expense of unused ones. This is the competition the pilot lacked;
+- T3's other kept settings: p 3, frozen chaos 0.3, writing heat T 0.005.
+
+**Recall (`scar-tap`, the new absorbed-current reading):**
+- the cue's bands are held at +1;
+- every patch site is a cold absorber (held at 0);
+- after 300 steps, each patch's absorbed current is summed (region-level reading);
+- **the recalled memory** is the patch with the most current (top-1).
+
+**The measure:** top-1 accuracy over the stored memories. Chance is 1/16.
+
+**Seeds:** keys from dev 0–3 and test 10–17. **The cue**, unless stated otherwise, is half the key
+(8 of 16 bands).
+
+### Predictions (test seeds)
+
+1. **S1, the control:** in the uncarved medium, top-1 ≤ 0.15.
+2. **S2, capacity, one per region:** P ∈ {1, 2, 4, 8, 16}; top-1 ≥ 0.9 at **P 16** (every region
+   used). The curve is reported.
+3. **S3, completion:** at P 16, a cue of 4 of 16 bands gives top-1 ≥ 0.6.
+4. **S4, noisy cue:** at P 16, half the key plus 8 random non-key bands gives top-1 ≥ 0.8.
+5. **S5, the budget is load-bearing:** with `thermo-budget` off, the P-16 top-1 falls by ≥ 0.2 (no
+   competition: saturation, as in the pilot).
+6. **S6, fading:** P 16, then 10,000 idle steps at T 0 (erosion e^{−2}). Top-1 falls below 0.5.
+7. **S7, noise keeps them alive:** the same idle at T 0.005. Top-1 ends ≥ 0.2 above the T-0 idle.
+8. **S8, zero extra footprint:** the medium's bytes are unchanged by writing.
+
+### Rounds (dev: the P-16 top-1, then the mean absorbed-current margin; kept only if better on test; plain wins ties)
+
+- **Amplification off (p 1):**
+  - **Prediction S9:** not kept.
+- **Chaos off:**
+  - **Prediction S10:** not kept.
+- **Cold writing (T 0):**
+  - **Prediction S11:** not kept. T3's inverted U puts T 0.005 above cold.
+
+CPU only, 8 threads, a few minutes.
