@@ -201,3 +201,16 @@ give you more to choose from, not to replace yours.
   - lossless compression cannot go below the entropy;
   - superposition holds about as many items as the vector's size allows before they interfere (your
     "memory is competitive").
+
+### 23. The brain as the front door (what may enter, what may leave)
+- **The field's words:**
+  - a *reference monitor*: one judge that every crossing must pass, and that cannot be bypassed;
+  - *artificial immune systems* (Stephanie Forrest, 1994): security as telling self from non-self,
+    close to your scars of normal;
+  - *data loss prevention* (DLP): control of what leaves;
+  - *intrusion detection and prevention* (IDS/IPS): sensing and stopping what enters;
+  - *covert channels*: data leaking through timing or heat instead of packets;
+  - in biology, the *blood–brain barrier*: a boundary organ that decides what may cross.
+- **Immutable, in the field's words:** that is *integrity* (no one can change it). The other two
+  classic goals are *confidentiality* (no one can read it) and *availability* (it keeps working):
+  the *CIA triad*.
