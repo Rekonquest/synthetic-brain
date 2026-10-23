@@ -1,0 +1,20 @@
+FOLD-4: 32 bands, fixed medium 422400 bytes, SCAR-1 run 5's laws; test seeds 10-17, read at drain t 250
+
+Lever 2, the shape code (8 sites x 6 bands of the region's 64 x 32 cells), and the plain code at F 16, 32:
+  Shape F  1: contain 1.000, bridge 1.000, set 1.000; oldest half 1.000, newest half 1.000; 16 memories, 26400 bytes each
+  Shape F  2: contain 1.000, bridge 1.000, set 1.000; oldest half 1.000, newest half 1.000; 32 memories, 13200 bytes each
+  Shape F  4: contain 0.998, bridge 0.986, set 1.000; oldest half 1.000, newest half 0.996; 64 memories, 6600 bytes each
+  Shape F  8: contain 0.765, bridge 0.699, set 0.931; oldest half 0.828, newest half 0.701; 128 memories, 3300 bytes each
+  Shape F 16: contain 0.334, bridge 0.390, set 0.497; oldest half 0.060, newest half 0.609; 256 memories, 1650 bytes each
+  Shape F 32: contain 0.152, bridge 0.225, set 0.252; oldest half 0.049, newest half 0.255; 512 memories, 825 bytes each
+  Plain(6) F 16: contain 0.169, bridge 0.216, set 0.242; oldest half 0.149, newest half 0.189; 256 memories, 1650 bytes each
+  Plain(6) F 32: contain 0.090, bridge 0.127, set 0.121; oldest half 0.056, newest half 0.124; 512 memories, 825 bytes each
+  shape capacity: 4 per region (64 memories, 6600 bytes each)
+  P6 deepest failing F: Some(32), oldest/newest Some((0.04931640625, 0.25537109375))
+
+FAILS  P3 shape capacity >= 16 per region
+HOLDS  P4 shape at F4 >= 0.95
+FAILS  P5 shape set recall >= 0.8 at F16
+HOLDS  P6 the shape's limit is spread: oldest half worse at the deepest failing F
+
+2 of 4 hold (481 s)

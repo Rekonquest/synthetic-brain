@@ -82,3 +82,91 @@ bytes per memory) and FOLD-4's best. If Q1 holds, the phase store holds about 30
 - a read costs D complex products per region, against 32 numbers.
 
 CPU only, a few minutes.
+
+## Results (2026-10-23; `evidence/fold-5/grid.txt`, `heat.txt`, `rounds.txt`; about 5 min on 8 threads)
+
+**Region top-1 at drain t 250 (set recall in brackets), the same 422,400 bytes:**
+
+| memories per region (F) | memories | bytes each | phase store | classical comparator |
+|---|---|---|---|---|
+| 16 | 256 | 1,650 | 1.000 (1.000) | 1.000 (1.000) |
+| 64 | 1,024 | 412 | 1.000 (0.999) | 1.000 (1.000) |
+| 128 | 2,048 | 206 | 0.993 (0.961) | 0.996 (0.973) |
+| **256** | **4,096** | **103** | **0.866** (0.793) | **0.931** (0.861) |
+| 512 | 8,192 | 51 | 0.574 (0.536) | 0.730 (0.665) |
+
+**Lifetime and heat (phase store, F 256):**
+
+| heat ε × | t 250 | t 20,000 |
+|---|---|---|
+| 0 | 0.870 | 0.870 |
+| 0.5 | 0.869 | 0.868 |
+| 1 (plain) | 0.866 | 0.867 |
+| 2 | 0.857 | 0.857 |
+| 4 | 0.826 | 0.824 |
+
+**Rounds (phase store, F 256; dev, then test):** gain × 2 gives test 0.869 (+0.002); chaos gives test
+0.867 (+0.001). Both pass the strict rule on dev and test, but both are selection-luck size.
+
+| # | Result |
+|---|---|
+| Q1 phase capacity 64–256 | MEASURED: **256 per region** (0.866), 4,096 memories at 103 bytes each |
+| Q2 the classical comparator ties (±0.05) | **FAILED: the classical store is better at depth** (0.931 against 0.866 at F 256; 0.730 against 0.574 at F 512) |
+| Q3 no maintenance needed | MEASURED: t 20,000 equals t 250 (0.867 / 0.866) |
+| Q4 heat: no inverted U | MEASURED: heat only costs (0.870 cold → 0.826 at × 4) |
+| Q5 amplification a tie | MEASURED: +0.002 |
+| Q6 chaos ≤ 0.01 | MEASURED: +0.001 |
+
+**5 of 6 hold.**
+
+### What it settles
+
+- **Outside the thermal state, folding goes about 64× deeper per byte.**
+  - The thermal medium's best is the shape code at 4 per region: 64 memories, 6,600 bytes each
+    (FOLD-4).
+  - The phase store holds 256 per region: 4,096 memories, **103 bytes each**, at 0.866.
+  - The square-root law held: √(D/F) is about 2.5 at F 256, where the region is still found, and
+    1.8 at F 512, where it is not.
+- **Folded memories there need nothing to stay alive.** There is no leak, so 20,000 steps change
+  nothing, and heat only costs.
+  - This is the opposite of the thermal medium, where noise is what keeps the scars (SCAR-1).
+  - It is the edge-of-chaos record again: noise maintains only where there is an activity-gated
+    coupling, and this store has none.
+- **Amplification and chaos do nothing here** (+0.002, +0.001). Crosstalk sets the limit, and both
+  scale with it.
+- **Q2's miss (a diagnosis after the run, not a prediction):** the phase store's reading takes the
+  *magnitude* |⟨c, a⟩|, so it throws the phase away.
+  - Every wrong region's crosstalk then counts in both of its components (re and im), while the
+    classical correlation counts one signed component.
+  - Each memory was written with the key's own phase, so its overlap lands on the real axis. A
+    phase-locked reading (Re⟨c, a⟩) should close the gap. That is the next check.
+
+### The diagnosis tested (after the run, not a prediction; `diagnostic-phaselock.txt`)
+
+A new function crate, `qb-overlap-phase`, gives the phase-locked reading Re⟨c, a⟩/(‖c‖‖a‖). It is
+the same store, same seeds and same states; only the reading changes.
+
+| F | magnitude reading | **phase-locked reading** | classical comparator |
+|---|---|---|---|
+| 128 | 0.993 | **0.998** | 0.996 |
+| 256 | 0.866 | **0.947** | 0.931 |
+| 512 | 0.574 | **0.758** | 0.730 |
+
+- **Confirmed:** the magnitude reading threw the phase away. Read in phase, the phase store is the
+  best store at every depth, slightly above the classical comparator.
+  - Its edge over the classical store is small (+0.016 at F 256), so the ±0.05 tie of Q2 holds
+    *with the right reading*.
+  - The gain over the thermal medium is still mostly the dimensions read with signed interference.
+- **Best outside the thermal state:** 256 per region at 0.947, which is 4,096 memories in 422,400
+  bytes at 103 bytes each. That is 64× more per byte than the thermal medium's best for lasting
+  memories (6,600 bytes), and 32× more than its best fresh (3,300 bytes).
+
+### What these memories are (a caution, 2026-10-23)
+
+Recall here answers "which of 16 regions holds this key?": about 4 bits per memory, with the key
+itself as the cue. So FOLD-1 to 5 measure **capacity** (patterns recognised before they blur), not
+data compression. A plain index of the same 4,096 answers takes about 2 KB.
+
+Whether folding saves *data* needs content stored in the fold: key → value binding, the value
+recalled, and the bits recalled per byte measured against the raw and compressed size. That is
+proposed as FOLD-6.

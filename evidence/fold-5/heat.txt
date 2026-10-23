@@ -1,0 +1,17 @@
+FOLD-5: outside the thermal state, 422400 bytes (phase: 16 x 1650 complex; classical: 16 x 3300 reals); test seeds 10-17
+
+Lifetime and heat, phase store at F 256 (t 250, t 20000):
+  eps x 0: t 250 top-1 0.870 (set 0.795); t 20000 top-1 0.870 (set 0.795)
+  eps x 0.5: t 250 top-1 0.869 (set 0.795); t 20000 top-1 0.868 (set 0.795)
+  eps x 1: t 250 top-1 0.866 (set 0.793); t 20000 top-1 0.867 (set 0.793)
+  eps x 2: t 250 top-1 0.857 (set 0.786); t 20000 top-1 0.857 (set 0.785)
+  eps x 4: t 250 top-1 0.826 (set 0.755); t 20000 top-1 0.824 (set 0.753)
+
+HOLDS  Q3 no maintenance needed: t 20000 within 0.02 of t 250
+HOLDS  Q4 heat: no inverted U (never rises with heat), x4 costs <= 0.05
+
+2 of 2 hold (71 s)
+
+real	1m10.961s
+user	9m19.239s
+sys	0m0.657s

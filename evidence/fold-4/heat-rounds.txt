@@ -1,0 +1,25 @@
+FOLD-4: 32 bands, fixed medium 422400 bytes, SCAR-1 run 5's laws; test seeds 10-17, read at drain t 250
+
+Lever 3, hot/cold (stir rate q) on Shape at F 4, read at t 250 and t 20000:
+  q 0.0000: t 250 contain 0.996 (set 0.998); t 20000 contain 0.758 (set 0.834)
+  q 0.0025: t 250 contain 0.998 (set 1.000); t 20000 contain 0.762 (set 0.879)
+  q 0.0050: t 250 contain 1.000 (set 1.000); t 20000 contain 0.711 (set 0.838)
+  q 0.0100: t 250 contain 1.000 (set 1.000); t 20000 contain 0.684 (set 0.781)
+  q 0.0200: t 250 contain 0.998 (set 1.000); t 20000 contain 0.578 (set 0.695)
+  q 0.0400: t 250 contain 0.996 (set 1.000); t 20000 contain 0.459 (set 0.592)
+  kept q: 0.0025 (best at t 20000: q 0.0025)
+
+Rounds on Shape F 4 q 0.0025 (dev seeds 0-3, t 20000 then t 250; kept only if better on test; plain wins ties):
+  plain: t 250 1.000, t 20000 0.773
+  amplification: gain x 2: t 250 1.000, t 20000 0.965 (beats plain on dev)
+  chaos: write gain x (1 + 0.3 (u - 1/2)) per step and site: t 250 1.000, t 20000 0.773
+  test plain: t 250 0.998, t 20000 0.762
+  test amplification: gain x 2: t 250 1.000, t 20000 0.914
+  kept: amplification true, chaos false
+
+FAILS  P7 colder is better fresh (t 250 does not fall from q 0.04 to 0.0025)
+FAILS  P8 inverted U at t 20000: quiet collapses, best q 0.005 or 0.01
+FAILS  P9 amplification not kept (it substitutes for cooling)
+HOLDS  P10 chaos not kept
+
+1 of 4 hold (363 s)

@@ -1,0 +1,15 @@
+FOLD-5: outside the thermal state, 422400 bytes (phase: 16 x 1650 complex; classical: 16 x 3300 reals); test seeds 10-17
+
+Rounds, phase store at F 256 (dev seeds 0-3, then test; t 250 top-1, then set recall; plain wins ties):
+  plain: dev 0.864 (set 0.793), test 0.866 (set 0.793)
+  amplification: gain x 2: dev 0.867 (set 0.795), test 0.869 (set 0.795); kept true
+  chaos: 3 variants per write, alpha 0.1, readback selects: dev 0.866 (set 0.793), test 0.867 (set 0.794); kept true
+
+HOLDS  Q5 amplification a tie (test change +0.002, |.| <= 0.01)
+HOLDS  Q6 chaos not kept or <= 0.01 (test change +0.001)
+
+2 of 2 hold (94 s)
+
+real	1m34.011s
+user	11m0.883s
+sys	0m0.621s

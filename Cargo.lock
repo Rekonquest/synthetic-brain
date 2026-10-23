@@ -97,6 +97,30 @@ dependencies = [
 ]
 
 [[package]]
+name = "fold4"
+version = "0.1.0"
+dependencies = [
+ "qb-chaos",
+ "spec-bridge",
+ "spec-contain",
+ "spec-step",
+ "spec-stir",
+ "spec-trap",
+ "thermo-host",
+]
+
+[[package]]
+name = "fold5"
+version = "0.1.0"
+dependencies = [
+ "qb-amplitude",
+ "qb-chaos",
+ "qb-overlap",
+ "qb-overlap-phase",
+ "spec-correlate",
+]
+
+[[package]]
 name = "gpu-cap-binary128"
 version = "0.1.0"
 dependencies = [
@@ -207,6 +231,20 @@ version = "0.1.0"
 [[package]]
 name = "qb-classical"
 version = "0.1.0"
+
+[[package]]
+name = "qb-overlap"
+version = "0.1.0"
+dependencies = [
+ "qb-amplitude",
+]
+
+[[package]]
+name = "qb-overlap-phase"
+version = "0.1.0"
+dependencies = [
+ "qb-amplitude",
+]
 
 [[package]]
 name = "qb-task"
@@ -386,6 +424,10 @@ version = "0.1.0"
 
 [[package]]
 name = "spec-contain"
+version = "0.1.0"
+
+[[package]]
+name = "spec-correlate"
 version = "0.1.0"
 
 [[package]]

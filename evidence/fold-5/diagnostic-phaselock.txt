@@ -1,0 +1,9 @@
+FOLD-5: outside the thermal state, 422400 bytes (phase: 16 x 1650 complex; classical: 16 x 3300 reals); test seeds 10-17
+
+Diagnosis after the run (not a prediction): the phase-locked reading Re<c, a> against the magnitude |<c, a>|, t 250:
+  F 128: magnitude 0.993 (set 0.961), phase-locked 0.998 (set 0.981), classical 0.996 (set 0.973)
+  F 256: magnitude 0.866 (set 0.793), phase-locked 0.947 (set 0.881), classical 0.931 (set 0.861)
+  F 512: magnitude 0.574 (set 0.536), phase-locked 0.758 (set 0.687), classical 0.730 (set 0.665)
+
+
+0 of 0 hold (168 s)

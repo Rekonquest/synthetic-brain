@@ -1,0 +1,9 @@
+[package]
+name = "spec-correlate"
+description = "The centred correlation (Pearson) of two real profiles (FOLD-5's classical comparator reading)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]

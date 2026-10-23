@@ -1,0 +1,16 @@
+[package]
+name = "fold4"
+description = "FOLD-4 orchestrator: the best folding in the thermal state at a fixed medium - key sparsity, the shape code, hot/cold, amplification and chaos rounds (SCAR-1 run 5's laws)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+thermo-host = { path = "../thermo-host" }
+spec-step = { path = "../spec-step" }
+spec-trap = { path = "../spec-trap" }
+spec-stir = { path = "../spec-stir" }
+spec-bridge = { path = "../spec-bridge" }
+spec-contain = { path = "../spec-contain" }
+qb-chaos = { path = "../qb-chaos" }

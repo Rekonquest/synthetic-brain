@@ -1,0 +1,9 @@
+FOLD-4: 32 bands, fixed medium 422400 bytes, SCAR-1 run 5's laws; test seeds 10-17, read at drain t 250
+
+Added after the precommitted rounds (not a prediction): the kept setup (shape, q 0.0025, gain x 2) against the shape at plain settings, by depth, t 250 and t 20000:
+  F  4 (64 memories, 6600 bytes each): plain 0.998 / 0.578; kept 1.000 / 0.914 (set 1.000 / 0.979; oldest half 1.000, newest 1.000)
+  F  8 (128 memories, 3300 bytes each): plain 0.765 / 0.302; kept 0.948 / 0.501 (set 0.993 / 0.670; oldest half 0.973, newest 0.924)
+  F 16 (256 memories, 1650 bytes each): plain 0.334 / 0.168; kept 0.487 / 0.253 (set 0.635 / 0.351; oldest half 0.146, newest 0.828)
+
+
+0 of 0 hold (350 s)

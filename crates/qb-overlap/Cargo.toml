@@ -1,0 +1,10 @@
+[package]
+name = "qb-overlap"
+description = "The interference reading: |<cue, state>| / (|cue| |state|) over complex amplitudes (FOLD-5)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+qb-amplitude = { path = "../qb-amplitude" }

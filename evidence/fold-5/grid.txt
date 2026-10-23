@@ -1,0 +1,23 @@
+FOLD-5: outside the thermal state, 422400 bytes (phase: 16 x 1650 complex; classical: 16 x 3300 reals); test seeds 10-17
+
+The grid, read at drain t 250 (region top-1, set recall):
+  Phase F   1: top-1 1.000, set 1.000; 16 memories, 26400 bytes each
+  Phase F   4: top-1 1.000, set 1.000; 64 memories, 6600 bytes each
+  Phase F  16: top-1 1.000, set 1.000; 256 memories, 1650 bytes each
+  Phase F  64: top-1 1.000, set 0.999; 1024 memories, 412 bytes each
+  Phase F 128: top-1 0.993, set 0.961; 2048 memories, 206 bytes each
+  Phase F 256: top-1 0.866, set 0.793; 4096 memories, 103 bytes each
+  Phase F 512: top-1 0.574, set 0.536; 8192 memories, 51 bytes each
+  Classical F   1: top-1 1.000, set 1.000; 16 memories, 26400 bytes each
+  Classical F   4: top-1 1.000, set 1.000; 64 memories, 6600 bytes each
+  Classical F  16: top-1 1.000, set 1.000; 256 memories, 1650 bytes each
+  Classical F  64: top-1 1.000, set 1.000; 1024 memories, 412 bytes each
+  Classical F 128: top-1 0.996, set 0.973; 2048 memories, 206 bytes each
+  Classical F 256: top-1 0.931, set 0.861; 4096 memories, 103 bytes each
+  Classical F 512: top-1 0.730, set 0.665; 8192 memories, 51 bytes each
+  capacity: phase 256 per region (4096 memories, 103 bytes each); classical 256
+
+HOLDS  Q1 phase capacity >= 64 and <= 256 per region
+FAILS  Q2 the classical comparator ties within 0.05 at every F (largest gap 0.156)
+
+1 of 2 hold (124 s)

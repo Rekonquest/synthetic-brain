@@ -68,6 +68,15 @@ Started 2026-10-18. Each item is precommitted before it is built, as usual.
   - FOLD-2 (the capacity law): sublinear, F* 2, 4, 4 at 32, 64, 128 bands.
   - FOLD-3 (a containment reading): better at moderate depth (128 bands at F 8: 0.609 → 0.797); capacity is set by band occupancy.
   - **Next folding levers:** sparser keys, and orthogonal (vector-symbolic) codes.
+- [x] **FOLD-4: done** (4 of 10; `docs/FOLD-4-PRECOMMIT.md`). The best in the thermal state at a fixed 422 KB:
+  - the shape code (8 sites × 6 bands) with cooling (q 0.0025) and gain × 2;
+  - 128 memories fresh at 0.948 (3,300 bytes each), or 64 lasting at 0.914 after 20,000 steps.
+  - Sparsity and chaos are not levers. Depth is now limited by age.
+- [x] **FOLD-5: done** (5 of 6; `docs/FOLD-5-PRECOMMIT.md`). Outside the thermal state (the quantum base):
+  - 256 per region, so 4,096 memories at 103 bytes each, at 0.947 with the phase-locked reading;
+  - no maintenance needed, and heat only costs.
+- [ ] **FOLD-6, does folding save data?** Store key → value content in the fold, recall the values,
+  and measure the bits recalled per byte against raw and compressed size.
 - **FOLD-1, folding data smaller** (Jesse: "can we fold data to make it smaller").
   - Measure each form on the brain's own data (fields, scars, memories), for size against fidelity:
     1. lossless: entropy coding and delta encoding;
