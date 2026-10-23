@@ -204,7 +204,34 @@ fn fold2() {
     println!("\n{} of {} hold ({:.0} s); capacities {caps:?}", v.iter().filter(|x| x.1).count(), v.len(), t0.elapsed().as_secs_f64());
 }
 
+/// A diagnostic after FOLD-3 (2026-10-23, not a prediction): containment top-1 by write order. The
+/// regions are written one after another (16·F·250 steps in all), so at depth F the first region is
+/// read about 16·F·250 steps after its writing began. Is the folding ceiling partly age?
+fn fold_age() {
+    let test: Vec<u64> = (10..18).collect();
+    println!("FOLD-3 age diagnostic: 32 bands, containment top-1 per region (write order 0 = oldest), test seeds 10-17");
+    for &f in &[2usize, 4, 8] {
+        let v = parallel(&test, |sd| {
+            let ks = keys(sd ^ 0xF02, 16 * f, 32);
+            let (snaps, _) = simulate(32, f, &ks, &[250], sd);
+            let sp = &snaps[0];
+            let hit: Vec<bool> = (0..ks.len()).map(|i| (0..16).max_by(|&a, &b| spec_contain::containment(&ks[i], &sp[a]).partial_cmp(&spec_contain::containment(&ks[i], &sp[b])).unwrap()).unwrap() == i / f).collect();
+            let energy: Vec<f64> = sp.iter().map(|r| r.iter().sum()).collect();
+            (hit, energy)
+        });
+        let per: Vec<f64> = (0..16).map(|r| v.iter().map(|(h, _)| h[r * f..(r + 1) * f].iter().filter(|x| **x).count() as f64 / f as f64).sum::<f64>() / 8.0).collect();
+        let en: Vec<f64> = (0..16).map(|r| v.iter().map(|(_, e)| e[r]).sum::<f64>() / 8.0).collect();
+        let half = |a: &[f64]| (a[..8].iter().sum::<f64>() / 8.0, a[8..].iter().sum::<f64>() / 8.0);
+        println!("  F {f}: top-1 by region {per:.2?}");
+        println!("        energy by region {en:.1?}");
+        println!("        oldest half {:.3}, newest half {:.3}", half(&per).0, half(&per).1);
+    }
+}
+
 fn main() {
+    if std::env::var_os("FOLDAGE").is_some() {
+        return fold_age();
+    }
     if std::env::var_os("FOLD3").is_some() {
         return fold3();
     }

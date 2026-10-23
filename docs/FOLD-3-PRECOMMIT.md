@@ -70,5 +70,20 @@ before it produced anything. The predictions are unchanged.
   - growth (more bands, measured: 32 → 64 doubles capacity);
   - sparser keys (fewer active bands per memory);
   - orthogonal codes (vector-symbolic binding), the next FOLD experiment.
-- **Measured so far:** 4 memories per region, 64 in a 422 KB medium, at ≥ 0.85 recall (64 or 128
-  bands). Footprint per memory: about 6.6 KB.
+- **Measured so far:** 4 memories per region at ≥ 0.85 recall needs 64 or 128 bands, and **more bands
+  are a bigger medium**: each band is one more field over all 1,600 sites (plus one material field), so
+  the medium is 1,600 × (B + 1) × 8 bytes.
+
+  | bands | medium | 4 per region (bridge / containment) | bytes per memory |
+  |---|---|---|---|
+  | 32 | 422,400 | 0.666 / 0.740 | 6,600 |
+  | 64 | 832,000 | 0.850 / 0.924 | 13,000 |
+  | 128 | 1,651,200 | 0.943 / 0.988 | 25,800 |
+
+  Per byte, 64 bands at 4 per region (13.0 KB per memory) is no better than 32 bands at 2 per region
+  (13.2 KB per memory, 0.965 / 0.953). **Growth raises the memories per region, not the memories per
+  byte.** Folding at a fixed medium is the lever that costs no space.
+
+  *Corrected 2026-10-23: this line first read "64 in a 422 KB medium, at ≥ 0.85 recall (64 or 128
+  bands), about 6.6 KB per memory". 422,400 bytes is the 32-band medium, where 4 per region reads only
+  0.666 / 0.740.*
