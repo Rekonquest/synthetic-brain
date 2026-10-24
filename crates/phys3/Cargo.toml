@@ -9,3 +9,4 @@ publish.workspace = true
 [dependencies]
 xy-relax = { path = "../xy-relax" }
 winding = { path = "../winding" }
+qb-chaos = { path = "../qb-chaos" }

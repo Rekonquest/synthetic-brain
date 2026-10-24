@@ -11,3 +11,4 @@ qb-amplitude = { path = "../qb-amplitude" }
 qb-bind = { path = "../qb-bind" }
 qb-overlap-phase = { path = "../qb-overlap-phase" }
 qb-wilson = { path = "../qb-wilson" }
+qb-chaos = { path = "../qb-chaos" }

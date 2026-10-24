@@ -1,0 +1,18 @@
+PHYS-1: the quantum Zeno effect (16 options, ring_mix 0.01, T 200, 4000 trials per arm)
+  attention every 200 steps: quantum survival 0.158, classical twin 0.963
+  attention every  20 steps: quantum survival 0.453, classical twin 0.965
+  attention every  10 steps: quantum survival 0.666, classical twin 0.959
+  attention every   5 steps: quantum survival 0.818, classical twin 0.961
+  attention every   2 steps: quantum survival 0.921, classical twin 0.963
+  attention every   1 steps: quantum survival 0.960, classical twin 0.960
+  chaos on the attention interval (k 10): dev plain 0.661, best variant 2 (0.663); test plain 0.660, chaos 0.659; kept false
+  amplification (Born power 4, k 10): dev 0.667 -> 0.998; test 0.673 -> 0.996; kept true
+  D1 Zeno blockade (ring_mix 0.3, attention on option 4 every step): reach 6..=10 quantum 0.185 -> 0.074 (drop 60%), classical 0.296 -> 0.117 (drop 61%)
+
+FAILS  D1 Zeno blockade: quantum drop >= 50% (60%), classical <= 10% (61%)
+HOLDS  Z1 quantum survival rises with attention, <= 0.25 at k 200 (0.158) to >= 0.95 at k 1 (0.960)
+HOLDS  Z2 classical survival varies <= 0.03 across k (spread 0.006)
+HOLDS  C1 chaos not kept
+HOLDS  A1 amplification (Born power 4) kept
+
+4 of 5 hold (0.9 s)

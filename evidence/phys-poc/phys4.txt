@@ -1,0 +1,15 @@
+PHYS-4: a closed string (L 128, c2 1, lossless, dt 0.5), 32 bits per string, T 10000; test seeds 10-17
+  sigma 0.000: mode memory 1.000, position memory 0.580
+  sigma 0.001: mode memory 1.000, position memory 0.506
+  sigma 0.010: mode memory 0.980, position memory 0.506
+  chaos, frozen +-1% c2 disorder (sigma 0.001): dev 1.000 -> 1.000; test 1.000 -> 1.000
+  amplification A x 2 (sigma 0.01): dev 0.983 -> 0.997; test 0.980 -> 0.995; kept true
+  D4 parallel lanes: 8 harmonics x 64 symbols at once: 0.980 of bits right; time-shared on one harmonic (8x the time): 1.000
+
+HOLDS  S1 mode >= 0.99 at sigma <= 0.001 (1.000, 1.000); position about 0.5 (0.580, 0.506, 0.506)
+HOLDS  S2 mode >= 0.9 at sigma 0.01 (0.980)
+FAILS  C1 frozen chaos harmful
+HOLDS  A1 A x 2 kept at sigma 0.01
+HOLDS  D4 8 parallel lanes >= 0.95 (0.980)
+
+4 of 5 hold (4 s)

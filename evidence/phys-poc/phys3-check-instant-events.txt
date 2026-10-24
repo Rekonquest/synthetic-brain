@@ -1,0 +1,6 @@
+D3 check (added after the run, labelled): each event added in ONE step (a deliberate phase slip), sigma 0.1
+  1 events: winding exact 1.000, analog exact 0.164
+  2 events: winding exact 1.000, analog exact 0.164
+  3 events: winding exact 1.000, analog exact 0.164
+  5 events: winding exact 0.049, analog exact 0.164
+  10 events: winding exact 0.000, analog exact 0.164

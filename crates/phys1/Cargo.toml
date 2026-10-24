@@ -9,3 +9,4 @@ publish.workspace = true
 [dependencies]
 qb-amplitude = { path = "../qb-amplitude" }
 qb-classical = { path = "../qb-classical" }
+qb-chaos = { path = "../qb-chaos" }

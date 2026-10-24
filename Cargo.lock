@@ -324,7 +324,37 @@ name = "phys1"
 version = "0.1.0"
 dependencies = [
  "qb-amplitude",
+ "qb-chaos",
  "qb-classical",
+]
+
+[[package]]
+name = "phys2"
+version = "0.1.0"
+dependencies = [
+ "qb-amplitude",
+ "qb-bind",
+ "qb-chaos",
+ "qb-overlap-phase",
+ "qb-wilson",
+]
+
+[[package]]
+name = "phys3"
+version = "0.1.0"
+dependencies = [
+ "qb-chaos",
+ "winding",
+ "xy-relax",
+]
+
+[[package]]
+name = "phys4"
+version = "0.1.0"
+dependencies = [
+ "thermo-lattice",
+ "wave-lattice",
+ "wave-mode",
 ]
 
 [[package]]

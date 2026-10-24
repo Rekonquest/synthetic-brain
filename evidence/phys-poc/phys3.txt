@@ -1,0 +1,18 @@
+PHYS-3: 64 rings of 32 phases, J 0.2, T 20000; bits kept (test seeds 10-17)
+  sigma 0.05: topological 1.000, local 0.785
+  sigma 0.10: topological 1.000, local 0.533
+  sigma 0.20: topological 0.998, local 0.535
+  sigma 0.50: topological 0.342, local 0.512
+  sigma 1.00: topological 0.252, local 0.496
+  sigma 0.2: chaos on J dev 1.000 -> 1.000, test 0.998 -> 0.998 (kept false); J x 2 dev 1.000 -> 1.000, test 0.998 -> 1.000 (kept false)
+  sigma 0.5: chaos on J dev 0.320 -> 0.324, test 0.342 -> 0.336 (kept false); J x 2 dev 0.320 -> 0.422, test 0.342 -> 0.410 (kept true)
+  D3 counting 50 events at sigma 0.1 (as precommitted; a 32-site ring holds a winding of at most 15): winding exact 0.000, analog exact 0.164
+  D3 check (added, labelled): 10 events: winding exact 0.000, analog exact 0.164
+
+HOLDS  P1 sigma 0.1: topological >= 0.99 (1.000), local <= 0.75 (0.533)
+FAILS  P2 heat melts it past a threshold: >= 0.95 for sigma <= 0.2, both near 0.5 at 1.0
+HOLDS  C1 chaos on J not kept
+FAILS  A1 J x 2 kept at sigma >= 0.2
+FAILS  D3 counting 50: winding >= 0.95 (0.000), analog <= 0.6 (0.164)
+
+2 of 5 hold (33 s)

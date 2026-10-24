@@ -135,3 +135,101 @@ consumes and produces (Rule 2), against a plain or classical twin.
 - **D2:** at σ 0.1, Wilson classification ≥ 0.95 and plain ≤ 0.1.
 - **D3:** at σ 0.1, the winding counter is exact in ≥ 0.95 of rings, and the analog counter in ≤ 0.6.
 - **D4:** all 8 lanes decode ≥ 0.95 of their bits, in 1/8 of the time-shared duration.
+
+## Results (2026-10-24, `evidence/phys-poc/`; each run 1–33 s)
+
+### PHYS-1, the quantum Zeno effect (`phys1.txt`): 4 of 5
+
+| attention every k steps | 200 | 20 | 10 | 5 | 2 | 1 |
+|---|---|---|---|---|---|---|
+| quantum survival | 0.158 | 0.453 | 0.666 | 0.818 | 0.921 | **0.960** |
+| classical twin | 0.963 | 0.965 | 0.959 | 0.961 | 0.963 | 0.960 |
+
+- **Z1 and Z2 HOLD:** attention holds a quantum state, and in the classical twin attention changes
+  nothing.
+- **C1 HOLDS:** chaos on the attention interval was not kept.
+- **A1 HOLDS, with a flag:** Born power 4 lifts survival 0.67 → 0.996. That power is the quantum
+  base's hook (`power_magnitudes`), not quantum mechanics; it biases each measurement toward the held
+  option.
+- **D1 FAILED:** the Zeno blockade cut the walker's reach by 60%, but the classical twin's fell 61%.
+  Catching a walker at the watched site blocks it either way, so this setup shows no quantum
+  blockade.
+
+### PHYS-2, gauge invariance (`phys2.txt`): 3 of 6
+
+| N, σ | 0 | 0.02 | 0.1 | 0.3 |
+|---|---|---|---|---|
+| plain, N 8 | 0.750 | 0.500 | 0.469 | 0.047 |
+| **Wilson, N 8** | 1.000 | 1.000 | 1.000 | **1.000** |
+| plain, N 16 | 0.750 | 0.500 | 0.367 | 0.023 |
+| **Wilson, N 16** | 0.992 | 0.992 | 0.992 | **0.992** |
+
+D2, perception of 64 shapes: Wilson 1.000 at every σ; plain 0.520 → 0.361.
+
+- **G1 and D2 FAILED on my implementation choice:** the drift started at a random global phase,
+  which alone defeats the plain phase-locked reading (0.750 with no drift). The precommit did not fix
+  the start.
+- **The labelled check** with the drift starting at 0 (`phys2-check-phi0-zero.txt`): plain 1.000 at
+  σ 0, and G1 holds. The plain reading still holds more than predicted at σ 0.1 (0.500, and 0.738 in
+  D2), so G2 and D2 fail on their plain-side thresholds.
+- **G3, C1 and A1 HOLD:** the Wilson reading is unaffected by every drift; chaos and amplification
+  had nothing to add.
+- **Load-bearing:** read through Wilson lines, memory and perception are immune to any smooth local
+  phase. Plain recall falls to 0.02–0.05 at σ 0.3.
+
+### PHYS-3, topological charge (`phys3.txt`): 2 of 5
+
+| σ | 0.05 | 0.1 | 0.2 | 0.5 | 1.0 |
+|---|---|---|---|---|---|
+| **topological (winding)** | 1.000 | **1.000** | 0.998 | 0.342 | 0.252 |
+| local (mean phase) | 0.785 | **0.533** | 0.535 | 0.512 | 0.496 |
+
+- **P1 HOLDS:** a winding memory keeps every bit through noise that erases a local one.
+- **P2 FAILED on its "near 0.5" clause:** heat melts it past a threshold between σ 0.2 and 0.5, but a
+  melted winding wanders to other integers, so it falls *below* chance (0.25).
+- **C1 HOLDS:** chaos on J was not kept.
+- **A1 FAILED by its wording:** J × 2 is kept at σ 0.5 (0.342 → 0.410), but at σ 0.2 the result is a
+  tie at the ceiling.
+- **D3 FAILED, and that is itself the topological law at work:** I added each event as a smooth
+  twist over 100 steps, and the ring counted none of them (0.000). No smooth change can alter a
+  winding, so the relaxation undid each gradual twist. Also, 50 events cannot fit: a 32-site ring
+  holds a winding of at most 15.
+- **The labelled check** with each event as a one-step slip (`phys3-check-instant-events.txt`):
+  - the winding counter is **exact (1.000) for 1, 2 and 3 events**, where the analog counter manages
+    0.164;
+  - at 5 or more events it fails (0.049, 0.000), because a winding of 5 on 32 sites decays under
+    this noise (measured separately: windings 1–3 held 20 of 20, winding 5 held 0 of 20);
+  - so the counting capacity is set by the ring's length.
+
+### PHYS-4, closed-string modes (`phys4.txt`): 4 of 5
+
+| σ | 0 | 0.001 | 0.01 |
+|---|---|---|---|
+| **mode memory** | 1.000 | 1.000 | 0.980 |
+| position memory | 0.580 | 0.506 | 0.506 |
+
+- **S1 and S2 HOLD:** a string's harmonics hold 32 bits for 10,000 steps; displacements leave at the
+  wave speed.
+- **A1 HOLDS:** A × 2 at σ 0.01 gives 0.980 → 0.995.
+- **C1 FAILED:** frozen ±1% disorder did no harm (1.000 → 1.000). The reference string shares the
+  disorder, so the mode mixing is shared too.
+- **D4 HOLDS:** 8 messages at once on 8 harmonics, decoded by one listener at **0.980**, in an
+  eighth of the time. Time-shared on one harmonic it gives 1.000.
+
+### What PHYS-POC settles
+
+**13 of 21 hold as precommitted.** Every law tested is load-bearing for some behaviour, against a
+plain or classical twin:
+
+| law | load-bearing for | the measured difference |
+|---|---|---|
+| quantum Zeno | attention holding a state | 0.158 → 0.960 with attention rate; classical flat at 0.96 |
+| gauge invariance | memory and perception immune to drift | 1.000 against 0.02–0.05 |
+| topological charge | noise-proof memory; exact small counts | 1.000 against 0.533; 1.000 against 0.164 |
+| string modes | memory in a wave medium; parallel lanes | 1.000 against 0.51; 8 lanes at 0.980 |
+
+- **Chaos was kept nowhere,** as in FOLD-5 to 8 for stores without a carving law.
+- **Amplification helped where signal fought noise:** strings and topology at high heat. The Zeno
+  win comes from a non-physical Born power and is flagged.
+- **What this does not show:** whether these theories are true of nature (see the top of this
+  doc). The mathematics does work as mechanism.

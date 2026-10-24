@@ -12,6 +12,64 @@ const T: usize = 200;
 const TRIALS: usize = 4000;
 const KS: [usize; 6] = [200, 20, 10, 5, 2, 1];
 const K_ROUND: usize = 10;
+const D1_PHI: f64 = 0.3;
+const D1_GATE: usize = 4;
+
+/// D1, the Zeno blockade: does the walker reach options 6..=10 by T? With attention, option 4 is
+/// measured every step ("is it here?"); a yes ends the run there, a no removes that branch.
+fn blockade_quantum(attend: bool, trials: usize, seed: u64) -> f64 {
+    let mut r = Rng(seed);
+    let mut reach = 0;
+    for _ in 0..trials {
+        let mut s = State { a: vec![C::new(0.0, 0.0); N] };
+        s.a[0] = C::new(1.0, 0.0);
+        let mut caught = false;
+        for _ in 0..T {
+            s.ring_mix(D1_PHI);
+            if attend {
+                let p = s.born_weights()[D1_GATE];
+                if r.unit() < p {
+                    caught = true;
+                    break;
+                }
+                s.a[D1_GATE] = C::new(0.0, 0.0);
+                s.normalize();
+            }
+        }
+        if !caught {
+            let out = qb_classical::draw(&s.born_weights(), r.unit());
+            reach += (6..=10).contains(&out) as usize;
+        }
+    }
+    reach as f64 / trials as f64
+}
+
+fn blockade_classical(attend: bool, trials: usize, seed: u64) -> f64 {
+    let mut r = Rng(seed);
+    let mut reach = 0;
+    for _ in 0..trials {
+        let mut w = vec![0.0; N];
+        w[0] = 1.0;
+        let mut caught = false;
+        for _ in 0..T {
+            qb_classical::diffuse(&mut w, D1_PHI * D1_PHI);
+            if attend {
+                let t: f64 = w.iter().sum();
+                if r.unit() < w[D1_GATE] / t {
+                    caught = true;
+                    break;
+                }
+                w[D1_GATE] = 0.0;
+                qb_classical::conserve(&mut w);
+            }
+        }
+        if !caught {
+            let out = qb_classical::draw(&w, r.unit());
+            reach += (6..=10).contains(&out) as usize;
+        }
+    }
+    reach as f64 / trials as f64
+}
 
 struct Rng(u64);
 impl Rng {
@@ -46,16 +104,7 @@ fn schedule(k: usize, variant: usize) -> Vec<usize> {
 }
 
 fn qb_chaos_unit(v: u64, i: u64) -> f64 {
-    let key = v.wrapping_mul(0xD1B5_4A32_D192_ED03) ^ i.wrapping_mul(0x9FB2_1C65_1E98_DF25);
-    let mut z = key.wrapping_add(0x9E37_79B9_7F4A_7C15);
-    z = (z ^ (z >> 30)).wrapping_mul(0xBF58_476D_1CE4_E5B9);
-    z = (z ^ (z >> 27)).wrapping_mul(0x94D0_49BB_1331_11EB);
-    z ^= z >> 31;
-    let mut x = 0.01 + 0.98 * ((z >> 11) as f64 / (1u64 << 53) as f64);
-    for _ in 0..16 {
-        x = 4.0 * x * (1.0 - x);
-    }
-    x.clamp(1e-9, 1.0 - 1e-9)
+    qb_chaos::keyed_unit(v.wrapping_mul(0xD1B5_4A32_D192_ED03) ^ i.wrapping_mul(0x9FB2_1C65_1E98_DF25))
 }
 
 fn quantum(times: &[usize], power: f64, trials: usize, seed: u64) -> f64 {
@@ -143,7 +192,12 @@ fn main() {
     let (tp, ta) = (quantum(&plain_t, 2.0, TRIALS, 4), quantum(&plain_t, 4.0, TRIALS, 4));
     let amp_kept = da > dp && ta > tp;
     println!("  amplification (Born power 4, k {K_ROUND}): dev {dp:.3} -> {da:.3}; test {tp:.3} -> {ta:.3}; kept {amp_kept}");
+    let (q0, q1) = (blockade_quantum(false, TRIALS, 30), blockade_quantum(true, TRIALS, 31));
+    let (c0, c1) = (blockade_classical(false, TRIALS, 30), blockade_classical(true, TRIALS, 31));
+    let (qdrop, cdrop) = (1.0 - q1 / q0, 1.0 - c1 / c0);
+    println!("  D1 Zeno blockade (ring_mix {D1_PHI}, attention on option {D1_GATE} every step): reach 6..=10 quantum {q0:.3} -> {q1:.3} (drop {:.0}%), classical {c0:.3} -> {c1:.3} (drop {:.0}%)", qdrop * 100.0, cdrop * 100.0);
     let v = [
+        (format!("D1 Zeno blockade: quantum drop >= 50% ({:.0}%), classical <= 10% ({:.0}%)", qdrop * 100.0, cdrop * 100.0), qdrop >= 0.5 && cdrop <= 0.10),
         (format!("Z1 quantum survival rises with attention, <= 0.25 at k 200 ({:.3}) to >= 0.95 at k 1 ({:.3})", q[0], q[5]), rises && q[0] <= 0.25 && q[5] >= 0.95),
         (format!("Z2 classical survival varies <= 0.03 across k (spread {cspread:.3})"), cspread <= 0.03),
         ("C1 chaos not kept".to_string(), !chaos_kept),
