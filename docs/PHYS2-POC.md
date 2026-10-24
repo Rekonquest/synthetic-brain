@@ -49,8 +49,9 @@ Test seeds 10–17; dev 0–3. Each run takes seconds to a minute.
     to vary).
 - **Chaos:** σ jittered per step by 1 + 0.5(u − ½). **Amplification:** σ × 2.
 - **Predictions:**
-  - **F1:** the asymptotic-freedom law keeps binding ≥ 0.99 with an inside spread ≥ 2× the spring's
-    at the same binding.
+  - **F1:** the asymptotic-freedom law keeps binding ≥ 0.99 with an inside spread ≥ 1.5× the
+    spring's (the spring at equal force at r₀: k = σ/r₀). *Corrected before code from 2×:* a uniform
+    disk of radius about r₀ against the spring's Gaussian gives about 1.66×.
   - **F2:** Coulomb loses members (binding ≤ 0.8).
   - **F3:** chaos is not kept.
   - **F4:** σ × 2 tightens without gain.
@@ -71,7 +72,10 @@ Test seeds 10–17; dev 0–3. Each run takes seconds to a minute.
 - **Predictions:**
   - **N1:** new-memory recall rises by ≥ 0.1 over plain (the old memories now load the store
     less);
-  - **N2:** old class recall stays ≥ 0.9;
+  - **N2:** old class recall stays ≥ 0.3 (chance is 1/16). *Corrected before code from ≥ 0.9:* at
+    quarter amplitude the class signal against the crosstalk of about 272 effective items is about
+    0.25·√(4096/272)·0.9 ≈ 0.9, too weak for 16 classes to be clean. The law trades detail for
+    room, as no-hair says.
   - **N3:** chaos is not kept;
   - **N4:** amplification trades new recall for old class recall (both move ≥ 0.03 in opposite
     directions).
