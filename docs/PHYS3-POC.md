@@ -24,11 +24,19 @@ scrambles), the Eddington limit, inflation, and recombination.
 - **The Roche law:** no weak memory shares a region with a body more than r × its strength (r 2), so
   strong memories fill 4 regions of their own and weak ones the other 12. In a 2-bit store the
   strong drown the weak through the quantizer: radio's capture effect.
-- **Chaos:** none natural; recorded as not applicable.
-- **Amplification:** a gentler limit, r 4 (strong and weak may then mix, so this is the ablation).
+- *Amended before code* (Jesse, 2026-10-24: "don't forget chaos and amplification"). The first
+  plan had no chaos arm here, and its "amplification" (r 4) was really an ablation.
+- **Chaos:** 3 placements, each shuffled by keyed logistic chaos within its strength class. The
+  selector is the writer's own readback (the total margin of its memories, which the writer knows);
+  plain wins ties.
+- **Amplification:** weak memories written at amplitude 2.
+- **Ablation:** a gentler limit, r 4 (strong and weak may mix, which equals random placement).
 - **Predictions:**
   - **R1a:** weak recall rises ≥ 0.1 over plain.
   - **R1b:** strong recall stays ≥ plain − 0.02.
+  - **R1c:** chaos not kept.
+  - **R1d:** amplification lifts weak recall under random placement (less capture) and is a tie under
+    the Roche law (a region of equals quantizes the same).
 
 ## R2: hierarchical merging (galaxies grow by merging) as a memory index
 
@@ -76,12 +84,14 @@ scrambles), the Eddington limit, inflation, and recombination.
 - **Bar:** rate coding with no phase (pairing at random: 1/6 of scenes fully right; the expected
   pairs right is 1 of 3).
 - 1,000 scenes; σ ∈ {0.1, 0.3, 0.6}.
-- **Chaos:** none beyond the noise sweep, the natural knob.
+- **Chaos** (*amended before code*; the first plan had none): the entrainment K jittered per unit
+  and step by 1 + 0.5(u − ½), mean-preserving; kept only if better on dev (seeds 0–3) and on test.
 - **Amplification:** K × 2.
 - **Predictions:**
   - **R4a:** every pairing right in ≥ 0.95 of scenes at σ 0.1, against the bar's 0.167.
   - **R4b:** binding degrades gracefully with noise, still ≥ 0.6 at σ 0.6.
   - **R4c:** K × 2 is kept at σ 0.6.
+  - **R4d:** chaos not kept.
 
 ## R5: gravitational lensing, composed with the cognitive REINFORCE, as priming
 
