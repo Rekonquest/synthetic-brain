@@ -1,0 +1,12 @@
+[package]
+name = "geo2"
+description = "GEO-1 G2 orchestrator: path planning - greedy, least action as a sum over paths, the renormalization group (coarse to fine)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+path-sum = { path = "../path-sum" }
+path-climb = { path = "../path-climb" }
+qb-chaos = { path = "../qb-chaos" }

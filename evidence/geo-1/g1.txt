@@ -1,0 +1,42 @@
+GEO-1 G1: 32 shapes of 8 points, 256 queries per seed (random rotation, translation, mirror 1/2, shuffle, noise)
+  dev tau (identity+mirror, steps): [(0.02, 1.0, 134.0), (0.03, 1.0, 81.0), (0.05, 1.0, 70.0), (0.08, 0.785, 54.0)] -> chosen 0.05
+
+  noise 0.01: strategy, identity, identity+mirror, cost (comparisons per query / steps)
+    plain (Chamfer, no rotation)   0.218  0.131  1.0
+    mental rotation (search)       1.000  0.998  68.7
+    Noether charges                1.000  0.911  1.0
+    symmetry breaking (canon)      0.942  0.919  1.0
+    search + chaos                 1.000  0.998  68.7
+    Noether + amplification        1.000  0.911  1.0
+
+  noise 0.02: strategy, identity, identity+mirror, cost (comparisons per query / steps)
+    plain (Chamfer, no rotation)   0.211  0.129  1.0
+    mental rotation (search)       1.000  1.000  69.3
+    Noether charges                0.999  0.845  1.0
+    symmetry breaking (canon)      0.896  0.861  1.0
+    search + chaos                 1.000  1.000  69.3
+    Noether + amplification        1.000  0.845  1.0
+
+  noise 0.05: strategy, identity, identity+mirror, cost (comparisons per query / steps)
+    plain (Chamfer, no rotation)   0.187  0.121  1.0
+    mental rotation (search)       0.995  0.987  121.1
+    Noether charges                0.776  0.544  1.0
+    symmetry breaking (canon)      0.731  0.673  1.0
+    search + chaos                 0.995  0.987  120.7
+    Noether + amplification        0.801  0.561  1.0
+
+  Shepard-Metzler signature: correlation of search steps with |angle| (noise 0.02, unmirrored): 0.999
+  canon failures by isotropy tercile (most isotropic first): [120, 51, 43] of 214
+
+FAILS  G1a plain identity <= 0.2 (0.211)
+HOLDS  G1b search identity >= 0.95 (1.000), mirror >= 0.95 (1.000), steps-angle corr >= 0.8 (0.999)
+FAILS  G1c Noether identity >= 0.95 (0.999), identity+mirror >= 0.9 (0.845), cost 1
+HOLDS  G1d canon identity >= 0.8 (0.896), failures concentrated in the most isotropic third (120 of 214)
+HOLDS  G1e chaos on the search not kept (noise 0.02)
+FAILS  G1f amplification kept at 0.01 (+0.000) and not at 0.05 (+0.017)
+
+3 of 6 hold (3 s)
+
+real	0m2.753s
+user	0m5.817s
+sys	0m0.002s

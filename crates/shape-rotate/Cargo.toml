@@ -1,0 +1,10 @@
+[package]
+name = "shape-rotate"
+description = "Rotate (and optionally mirror) a 2D point set about the origin (GEO-1)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+

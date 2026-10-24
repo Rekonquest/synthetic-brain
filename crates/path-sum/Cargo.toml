@@ -1,0 +1,10 @@
+[package]
+name = "path-sum"
+description = "One sweep of the sum over paths on a grid: u_s = (lambda/4) sum of free neighbours, goal held at 1 (GEO-1)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+

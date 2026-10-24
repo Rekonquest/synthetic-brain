@@ -107,3 +107,63 @@ Orchestrator `geo1`.
     kept.
 11. **G2e, amplification** (λ 0.25: a stronger weighting of short paths): length closer to BFS by
     ≥ 0.005 at ρ 0.35, at no loss of success.
+
+## Results (2026-10-24, `evidence/geo-1/g1.txt`, `g2.txt`; 3 s and 1 s)
+
+### G1, recognition and handedness under rotation: 3 of 6
+
+Dev chose τ 0.05 for the search.
+
+| strategy | noise 0.01: identity / + mirror | 0.02 | 0.05 | cost |
+|---|---|---|---|---|
+| plain (bar) | 0.218 / 0.131 | 0.211 / 0.129 | 0.187 / 0.121 | 1 |
+| mental rotation (bar) | 1.000 / 0.998 | **1.000 / 1.000** | **0.995 / 0.987** | 69–121 angle steps (each against all 32 shapes) |
+| **Noether charges (new)** | **1.000** / 0.911 | **0.999** / 0.845 | 0.776 / 0.544 | **1** |
+| symmetry breaking (new) | 0.942 / 0.919 | 0.896 / 0.861 | 0.731 / 0.673 | 1 |
+| search + chaos | as search | as search | 0.995 / 0.987 (120.7 steps) | |
+| Noether + more charges | 1.000 / 0.911 | 1.000 / 0.845 | 0.801 / 0.561 | 1 |
+
+- **The Shepard–Metzler signature holds:** the search's steps grow with the rotation angle at a
+  correlation of **0.999**.
+- **Symmetry breaking fails where predicted:** 120 of its 214 failures are shapes in the most
+  isotropic third.
+
+| # | Result |
+|---|---|
+| G1a plain ≤ 0.2 | **FAILED by margin:** 0.211 |
+| G1b search ≥ 0.95, steps ∝ angle | MEASURED: 1.000, correlation 0.999 |
+| G1c Noether identity ≥ 0.95 at cost 1, + mirror ≥ 0.9 | **FAILED on the mirror:** identity 0.999 in one comparison, but handedness 0.845 |
+| G1d canon ≥ 0.8, failures in the isotropic third | MEASURED: 0.896; 120 of 214 |
+| G1e chaos not kept | MEASURED |
+| G1f more charges kept at 0.01, not at 0.05 | **FAILED, reversed:** a tie at 0.01, +0.025 identity at 0.05 |
+
+### G2, path planning: 3 of 5
+
+| strategy | ρ 0.15: success / length ÷ BFS | ρ 0.25 | ρ 0.35 | cost (updates per world) |
+|---|---|---|---|---|
+| greedy (bar) | 0.416 / 1.037 | 0.018 / 1.084 | 0.000 | 0 |
+| **least action, sum over paths (new)** | **1.000 / 1.0001** | **1.000 / 1.0014** | **1.000 / 1.0013** | 557k–678k |
+| renormalization group (new) | 1.000 / 1.0001 | 1.000 / 1.0051 | 1.000 / 1.0066 | 248k / 255k / 602k |
+| least action, λ 0.25 | 1.000 / 1.0000 | 1.000 / 1.0005 | 1.000 / 1.0005 | 473k–550k |
+
+RG fell back to the full grid 0, 37 and 410 times (of 512) at ρ 0.15, 0.25 and 0.35.
+
+| # | Result |
+|---|---|
+| G2a greedy ≤ 0.6 at 0.25 | MEASURED: 0.018 |
+| G2b least action 1.000, ≤ 1.02 × BFS | MEASURED: 1.000, ≤ 1.0014 |
+| G2c RG ≤ ¼ cost, ≥ 0.95, ≤ 1.1 | **FAILED on cost:** 0.44 at ρ 0.25 (success 1.000, length 1.005). In dense worlds the coarse blocks close narrow passages and force the fallback |
+| G2d chaos ties not kept | MEASURED: identical |
+| G2e λ 0.25 closer by ≥ 0.005 | **FAILED by size:** 1.0013 → 1.0005 (and 15% cheaper) |
+
+**GEO-1: 6 of 11 hold.**
+
+### Niches
+
+- **Least action as a sum over paths:** the planner. It never fails, it is near-optimal, and it is
+  built from one relaxation law, with no search algorithm written in.
+- **Noether charges:** identity in one comparison, the fastest recognizer, weak at handedness and
+  under heavy noise.
+- **Mental rotation (the bar):** exact but slow, with a human-like cost that grows with the angle.
+- **Symmetry breaking:** fast, except for nearly isotropic shapes.
+- **The renormalization group:** a cheap planner in sparse worlds.

@@ -1,0 +1,10 @@
+[package]
+name = "shape-canon"
+description = "Break a point set's rotational symmetry: principal-axis frame, axis sign and mirror fixed by third moments (GEO-1)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+

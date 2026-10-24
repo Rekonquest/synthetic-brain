@@ -1,0 +1,40 @@
+GEO-1 G2: path planning on a 64 x 64 grid, 64 connected worlds per seed and density; test seeds 10-17
+
+  density 0.15: strategy, success, length / BFS (successes), cost (cell updates per world)
+    greedy (bar)                     0.416  1.0368  0
+    least action (sum over paths)    1.000  1.0001  678294
+    renormalization group            1.000  1.0001  247897
+    least action + chaos ties        1.000  1.0001  678294
+    least action, lambda 0.25        1.000  1.0000  550261
+    RG, lambda 0.25                  1.000  1.0000  200256
+    RG fallbacks to the full grid: 0
+
+  density 0.25: strategy, success, length / BFS (successes), cost (cell updates per world)
+    greedy (bar)                     0.018  1.0844  0
+    least action (sum over paths)    1.000  1.0014  584995
+    renormalization group            1.000  1.0051  255394
+    least action + chaos ties        1.000  1.0014  584995
+    least action, lambda 0.25        1.000  1.0005  483257
+    RG, lambda 0.25                  1.000  1.0045  208805
+    RG fallbacks to the full grid: 37
+
+  density 0.35: strategy, success, length / BFS (successes), cost (cell updates per world)
+    greedy (bar)                     0.000  0.0000  0
+    least action (sum over paths)    1.000  1.0013  556837
+    renormalization group            1.000  1.0066  602232
+    least action + chaos ties        1.000  1.0013  556837
+    least action, lambda 0.25        1.000  1.0005  473272
+    RG, lambda 0.25                  1.000  1.0056  522792
+    RG fallbacks to the full grid: 410
+
+HOLDS  G2a greedy success <= 0.6 at 0.25 (0.018)
+HOLDS  G2b least action success 1.000 and length <= 1.02 x BFS (1.000, 1.0001 / 1.0014 / 1.0013)
+FAILS  G2c RG cost <= 1/4 (0.44), success >= 0.95 (1.000), length <= 1.1 (1.0051) at 0.25
+HOLDS  G2d chaos ties not kept (1.0013 vs 1.0013 at 0.35)
+FAILS  G2e lambda 0.25 closer to BFS by >= 0.005 at 0.35 (1.0005 vs 1.0013), no loss of success
+
+3 of 5 hold (1 s)
+
+real	0m1.431s
+user	0m11.089s
+sys	0m0.002s

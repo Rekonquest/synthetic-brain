@@ -1,0 +1,10 @@
+[package]
+name = "shape-distances"
+description = "The sorted multiset of pairwise distances of a point set (GEO-1)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+

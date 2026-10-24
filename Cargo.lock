@@ -268,6 +268,27 @@ dependencies = [
 ]
 
 [[package]]
+name = "geo1"
+version = "0.1.0"
+dependencies = [
+ "qb-chaos",
+ "shape-canon",
+ "shape-chamfer",
+ "shape-distances",
+ "shape-moments",
+ "shape-rotate",
+]
+
+[[package]]
+name = "geo2"
+version = "0.1.0"
+dependencies = [
+ "path-climb",
+ "path-sum",
+ "qb-chaos",
+]
+
+[[package]]
 name = "gpu-cap-binary128"
 version = "0.1.0"
 dependencies = [
@@ -376,6 +397,14 @@ dependencies = [
  "qb-overlap-phase",
  "qb-quantize",
 ]
+
+[[package]]
+name = "path-climb"
+version = "0.1.0"
+
+[[package]]
+name = "path-sum"
+version = "0.1.0"
 
 [[package]]
 name = "phys1"
@@ -704,6 +733,26 @@ dependencies = [
  "thermo-host",
  "thermo-lattice",
 ]
+
+[[package]]
+name = "shape-canon"
+version = "0.1.0"
+
+[[package]]
+name = "shape-chamfer"
+version = "0.1.0"
+
+[[package]]
+name = "shape-distances"
+version = "0.1.0"
+
+[[package]]
+name = "shape-moments"
+version = "0.1.0"
+
+[[package]]
+name = "shape-rotate"
+version = "0.1.0"
 
 [[package]]
 name = "spec-bridge"

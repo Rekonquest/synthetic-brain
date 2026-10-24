@@ -1,0 +1,10 @@
+[package]
+name = "shape-moments"
+description = "The complex moments m_k = sum z^k of a centred 2D point set: rotation charge k (GEO-1)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+

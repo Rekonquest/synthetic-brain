@@ -1,0 +1,10 @@
+[package]
+name = "shape-chamfer"
+description = "The symmetric Chamfer distance between two point sets (GEO-1)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+

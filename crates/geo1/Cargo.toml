@@ -1,0 +1,15 @@
+[package]
+name = "geo1"
+description = "GEO-1 G1 orchestrator: shape identity and handedness under rotation - plain, mental rotation (search), Noether charges, symmetry breaking."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+shape-chamfer = { path = "../shape-chamfer" }
+shape-rotate = { path = "../shape-rotate" }
+shape-moments = { path = "../shape-moments" }
+shape-distances = { path = "../shape-distances" }
+shape-canon = { path = "../shape-canon" }
+qb-chaos = { path = "../qb-chaos" }
