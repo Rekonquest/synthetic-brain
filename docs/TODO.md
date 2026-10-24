@@ -9,13 +9,12 @@ built as its own stack, then chaos off/on, then amplification on/off. Its four f
 (`qb-wilson`, `xy-relax`, `winding`, `wave-mode`) are built and tested. `phys1` (Zeno) is written
 but not run. `phys2`–`phys4` have manifests only and are left out of the workspace for now.
 
-1. **How discovery is done is Jesse's call:** "don't limit discovery to memory". Options:
+1. [x] **Discovery: Jesse chose the four proposed probes (2026-10-24).** Was: "don't limit discovery to memory". Options:
    - open-ended observation of each law's stack;
    - probes Jesse picks;
    - the proposed four (Zeno blockade as a GATE, gauge-invariant perception, topological counting,
      parallel string lanes).
-2. **Finish PHYS-POC:** run `phys1` (switch to the `qb-chaos` crate); write and run `phys2`–`phys4`;
-   write up.
+2. [x] **PHYS-POC done** (13 of 21; commit c1ea89e). All four laws are load-bearing for something; chaos was kept nowhere. Discovery used the four probes Jesse chose.
 3. **Redo the three astrophysics laws properly:** each as its own stack, then chaos off/on, then
    amplification on/off.
    - Fix ASTRO-1 arm B's step size.
