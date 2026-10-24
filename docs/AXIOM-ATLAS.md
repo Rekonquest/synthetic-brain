@@ -47,3 +47,47 @@ a time with its own check (Rules 1–7).
    thinks, and the biggest missing piece.
 4. **Value and neuromodulation** (12): global dials that make some things matter more.
 5. **Consolidation and replay** (13): an offline "sleep" that sorts the scars.
+
+## Physics axioms tried and queued (added 2026-10-24)
+
+Jesse: "if they are load bearing, then we know there is a there, there." Load-bearing means the
+mathematics works as a mechanism in a stack. It does not test the theory against nature.
+
+### Measured
+
+| law (field) | stack | capacity (row) | result | where |
+|---|---|---|---|---|
+| entanglement (quantum) | two co-engines share a Bell pair | 10, 15 | coordinate at 0.853 against the classical ceiling of 0.75, with no message; a tap drops it to 0.677 | ENT-1 |
+| quantum Zeno effect | frequent measurement holds a state | 2, 4 | survival 0.16 → 0.96 with the attention rate; the classical twin is flat | PHYS-1 |
+| gauge invariance (QCD's principle, U(1) form) | Wilson-line reading | 1, 3 | memory and perception immune to drift: 1.000 against 0.02 | PHYS-2 |
+| topological charge | winding-number memory and counter | 3, 8 | 1.000 against 0.53 under noise; exact counts within the ring's capacity | PHYS-3 |
+| closed-string modes | harmonics as memory and as lanes | 3, 9 | 32 bits at 1.000; 8 parallel lanes at 0.98 | PHYS-4 |
+| Pauli exclusion (degeneracy pressure) | write-time pressure on colliding states | 3 | +0.09–0.10 at light and moderate load | ASTRO-R |
+| the virial theorem (self-set temperature) | each item's own temperature in the recall loop | 3, 13 | the best recall stack: 0.904, and 0.966 with rounds × 2; cools itself | ASTRO-R |
+| Jeans instability | scale-dependent scar formation | 14 | −13 to −27% false scars, only at the edge of a bistable medium | ASTRO-R |
+
+### Queued (not yet tried)
+
+- **Quarks:** colour confinement (only neutral composites can leave a module; pulling a pair apart
+  makes a new pair); asymptotic freedom (coupling weak at short range, strong at long range).
+- **Strings:** T-duality (radius R ≡ 1/R; two equal descriptions); compactified extra dimensions.
+- **Holography:** AdS/CFT as an error-correcting code (the bulk recovered from any large enough part
+  of the boundary).
+- **Supersymmetry:** pairing so that crosstalk cancels between partners.
+- **Black holes:**
+  - the area law (capacity follows the boundary);
+  - fast scrambling;
+  - no-hair forgetting (keep only the conserved quantities);
+  - negative heat capacity.
+- **Astrophysics:**
+  - gravitational lensing as ATTEND or priming;
+  - the Eddington limit as a brake on growth;
+  - the Roche limit as interference between strong and weak memories;
+  - inflation (small fluctuations amplified into structure);
+  - hierarchical merging (consolidation);
+  - mass segregation (important memories sink to the core);
+  - orbital resonance (binding by synchrony);
+  - recombination (cooling lets signals pass).
+- **Field theory:** the renormalization group (coarse-graining and universality); Noether's theorem
+  (each symmetry has a conserved quantity); spontaneous symmetry breaking (commitment); least action
+  (planning).
