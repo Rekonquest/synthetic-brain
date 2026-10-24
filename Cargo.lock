@@ -143,6 +143,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "fold8"
+version = "0.1.0"
+dependencies = [
+ "qb-amplitude",
+ "qb-bind",
+ "qb-chaos",
+ "qb-classical",
+ "qb-overlap-phase",
+ "qb-quantize",
+]
+
+[[package]]
 name = "gpu-cap-binary128"
 version = "0.1.0"
 dependencies = [

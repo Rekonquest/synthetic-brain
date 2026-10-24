@@ -1,0 +1,41 @@
+FOLD-8: the 2-bit content store (D 4096, 1024 bytes); N [256, 384, 512, 768, 1024]; dev 0-3 chooses, test 10-17 reports
+
+Dev choices: rho 0.75 (dev means [0.649, 0.682, 0.698]); beta 0.01 ([0.696, 0.761, 0.765, 0.639]); T0 0.005 ([0.674, 0.626, 0.560])
+  best cognitive stack on dev: Hard (K1 0.698, K6 0.674); G 1.25 ([0.637, 0.545])
+
+Test, random content; accuracy at N [256, 384, 512, 768, 1024]:
+  plain (cognitive off)              0.937 0.800 0.636 0.425 0.301
+  amplification alone (write x 2)    0.937 0.800 0.636 0.425 0.301
+  K1 explaining away                 0.999 0.983 0.894 0.407 0.219
+  K1 ablation: no GATE (rho 1)       1.000 0.999 0.857 0.369 0.201
+  K1 ablation: no CONSERVE (alpha 1) 0.007 0.002 0.000 0.001 0.000
+  K2 ATTEND + REINFORCE              0.900 0.717 0.569 0.385 0.269
+  K1 + K2                            0.997 0.952 0.794 0.312 0.157
+  K6 annealed (hot -> cold)          1.000 0.999 0.884 0.334 0.170
+  K6 hot only (no cooling)           1.000 0.999 0.798 0.285 0.134
+  together: best cognitive + G       0.997 0.965 0.788 0.285 0.142
+  chaos on the best cognitive        0.999 0.983 0.896 0.404 0.218
+
+Test, glossary content; accuracy at N [256, 384, 512, 768, 1024]:
+  plain (cognitive off)              0.945 0.798 0.637 0.425 0.305
+  K1 explaining away                 1.000 0.980 0.902 0.400 0.211
+  K2 ATTEND + REINFORCE              0.960 0.883 0.802 0.664 0.547
+  K1 + K2                            0.996 0.951 0.894 0.668 0.484
+  K6 annealed (hot -> cold)          1.000 0.999 0.881 0.333 0.164
+
+K4 assert-or-abstain (plain reads, random, N 384): margin gate 0.0139 (dev); test precision 0.989, coverage 0.362
+
+FAILS  K1a explaining away: N 512 >= 0.95 (0.894), N 768 >= 0.80 (0.407)
+FAILS  K1b GATE load-bearing: no-gate >= 0.05 worse at N 768 (0.369 vs 0.407)
+HOLDS  K1c CONSERVE load-bearing: no-conserve worse than plain at N 768 (0.001 vs 0.425)
+HOLDS  K2a attention on the glossary, N 512 >= plain + 0.05 (0.802 vs 0.637)
+FAILS  K2b attention a tie on random (largest gap 0.084)
+HOLDS  K3 together >= either alone on the glossary at N 768 (0.668; K1 0.400, K2 0.664)
+FAILS  K4 assert-or-abstain: precision >= 0.99 (0.989) with coverage >= 0.6 (0.362)
+HOLDS  K5 chaos not kept (test -0.000 mean)
+FAILS  K6a annealed >= hard K1 + 0.03 at N 768 (0.334 vs 0.407)
+HOLDS  K6b cooling load-bearing: annealed >= hot-only + 0.03 at N 768 (0.334 vs 0.285)
+HOLDS  K7a amplification alone an exact tie (largest gap 0.000)
+HOLDS  K7b together not kept, <= +0.01 (mean -0.065)
+
+7 of 12 hold (644 s)

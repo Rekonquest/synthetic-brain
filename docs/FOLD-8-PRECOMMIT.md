@@ -114,3 +114,89 @@ items. Errors in the passed hypotheses take part of that.
 Amplification is not rerun (FOLD-5 measured it inert on this store).
 
 A new orchestrator crate, `fold8`. CPU only, 8 threads, a few minutes.
+
+## Results (2026-10-23, `evidence/fold-8/results.txt`, 11 min on 8 threads)
+
+**Dev choices:** ρ 0.75 (dev means 0.649, 0.682, 0.698; at the grid's edge); β 0.01; T₀ 0.005 (also
+the grid's edge); best cognitive stack K1 (hard; dev 0.698 against K6's 0.674); G 1.25.
+
+**Random content, test (accuracy at N 256, 384, 512, 768, 1024; the store is 1,024 bytes):**
+
+| arm | 256 | 384 | 512 | 768 | 1024 |
+|---|---|---|---|---|---|
+| plain (cognitive off; reproduces FOLD-6) | 0.937 | 0.800 | 0.636 | **0.425** | **0.301** |
+| amplification alone (write × 2) | 0.937 | 0.800 | 0.636 | 0.425 | 0.301 |
+| **K1 explaining away** | 0.999 | 0.983 | **0.894** | 0.407 | 0.219 |
+| K1 without GATE (ρ 1) | 1.000 | 0.999 | 0.857 | 0.369 | 0.201 |
+| K1 without CONSERVE (α 1) | 0.007 | 0.002 | 0.000 | 0.001 | 0.000 |
+| K2 ATTEND + REINFORCE | 0.900 | 0.717 | 0.569 | 0.385 | 0.269 |
+| K1 + K2 | 0.997 | 0.952 | 0.794 | 0.312 | 0.157 |
+| **K6 annealed (hot → cold)** | **1.000** | **0.999** | 0.884 | 0.334 | 0.170 |
+| K6 hot only (no cooling) | 1.000 | 0.999 | 0.798 | 0.285 | 0.134 |
+| together: K1 + over-cancellation G 1.25 | 0.997 | 0.965 | 0.788 | 0.285 | 0.142 |
+| chaos on K1's cancellation scale | 0.999 | 0.983 | 0.896 | 0.404 | 0.218 |
+
+**Glossary content, test:**
+
+| arm | 256 | 384 | 512 | 768 | 1024 |
+|---|---|---|---|---|---|
+| plain | 0.945 | 0.798 | 0.637 | 0.425 | 0.305 |
+| K1 explaining away | 1.000 | 0.980 | **0.902** | 0.400 | 0.211 |
+| **K2 ATTEND + REINFORCE** | 0.960 | 0.883 | 0.802 | 0.664 | **0.547** |
+| **K1 + K2** | 0.996 | 0.951 | 0.894 | **0.668** | 0.484 |
+| K6 annealed | 1.000 | 0.999 | 0.881 | 0.333 | 0.164 |
+
+**K4, assert-or-abstain** (plain reads, random, N 384; margin gate 0.0139 chosen on dev): test
+precision 0.989, coverage 0.362.
+
+| # | Result |
+|---|---|
+| K1a explaining away: N 512 ≥ 0.95, N 768 ≥ 0.80 | **FAILED:** 0.894, and 0.407 (below plain) |
+| K1b GATE load-bearing (≥ 0.05) | **FAILED:** no gate is 0.038 worse at N 768, and *better* at N ≤ 384 |
+| K1c CONSERVE load-bearing | MEASURED: without it, recall collapses to 0.000–0.007 |
+| K2a attention uses the glossary's redundancy (≥ +0.05) | MEASURED: N 512 0.637 → 0.802; N 1024 0.305 → **0.547** |
+| K2b attention a tie on random (±0.01) | **FAILED:** it *costs* up to 0.084; a prior built from noisy hypotheses misleads |
+| K3 together ≥ either alone (glossary, N 768) | MEASURED: 0.668 (K1 0.400, K2 0.664) |
+| K4 precision ≥ 0.99 at coverage ≥ 0.6 | **FAILED:** 0.989 at 0.362 |
+| K5 chaos not kept | MEASURED: a tie (+0.000) |
+| K6a annealed ≥ hard + 0.03 at N 768 | **FAILED:** 0.334 against 0.407 (annealed wins at N ≤ 384) |
+| K6b cooling load-bearing | MEASURED: 0.334 against hot-only 0.285 |
+| K7a amplification alone an exact tie | MEASURED: identical at every N |
+| K7b together not kept | MEASURED: G costs 0.065 on average |
+
+**7 of 12 hold.**
+
+### What it settles
+
+- **The cognitive roots raise the fold's depth, below a tipping point.** In the same 1 KB store:
+  - at 384 memories, plain 0.800 becomes **0.999** (K6, annealed);
+  - at 512, plain 0.636 becomes **0.894** (K1).
+  - The store holding 384 values at ≥ 0.95 instead of 256 is 1.5× the memories at no cost in bytes.
+- **Above the tipping point they backfire.** When most first reads are wrong (N ≥ 768, plain ≤ 0.43),
+  cancelling wrong hypotheses spreads their error and recall falls *below* plain. This is error
+  propagation in interference cancellation. The tipping point sits near a first-read accuracy of
+  about 0.6. My prediction assumed the gated hypotheses stay mostly right; at depth they do not.
+- **ATTEND + REINFORCE is the root that uses the data's redundancy.** On the glossary it lifts the
+  deepest loads the most (1,024 values: 0.305 → 0.547). On random bytes it costs, because a prior
+  learned from noisy hypotheses is a bias, not knowledge. This answers FOLD-6's finding that folding
+  ignores redundancy: **the cognitive layer recovers it, the store does not need to.**
+- **Hot → cold annealing is the best stack while the first reads are good** (0.999 at 384), and
+  cooling is load-bearing (hot-only is worse). At depth, soft cancellation of wrong hypotheses costs
+  more than hard.
+- **CONSERVE is the most load-bearing root here.** Unscaled cancellation destroys the store.
+- **GATE as written is weak.** Selecting the top ρ by margin barely matters. The ablation is better at
+  low N and only 0.04 worse at high N.
+- **Amplification and chaos: inert or harmful,** as on every store of this kind.
+
+### The next step this points to (not tested)
+
+A PERCEPTION-level GATE over the whole pass: a named hypothesis "the store is recoverable",
+citing the first pass's margin distribution. Cancellation runs only when it holds, so the stack is
+never worse than plain. With that gate the best results per depth would combine:
+
+| N | random | glossary |
+|---|---|---|
+| 384 | 0.999 (K6) | 0.999 (K6) |
+| 512 | 0.894 (K1) | 0.902 (K1) |
+| 768 | 0.425 (plain) | 0.668 (K1 + K2) |
+| 1024 | 0.301 (plain) | 0.547 (K2) |
