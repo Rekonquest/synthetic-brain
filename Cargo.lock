@@ -256,6 +256,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "fold9"
+version = "0.1.0"
+dependencies = [
+ "astro-virial",
+ "qb-amplitude",
+ "qb-bind",
+ "qb-chaos",
+ "qb-classical",
+ "qb-quantize",
+]
+
+[[package]]
 name = "gpu-cap-binary128"
 version = "0.1.0"
 dependencies = [

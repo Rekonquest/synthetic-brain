@@ -44,8 +44,14 @@ the end:
 - **The bars:** everything in raw (a cue that is not an exact address fails); everything in the
   association store.
 
-**Recall** in the association store uses FOLD-9's gated stack (the best recall stack with its
-perception gate).
+**Recall** in every store is its plain single read: phase-locked for association, overlap against a
+threshold τ (chosen on dev) for recognition, and lookup for raw. *Amended before code:* the gated
+stack of FOLD-9 was first named here, but the shine router reads back every trial write, and the
+recall loop on each trial is too slow for a proof of concept. The gated stack is for HYBRID-2.
+- **What each store can hold:** raw holds values (1 byte each) and cannot hold a recognition
+  pattern; association and recognition hold anything, at the cost of crosstalk.
+- **Cost, for ties:** raw 1 byte; association and recognition at their store's bytes divided by the
+  items they hold.
 
 ## Predictions
 
