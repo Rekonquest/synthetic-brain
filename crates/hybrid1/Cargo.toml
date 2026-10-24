@@ -1,0 +1,13 @@
+[package]
+name = "hybrid1"
+description = "HYBRID-1 orchestrator: each memory where it shines - fixed, per-memory shine and learned routers across raw, association and recognition stores."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+qb-amplitude = { path = "../qb-amplitude" }
+qb-bind = { path = "../qb-bind" }
+qb-quantize = { path = "../qb-quantize" }
+qb-overlap-phase = { path = "../qb-overlap-phase" }

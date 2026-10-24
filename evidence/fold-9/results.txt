@@ -1,0 +1,22 @@
+FOLD-9: the PERCEPTION gate on the best recall stack (virial kappa 0.1, 6 rounds); 2-bit store D 4096; N [384, 512, 768, 1024]
+  dev theta: [0.6, 0.7, 0.8, 0.9] -> means [0.657, 0.610, 0.578, 0.537]; chosen 0.6
+
+Random content, test, accuracy at N [384, 512, 768, 1024]:
+  plain                                          0.800 0.636 0.425 0.301
+  stack, ungated                                 0.998 0.966 0.381 0.244
+  G-P perception gate                            0.998 0.966 0.409 0.268
+  G-V verify gate                                0.998 0.966 0.381 0.244
+  the reading f per N (test mean): [0.811, 0.702, 0.607, 0.582]
+
+Glossary, test, accuracy at N [384, 512, 768, 1024]:
+  plain                                          0.798 0.637 0.425 0.305
+  ATTEND alone                                   0.883 0.802 0.664 0.547
+  stack, ungated                                 0.999 0.972 0.377 0.243
+  G-P + ATTEND                                   0.997 0.981 0.777 0.552
+
+FAILS  P1 G-P never worse than plain - 0.01 (both contents)
+HOLDS  P2 G-P keeps the gains at N 384, 512 (0.998, 0.966 vs ungated 0.998, 0.966)
+HOLDS  P3 G-V weaker at N 768 (0.381 vs G-P 0.409)
+HOLDS  P4 glossary: G-P + ATTEND >= max(plain, ATTEND) - 0.01 everywhere, >= 0.95 at N 512 (0.981)
+
+3 of 4 hold (148 s)

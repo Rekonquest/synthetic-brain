@@ -368,6 +368,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "hybrid1"
+version = "0.1.0"
+dependencies = [
+ "qb-amplitude",
+ "qb-bind",
+ "qb-overlap-phase",
+ "qb-quantize",
+]
+
+[[package]]
 name = "phys1"
 version = "0.1.0"
 dependencies = [

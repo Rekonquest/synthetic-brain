@@ -2,6 +2,28 @@
 
 Started 2026-10-18. Each item is precommitted before it is built, as usual.
 
+## Standing principle (Jesse, 2026-10-24): every stack is a specialist for a hybrid
+
+"Treat all stacks like we intended to use them for memory, a hybrid, use stacks for what they are
+strongest for, so a stack that does exceptional in one area but poorly everywhere else can be used
+in a hybrid set up. Like the brain, no one thing excels at everything."
+
+- **Never write off a stack for losing overall.** Every write-up records its **niche**: what it is
+  best at, with numbers, and the hybrid role it could fill.
+- **Routing between specialists** (HYBRID-1 onward) is the integration layer.
+- **The niches so far:**
+  - thermal shape store: lasting memories that fade unless used;
+  - phase recognition store: mass recognition;
+  - 2-bit association store: recall from partial or noisy cues, and records in any direction;
+  - raw/AtomDB: exact recall;
+  - virial recall loop: the deepest clean recall below the tipping point;
+  - ATTEND: redundant data at depth;
+  - Wilson reading: drift-proof recall and perception;
+  - topological ring: noise-proof bits and exact small counts;
+  - string harmonics: parallel lanes;
+  - entangled pairs: coordination with no message;
+  - Zeno attention: holding a state.
+
 ## Next session (written 2026-10-24)
 
 Where we stopped: the PHYS-POC precommit (`docs/PHYS-POC.md`) is committed, amended so each law is

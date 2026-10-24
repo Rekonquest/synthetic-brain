@@ -51,3 +51,50 @@ the glossary, where it lifted the deepest loads.
    alone − 0.01 at every N, and ≥ 0.95 at N 512.
 
 A new orchestrator crate, `fold9`, copied from `astro2r`. CPU, 8 threads, a few minutes.
+
+## Results (2026-10-24, `evidence/fold-9/results.txt`, 148 s on 8 threads)
+
+Dev chose **θ 0.6**, the edge of the grid (dev means 0.657, 0.610, 0.578, 0.537 for θ 0.6 to 0.9).
+The reading f (test mean) is 0.811, 0.702, 0.607 and 0.582 at N 384, 512, 768 and 1024, lower than
+my estimate.
+
+| random content (test) | 384 | 512 | 768 | 1024 |
+|---|---|---|---|---|
+| plain | 0.800 | 0.636 | **0.425** | **0.301** |
+| the stack, ungated | 0.998 | 0.966 | 0.381 | 0.244 |
+| **G-P, the perception gate** | **0.998** | **0.966** | 0.409 | 0.268 |
+| G-V, the verify gate | 0.998 | 0.966 | 0.381 | 0.244 |
+
+| glossary (test) | 384 | 512 | 768 | 1024 |
+|---|---|---|---|---|
+| plain | 0.798 | 0.637 | 0.425 | 0.305 |
+| ATTEND alone | 0.883 | 0.802 | 0.664 | 0.547 |
+| the stack, ungated | 0.999 | 0.972 | 0.377 | 0.243 |
+| **G-P + ATTEND** | **0.997** | **0.981** | **0.777** | **0.552** |
+
+| # | Result |
+|---|---|
+| P1 G-P never worse than plain − 0.01 | **FAILED on random content:** 0.409 against 0.425 at N 768, and 0.268 against 0.301 at N 1024. The glossary holds |
+| P2 G-P keeps the gains at N 384 and 512 | MEASURED: 0.998 and 0.966, as ungated |
+| P3 G-V weaker at N 768 | MEASURED: 0.381 against 0.409; the verify gate never rejected (margins after cancellation always look better) |
+| P4 glossary: G-P + ATTEND the best at every N, ≥ 0.95 at 512 | MEASURED: 0.981 at N 512, and the best at every N |
+
+**3 of 4 hold.**
+
+### What it settles
+
+- **The perception gate works in kind but is too coarse in degree.** It halves the loss at N 768–1024
+  on random content, but θ's grid stopped at 0.6 and the reading f at N 768 (0.607) sits on that
+  edge. A finer θ (about 0.65), or a reading with more contrast than "above the noise median", is the
+  fix.
+- **The verify gate is fooled every time:** cancellation always raises the total margin, right or
+  wrong. Confidence after acting is not evidence. The perception gate, which looks before acting, is
+  the right class.
+- **On real data, gate + ATTEND is the best recall at every depth:** 0.981 at N 512, and 0.777 at
+  N 768 against plain's 0.425.
+
+**Niches** (Jesse's standing principle):
+- **G-P + ATTEND:** the recall stack for redundant data at any load.
+- **The ungated virial stack:** the deepest clean recall on random data below the tipping point
+  (0.966 at N 512).
+- **Plain reading:** past the tipping point on random data.
