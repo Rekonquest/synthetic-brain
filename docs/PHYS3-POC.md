@@ -107,3 +107,4 @@ scrambles), the Eddington limit, inflation, and recombination.
   - **R5a:** under Zipf queries, identity rises ≥ 0.05.
   - **R5b:** under uniform queries, it changes by no more than ±0.02 (the masses stay even).
   - **R5c:** β × 2 overshoots under uniform queries (≤ −0.02).
+  - **R5d:** chaos not kept.
