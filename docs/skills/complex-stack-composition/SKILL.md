@@ -55,3 +55,12 @@ through lifelong damage (0.939 after losing 6 of 8 regions; plain 0.077); percei
 (0.107), because its perception (each part probed alone) was blind. Always declare ≥2 orders, and
 run ablations on the order that works. Ablations measured on a broken principal are inconclusive,
 not negative.
+
+## One harmful mechanism can sink a complex stack (HOLO-R2, 2026-10-24)
+The eight-domain healer lost to a three-domain one at heavy load (0.282 against 0.712). The ablations
+showed why: biology's kinetic proofreading (two half-store decodes must agree) blocked correct
+writes. Without it, the seven-domain stack healed almost perfectly (1.000 and 0.995 after losing 6 of
+8 regions). **Jesse's complexity theory holds when each mechanism is load-bearing.** Run every
+per-domain ablation, drop or redesign any mechanism whose removal *helps*, then confirm the pruned
+principal on fresh seeds under a new precommit. A gate that is stricter than the decode it guards
+removes good work, not bad.

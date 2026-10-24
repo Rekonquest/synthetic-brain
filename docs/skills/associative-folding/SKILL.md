@@ -49,3 +49,6 @@ Decode the whole store → perceive damaged regions by residual against the deco
 decode again → proofread (two disjoint halves agree) → replay the recalled values into the
 dissolved regions. After losing 6 of 8 regions over three hits: 0.939 recall at N 192 (plain 0.077,
 local layout 0.247); at N 256 the load limits rebuilding (0.282 after the third hit).
+HOLO-R2: without the proofreading gate the decode-first healer reaches 1.000 (N 192) and 0.995
+(N 256) after losing 6 of 8 regions over three hits; load-bearing: perception by residual, replay,
+relaxation decoding, erasure masking, holographic layout; annealing repair survives a bad gate.
