@@ -72,3 +72,62 @@ log-loss: *temperature scaling*, the field's standard calibration. It is a stron
 
 A new orchestrator crate, `prob1` (from `fold9`). Function crates: `qb-classical::temper` (Boltzmann),
 `qb-amplitude` (Born), and a new `prob-moments` (μ by the method of moments).
+
+## Results (2026-10-24, `evidence/prob-1/results.txt`, 18 s)
+
+Dev chose softmax T 0.003 and virial κ 0.1. ECE is over the 5 shown candidates; "70% right" is the
+accuracy of candidates scored in [0.6, 0.8).
+
+| random, test | N | ECE | Brier | log-loss | top-5 | top-1 | "70%" right |
+|---|---|---|---|---|---|---|---|
+| softmax, tuned T (bar) | 384 | 0.004 | 0.105 | 0.750 | 0.949 | 0.800 | 0.719 |
+| **maximum entropy (no labels)** | 384 | 0.008 | 0.109 | 0.764 | 0.949 | 0.800 | 0.768 |
+| softmax, tuned T | 512 | 0.017 | 0.160 | 1.460 | 0.858 | 0.636 | 0.634 |
+| **maximum entropy** | 512 | **0.009** | 0.160 | 1.466 | 0.858 | 0.636 | 0.664 |
+| **maximum entropy, refined readings** | 512 | **0.006** | **0.023** | **0.131** | **0.997** | **0.966** | 0.678 |
+| virial, refined readings | 512 | 0.008 | 0.027 | 0.199 | 0.997 | 0.966 | 0.562 |
+| softmax, tuned T | 768 | 0.044 | 0.216 | 2.652 | 0.692 | 0.425 | 0.456 |
+| **maximum entropy** | 768 | **0.015** | **0.205** | **2.558** | 0.692 | 0.425 | 0.634 |
+| Born | 768 | 0.077 | 0.244 | 4.322 | 0.481 | 0.259 | (none scored there) |
+| virial (own T) | 768 | 0.072 | 0.253 | 3.409 | 0.692 | 0.425 | 0.397 |
+
+Born's ECE at N 384 and 512 is 0.149 and 0.120.
+
+**Glossary, N 768:** maximum entropy ECE 0.008, log-loss 2.883, top-1 0.372. With the ATTEND
+prior: log-loss **1.859**, top-1 **0.556**, top-5 0.802, "70%" right 0.767.
+
+| # | Result |
+|---|---|
+| P1 maximum entropy ECE ≤ 0.03 at every N, within 0.01 of tuned softmax | MEASURED: 0.008, 0.009, 0.015, and **better than the tuned softmax at N 512 and 768** (0.017, 0.044) |
+| P2 Born ECE ≥ 0.1 at N 768 | **FAILED:** 0.077 at N 768 (0.149 and 0.120 at N 384 and 512) |
+| P3 virial lowest log-loss at N 768 | **FAILED:** 3.409, the worst but Born. A per-item temperature distorts the probabilities, though it sharpens recall (ASTRO-2R) |
+| P4 top-5 coverage ≥ top-1 + 0.1 at N 768 | MEASURED: 0.692 against 0.425 |
+| P5 maximum entropy's "70%" in [0.65, 0.75] | **FAILED at N 768:** 0.634 (N 384 0.768, N 512 0.664) |
+| P6 chaos not kept | MEASURED: no variant beat plain on dev |
+| P7 refined readings cut log-loss ≥ 10% at N 512 | MEASURED: 1.466 → 0.131 (−91%) |
+| P8 the ATTEND prior cuts the glossary's log-loss ≥ 10% | MEASURED: 2.883 → 1.859 (−36%) |
+
+**5 of 8 hold.**
+
+### What it settles
+
+- **Jaynes' maximum entropy gives a self-calibrating probability stack.** The store measures its own
+  noise (keys never written) and its own signal (the method of moments), and the Boltzmann law at
+  T = σ²/μ needs no labels and no tuning. It is better calibrated than temperature scaling tuned on
+  labelled dev data once the store is loaded (N 512 and 768).
+- **With the recall loop's refined readings it becomes the best probability stack measured:** at
+  N 512, top-1 0.966, top-5 0.997, ECE 0.006, log-loss 0.131.
+- **With ATTEND on real data** it uses the redundancy: top-1 0.372 → 0.556 at N 768, with its 70%
+  scores right 77% of the time.
+- **The "70%" check drifts low at the deepest load** (0.634), so the label-free calibration is good
+  in aggregate (ECE 0.015) but slightly overconfident in that band.
+- **Born and the per-item virial temperature are not probability laws for this store.** The virial
+  temperature is a *recall* law: it sharpens readings in the loop (ASTRO-2R) but miscalibrates when
+  used for the final scores.
+
+**Niches:**
+- **maximum entropy:** the calibrated probability layer, with no labels;
+- **maximum entropy on refined readings:** the best scored candidate answers below the tipping
+  point;
+- **maximum entropy with the ATTEND prior:** scored answers on redundant data;
+- **the virial temperature:** inside the recall loop, not at the output.

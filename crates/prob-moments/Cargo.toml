@@ -1,0 +1,9 @@
+[package]
+name = "prob-moments"
+description = "The signal of a noisy reading set by the method of moments: mu^2 = E[sum z^2] - m sigma^2 (PROB-1)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]

@@ -1,0 +1,39 @@
+PROB-1: a probability stack from physics axioms, 2-bit store D 4096, top-5 candidates with independent scores
+  dev choices: softmax T 0.003, virial kappa 0.1
+
+Random content, N 384 (test):
+  softmax, tuned T (bar)             ECE 0.004  Brier 0.105  log-loss 0.750  top-5 0.949  top-1 0.800  '70%' right 0.719 (n 420)
+  Born                               ECE 0.149  Brier 0.591  log-loss 3.647  top-5 0.851  top-1 0.637  '70%' right NaN (n 0)
+  virial (own T)                     ECE 0.037  Brier 0.129  log-loss 1.160  top-5 0.949  top-1 0.800  '70%' right 0.776 (n 156)
+  maximum entropy (no labels)        ECE 0.008  Brier 0.109  log-loss 0.764  top-5 0.949  top-1 0.800  '70%' right 0.768 (n 440)
+
+Random content, N 512 (test):
+  softmax, tuned T (bar)             ECE 0.017  Brier 0.160  log-loss 1.460  top-5 0.858  top-1 0.636  '70%' right 0.634 (n 711)
+  Born                               ECE 0.120  Brier 0.424  log-loss 3.929  top-5 0.704  top-1 0.454  '70%' right NaN (n 0)
+  virial (own T)                     ECE 0.055  Brier 0.194  log-loss 2.085  top-5 0.858  top-1 0.636  '70%' right 0.583 (n 247)
+  maximum entropy (no labels)        ECE 0.009  Brier 0.160  log-loss 1.466  top-5 0.858  top-1 0.636  '70%' right 0.664 (n 715)
+  maximum entropy, refined readings  ECE 0.006  Brier 0.023  log-loss 0.131  top-5 0.997  top-1 0.966  '70%' right 0.678 (n 87)
+  virial, refined readings           ECE 0.008  Brier 0.027  log-loss 0.199  top-5 0.997  top-1 0.966  '70%' right 0.562 (n 32)
+
+Random content, N 768 (test):
+  softmax, tuned T (bar)             ECE 0.044  Brier 0.216  log-loss 2.652  top-5 0.692  top-1 0.425  '70%' right 0.456 (n 1101)
+  Born                               ECE 0.077  Brier 0.244  log-loss 4.322  top-5 0.481  top-1 0.259  '70%' right NaN (n 0)
+  virial (own T)                     ECE 0.072  Brier 0.253  log-loss 3.409  top-5 0.692  top-1 0.425  '70%' right 0.397 (n 418)
+  maximum entropy (no labels)        ECE 0.015  Brier 0.205  log-loss 2.558  top-5 0.692  top-1 0.425  '70%' right 0.634 (n 705)
+
+  chaos on MaxEnt: no variant beat plain on dev (4.7023)
+
+Glossary, N 768 (test):
+  maximum entropy                    ECE 0.008  Brier 0.169  log-loss 2.883  top-5 0.609  top-1 0.372  '70%' right 0.706 (n 636)
+  maximum entropy x ATTEND prior     ECE 0.021  Brier 0.172  log-loss 1.859  top-5 0.802  top-1 0.556  '70%' right 0.767 (n 866)
+
+HOLDS  P1 max-ent ECE <= 0.03 at every N and within 0.01 of tuned softmax ([0.008, 0.009, 0.015] vs [0.004, 0.017, 0.044])
+FAILS  P2 Born ECE >= 0.1 at N 768 (0.077)
+FAILS  P3 virial lowest log-loss at N 768 (3.409; max-ent 2.558, softmax 2.652, Born 4.322)
+HOLDS  P4 top-5 coverage >= top-1 + 0.1 at N 768 (0.692 vs 0.425)
+FAILS  P5 max-ent '70%' check in [0.65, 0.75] (N 768: 0.634, n 705)
+HOLDS  P6 chaos not kept
+HOLDS  P7 refined readings cut max-ent log-loss >= 10% at N 512 (1.466 -> 0.131)
+HOLDS  P8 glossary: ATTEND prior cuts log-loss >= 10% (2.883 -> 1.859)
+
+5 of 8 hold (18 s)

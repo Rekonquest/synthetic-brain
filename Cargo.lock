@@ -416,6 +416,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "prob-moments"
+version = "0.1.0"
+
+[[package]]
+name = "prob1"
+version = "0.1.0"
+dependencies = [
+ "astro-virial",
+ "prob-moments",
+ "qb-amplitude",
+ "qb-bind",
+ "qb-chaos",
+ "qb-classical",
+ "qb-quantize",
+]
+
+[[package]]
 name = "q1conf"
 version = "0.1.0"
 dependencies = [
