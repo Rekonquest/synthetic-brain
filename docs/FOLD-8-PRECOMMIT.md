@@ -53,6 +53,22 @@ Three rounds after the first read.
   is at least g, with g chosen on dev as the smallest giving precision ≥ 0.99. Report coverage and
   precision on test.
 
+### K6: hot and cold in the recall loop (added before any code, 2026-10-23)
+
+Jesse: "Would hot and cold work outside the thermostate". FOLD-5 measured heat as noise on the stored
+memories: it only costs. The place where temperature can act outside the thermal state is the recall
+loop, which K1 makes iterative.
+- **Hot:** each item's predicted interference is soft. It is the bound mixture over all 256 values,
+  bind(key_j, Σ_v p_v·code_v), with p = `qb-classical::temper(exp(scores), T)` (Boltzmann weights at
+  temperature T).
+- **Cooling:** T falls each round (T₀, T₀/2, T₀/4), and the last read is hard. This is O8,
+  "exploration decays monotonically; settle before assert".
+- T₀ ∈ {0.005, 0.01, 0.02} (the scores' noise scale is 1/√D ≈ 0.016), chosen on dev.
+- **No GATE:** a soft hypothesis that is unsure spreads its weight and cancels little by itself.
+  CONSERVE scales the soft E as in K1.
+- **The cold end** is K1's hard cancellation of every hypothesis without a gate (the ρ = 1
+  ablation). Hot-only (T fixed at T₀, no cooling) is run beside it.
+
 ### Chaos last, on the kept stack
 
 Each round, each item's cancellation scale is α·(1 + 0.3(u − ½)), with u from
@@ -78,6 +94,10 @@ items. Errors in the passed hypotheses take part of that.
    ≥ 0.6, plain reads.
 8. **K5, chaos on the cancellation scale: not kept.** The least-squares α is already the optimum of
    a convex fit.
+9. **K6a, annealing beats hard cancellation:** random content, N 768: annealed soft ≥ hard K1 (with
+   its gate) + 0.03. Soft decisions keep wrong hypotheses from cancelling at full weight.
+10. **K6b, cooling is load-bearing:** annealed ≥ hot-only (fixed T₀) + 0.03 at N 768. A store read
+    hot to the end never settles.
 
 Amplification is not rerun (FOLD-5 measured it inert on this store).
 
