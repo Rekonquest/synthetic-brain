@@ -1,0 +1,9 @@
+[package]
+name = "shape-cip"
+description = "The Cahn-Ingold-Prelog priority rule for a 2D point set: the turn of the three highest-priority points (GEO-2)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]

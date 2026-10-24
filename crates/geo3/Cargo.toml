@@ -1,0 +1,17 @@
+[package]
+name = "geo3"
+description = "GEO-2 orchestrator: Noether composed with the grid-cell phase code (neuroscience), the CIP rule (chemistry) and dual process (cognitive)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+shape-chamfer = { path = "../shape-chamfer" }
+shape-rotate = { path = "../shape-rotate" }
+shape-moments = { path = "../shape-moments" }
+shape-distances = { path = "../shape-distances" }
+shape-canon = { path = "../shape-canon" }
+qb-chaos = { path = "../qb-chaos" }
+phase-angle = { path = "../phase-angle" }
+shape-cip = { path = "../shape-cip" }

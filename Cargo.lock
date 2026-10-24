@@ -289,6 +289,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "geo3"
+version = "0.1.0"
+dependencies = [
+ "phase-angle",
+ "qb-chaos",
+ "shape-canon",
+ "shape-chamfer",
+ "shape-cip",
+ "shape-distances",
+ "shape-moments",
+ "shape-rotate",
+]
+
+[[package]]
 name = "gpu-cap-binary128"
 version = "0.1.0"
 dependencies = [
@@ -404,6 +418,10 @@ version = "0.1.0"
 
 [[package]]
 name = "path-sum"
+version = "0.1.0"
+
+[[package]]
+name = "phase-angle"
 version = "0.1.0"
 
 [[package]]
@@ -740,6 +758,10 @@ version = "0.1.0"
 
 [[package]]
 name = "shape-chamfer"
+version = "0.1.0"
+
+[[package]]
+name = "shape-cip"
 version = "0.1.0"
 
 [[package]]

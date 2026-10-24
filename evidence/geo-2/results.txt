@@ -1,0 +1,44 @@
+GEO-2: physics (Noether charges) composed with neuroscience (grid-cell phase code), chemistry (CIP) and cognitive (dual process); G1's task
+  dev gate (dual process identity+mirror, cost): [(1.05, 0.964, 40.0), (1.1, 0.964, 40.0), (1.2, 0.964, 40.0), (1.5, 0.966, 40.0)]; chosen 1.5
+
+  noise 0.01: arm, identity, identity+mirror, Chamfer evaluations per query
+    search (bar)                       1.000  0.998  2197.5
+    Noether alone                      1.000  0.911  0.0
+    Noether + CIP (chemistry)          1.000  0.864  0.0
+    grid-cell verify (neuroscience)    0.995  0.995  6.0
+    dual process (cognitive)           1.000  0.989  9.3
+    verify + chaos                     0.995  0.995  24.0
+    verify, 4 modules (amplified)      1.000  1.000  6.0
+    mirror accuracy on identified shapes: CIP 0.864, Noether pseudo-scalar 0.911
+
+  noise 0.02: arm, identity, identity+mirror, Chamfer evaluations per query
+    search (bar)                       1.000  1.000  2216.6
+    Noether alone                      0.999  0.845  0.0
+    Noether + CIP (chemistry)          0.999  0.757  0.0
+    grid-cell verify (neuroscience)    0.986  0.981  6.0
+    dual process (cognitive)           1.000  0.968  55.6
+    verify + chaos                     0.984  0.980  24.0
+    verify, 4 modules (amplified)      1.000  1.000  6.0
+    mirror accuracy on identified shapes: CIP 0.758, Noether pseudo-scalar 0.846
+
+  noise 0.05: arm, identity, identity+mirror, Chamfer evaluations per query
+    search (bar)                       0.995  0.987  3874.7
+    Noether alone                      0.776  0.544  0.0
+    Noether + CIP (chemistry)          0.776  0.465  0.0
+    grid-cell verify (neuroscience)    0.875  0.850  6.0
+    dual process (cognitive)           0.993  0.958  2973.9
+    verify + chaos                     0.881  0.857  24.0
+    verify, 4 modules (amplified)      0.916  0.903  6.0
+    mirror accuracy on identified shapes: CIP 0.599, Noether pseudo-scalar 0.700
+
+FAILS  N1 grid-cell verify >= 0.99 at 0.02 (0.981), >= 0.95 at 0.05 (0.850), 6 evaluations vs search 2217
+FAILS  C1 CIP mirror >= Noether pseudo-scalar + 0.05 at 0.02 (0.758 vs 0.846)
+FAILS  D1 dual process within 0.01 of search at <= 10% cost (0.989/0.968/0.958 vs 0.998/1.000/0.987; cost 9/56/2974 vs 2217)
+HOLDS  X1 chaos kept at 0.05 (0.857 vs 0.850), not at 0.01 (0.995 vs 0.995)
+HOLDS  X2 4 modules raise verify at 0.05 by >= 0.01 (0.903 vs 0.850)
+
+2 of 5 hold (1 s)
+
+real	0m0.618s
+user	0m3.140s
+sys	0m0.005s

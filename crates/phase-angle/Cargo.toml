@@ -1,0 +1,9 @@
+[package]
+name = "phase-angle"
+description = "The grid-cell phase code: read a rotation angle from the phases of several rotation charges (modules) at once (GEO-2)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
