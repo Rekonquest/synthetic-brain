@@ -85,3 +85,22 @@ The bounded count is 15 arms × 2 N × 8 test seeds, plus dev.
 5. **H5:** the decoder's rounds × 2 raise C1's episode-1 recall at N 256 by ≥ 0.01.
 
 A new orchestrator crate, `holor`. CPU, 8 threads, a few minutes.
+
+## Amendment before code: repair and healing laws from different domains (Jesse, 2026-10-24)
+
+"And try repair/healing axioms from different domains." The repair stage gets three candidate laws
+(Rule 2: one to three, each with its reason). Each runs inside C1, with biology's proofreading gate
+and chemistry's Le Chatelier rate law unchanged.
+
+| law (domain) | mechanism | invariant | falsifier | why |
+|---|---|---|---|---|
+| **replay** (neuroscience; C1 as declared) | one pass: decode, proofread, rewrite the damaged regions | only proofread values are written | no replay | hippocampal replay consolidates and repairs |
+| **autocatalysis** (chemistry) | repair in 3 cycles per episode: each cycle's healed regions improve the next decode, so more memories pass proofreading and are written; the product catalyses its own production | the same gate in every cycle | one cycle (= replay) | a reaction whose product speeds it up runs to completion where a single pass stalls |
+| **annealing** (physics, materials) | 3 cycles with a cooling temperature. In early cycles, memories that fail proofreading are written as soft mixtures of their likely values (Boltzmann at T), hedging instead of omitting; T halves each cycle; in the last cycle only proofread values are written | the final cycle writes only proofread values | autocatalysis (hard writes only) | heating then slow cooling lets a lattice settle its defects instead of freezing them in |
+
+**Predictions:**
+- **H6:** autocatalysis ≥ replay + 0.02 in final recall at N 256 (proofreading pass rates rise
+  across cycles).
+- **H7:** annealing ties autocatalysis (±0.02): soft writes help the decode but add crosstalk.
+
+**The arms** gain 2 (autocatalysis, annealing); the bounded count is 17.
