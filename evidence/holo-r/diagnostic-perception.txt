@@ -1,0 +1,5 @@
+Diagnostic after the run (labelled): episode-1 perception against the 2 truly erased regions (dev seeds 0-3, kappa 0.8)
+  N 192 seed 0: erased [7, 6]; perceive-first readings h [0.0106, 0.0114, 0.0119, 0.0110, 0.0107, 0.0121, 0.0114, 0.0077]
+  N 192: perceive-first flagged 2/8 erased, 1 healthy wrongly; residual flagged 8/8 erased, 0 healthy wrongly
+  N 256 seed 0: erased [7, 6]; perceive-first readings h [0.0112, 0.0094, 0.0096, 0.0106, 0.0089, 0.0088, 0.0114, 0.0077]
+  N 256: perceive-first flagged 1/8 erased, 0 healthy wrongly; residual flagged 8/8 erased, 0 healthy wrongly

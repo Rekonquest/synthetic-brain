@@ -477,7 +477,57 @@ fn mean_runs(arm: Arm, n: usize, kappa: f64, seeds: std::ops::Range<u64>) -> [f6
     m
 }
 
+/// Diagnostic after the run (labelled): in episode 1, which regions each perception flags against
+/// the two truly erased ones.
+fn diag() {
+    println!("Diagnostic after the run (labelled): episode-1 perception against the 2 truly erased regions (dev seeds 0-3, kappa 0.8)");
+    for &n in &[192usize, 256] {
+        let (mut hit1, mut fa1, mut hit2, mut fa2) = (0, 0, 0, 0);
+        for seed in 0..4u64 {
+            let w = world(seed, n);
+            let mut s = vec![C::new(0.0, 0.0); D];
+            for i in 0..n {
+                let b = qb_bind::bind(&w.keys[i], &w.codes[w.vals[i]]);
+                for k in 0..D {
+                    s[k] = s[k].add(b[k]);
+                }
+            }
+            let mut q = s.clone();
+            qb_quantize::quantize(&mut q, BITS);
+            let mut r = Rng(seed ^ 0xDA4A);
+            let mut order: Vec<usize> = (0..R).collect();
+            for i in (1..R).rev() {
+                let j = (r.next() % (i as u64 + 1)) as usize;
+                order.swap(i, j);
+            }
+            for &g in &order[..2] {
+                for k in g * RW..(g + 1) * RW {
+                    q[k] = C::polar(1.0, 2.0 * PI * r.unit());
+                }
+            }
+            let k = [0.8; R];
+            let (d1, h) = perceive(&q, &w, false, &k);
+            let full = decode(&q, &[true; R], false, &w, true, 6);
+            let d2 = perceive_by_residual(&q, &w, false, &full, &k);
+            for rr in 0..R {
+                let er = order[..2].contains(&rr);
+                hit1 += (d1[rr] && er) as usize;
+                fa1 += (d1[rr] && !er) as usize;
+                hit2 += (d2[rr] && er) as usize;
+                fa2 += (d2[rr] && !er) as usize;
+            }
+            if seed == 0 {
+                println!("  N {n} seed 0: erased {:?}; perceive-first readings h {:.4?}", &order[..2], h);
+            }
+        }
+        println!("  N {n}: perceive-first flagged {hit1}/8 erased, {fa1} healthy wrongly; residual flagged {hit2}/8 erased, {fa2} healthy wrongly");
+    }
+}
+
 fn main() {
+    if std::env::var_os("DIAG").is_some() {
+        return diag();
+    }
     let t0 = std::time::Instant::now();
     println!("HOLO-R: a self-healing holographic store; 2-bit, D {D}, {R} regions; 3 episodes each erasing 2 fresh regions");
     let kappas = [0.5, 0.6, 0.7, 0.8];

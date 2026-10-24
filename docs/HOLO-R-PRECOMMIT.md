@@ -104,3 +104,56 @@ and chemistry's Le Chatelier rate law unchanged.
 - **H7:** annealing ties autocatalysis (±0.02): soft writes help the decode but add crosstalk.
 
 **The arms** gain 2 (autocatalysis, annealing); the bounded count is 17.
+
+## Results (2026-10-24, `evidence/holo-r/results.txt`, 963 s on 8 threads)
+
+Dev chose κ 0.8 by C1's final recall (dev 0.055, 0.055, 0.074, 0.097: already a sign C1 was not
+healing).
+
+| recall after episodes 1 / 2 / 3 | N 192 | N 256 |
+|---|---|---|
+| plain holographic (control) | 0.863 / 0.445 / 0.077 | 0.710 / 0.329 / 0.054 |
+| local layout (control) | 0.742 / 0.495 / 0.247 | 0.705 / 0.470 / 0.234 |
+| C1 (perceive first) | 0.979 / 0.483 / 0.107 | 0.872 / 0.323 / 0.070 |
+| **C2 (decode first)** | **1.000 / 0.994 / 0.939** | **1.000 / 0.564 / 0.282** |
+| C1 ablations, all seven domains | 0.867–0.979 / 0.360–0.538 / 0.064–0.252 | 0.728–0.872 / 0.255–0.486 / 0.054–0.236 |
+| C1 + chaos 1 (logistic, perception) | 0.965 / 0.500 / 0.198 | 0.888 / 0.275 / 0.061 |
+| C1 + chaos 2 (Hénon, repair) | 0.979 / 0.485 / 0.113 | 0.872 / 0.324 / 0.072 |
+| C1 + chaos 1 + 2 | 0.965 / 0.515 / 0.199 | 0.888 / 0.278 / 0.064 |
+| C1, decoder rounds × 2 | 0.977 / 0.476 / 0.105 | 0.871 / 0.323 / 0.066 |
+| C1, autocatalysis | 0.979 / 0.483 / 0.107 | 0.872 / 0.323 / 0.070 |
+| C1, annealing | 0.979 / 0.514 / 0.128 | 0.872 / 0.342 / 0.085 |
+
+**1 of 7 hold** (H7, a tie between two repair laws on a stack that was not healing).
+
+### The cause, measured (`evidence/holo-r/diagnostic-perception.txt`; after the run, labelled)
+
+In episode 1, against the 2 truly erased regions (4 dev seeds, 8 erased regions each N):
+
+| perception | N 192: erased found / healthy flagged | N 256 |
+|---|---|---|
+| C1, perceive first (each region probed alone) | 2 / 8, 1 | 1 / 8, 0 |
+| **C2, residual against the whole-store decode** | **8 / 8, 0** | **8 / 8, 0** |
+
+- **C1's perception was blind.** Read through one region alone (512 amplitudes for 192–256
+  memories), an erased region's margins look almost like a healthy one's (seed 0, N 192: 0.0077
+  erased against 0.0106–0.0121 healthy), so κ could not separate them.
+- Its repair therefore rebuilt the wrong regions, or none, and every C1-based comparison (all seven
+  ablations, the repair laws, chaos, amplification) measures variations of a stack that was not
+  healing. Those comparisons are **inconclusive**, not negative.
+- **C2 perceives damage the way a whole system does: as disagreement between a part and the decode
+  of everything.** That reading found every erased region with no false alarms.
+
+### What it settles
+
+- **A self-healing holographic store works** (C2, the declared second order): **after losing 6 of
+  its 8 regions over three hits it still recalls 0.939 at N 192**, where the same store without
+  healing falls to 0.077 and the local layout to 0.247. At N 256 it heals the first hit fully
+  (0.564 after the second, 0.282 after the third), so the load limits how much it can rebuild.
+- **The order mattered more than any single domain:** the same mechanisms in another order
+  (C1) failed.
+- **Next (HOLO-R2, a new precommit):** run the per-domain ablations, the repair laws (replay,
+  autocatalysis, annealing), both chaos maps and the amplification **on C2**. Also give C1 a
+  whole-system perception, to separate perception from order.
+
+**Niche:** C2 is the self-healing memory for lifelong damage, at moderate load.
