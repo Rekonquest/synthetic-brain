@@ -66,7 +66,33 @@ mathematics works as a mechanism in a stack. It does not test the theory against
 | the virial theorem (self-set temperature) | each item's own temperature in the recall loop | 3, 13 | the best recall stack: 0.904, and 0.966 with rounds × 2; cools itself | ASTRO-R |
 | Jeans instability | scale-dependent scar formation | 14 | −13 to −27% false scars, only at the edge of a bistable medium | ASTRO-R |
 
-### Queued (not yet tried)
+### Measured later on 2026-10-24 (PHYS2, GEO-1/2, PHYS3, PROB-1)
+
+| law | stack | result | where |
+|---|---|---|---|
+| colour confinement | closed-loop check on records | an error flag: precision 0.928 → 0.956 at N 256 | PHYS2 Q1 |
+| asymptotic freedom | concept clusters | full binding with 1.77× the freedom inside | PHYS2 Q2 |
+| black-hole no-hair | consolidation to class | new recall 0.65 → 0.94 | PHYS2 Q3 |
+| holography (AdS/CFT) | spread layout | 0.96 against 0.75 after losing a region | PHYS2 Q4 |
+| Jaynes maximum entropy | self-calibrating probabilities | ECE 0.015 against a tuned softmax's 0.044, with no labels | PROB-1 |
+| least action (sum over paths) | path planning | 1.000 success within 0.14% of optimal | GEO-1 |
+| Noether (conserved charges) | shape identity under rotation | 0.999 in one comparison | GEO-1 |
+| + grid cells (neuroscience) | angle read from charge phases | identity + handedness 1.000 with 6 checks against about 2,200 | GEO-2 |
+| spontaneous symmetry breaking | canonical frame | 0.90; fails on isotropic shapes | GEO-1 |
+| renormalization group | coarse-to-fine planning | 0.44 of the cost, sparse worlds only | GEO-1 |
+| Roche limit | placement by strength | weak recall 0.79 → 1.00 | PHYS3 R1 |
+| hierarchical merging | merge-tree index | 0.72 at a quarter of the cost (with chaos) | PHYS3 R2 |
+| mass segregation | cache | 21% cheaper than LRU | PHYS3 R3 |
+| orbital resonance + binding by synchrony | feature binding | 0.88–0.91 against 0.04 | PHYS3 R4 |
+| lensing + REINFORCE | priming | +0.02 under skewed queries | PHYS3 R5 |
+| CIP priority (chemistry) | chirality by ranking | lost to the charge pseudo-scalar | GEO-2 |
+
+### Still queued (no clean mapping yet)
+
+T-duality, supersymmetric cancellation, the black-hole area law, fast scrambling, the Eddington
+limit, inflation, recombination.
+
+### Queued earlier (kept for the record)
 
 - **Quarks:** colour confinement (only neutral composites can leave a module; pulling a pair apart
   makes a new pair); asymptotic freedom (coupling weak at short range, strong at long range).

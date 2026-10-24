@@ -68,6 +68,7 @@ but not run. `phys2`–`phys4` have manifests only and are left out of the works
      - a dual process gated on the verify's own Chamfer, with the 4-module verify as System 2;
      - G2 with neuroscience and chemistry compositions (place cells, chemotaxis);
      - the remaining laws: T-duality, the black-hole area law, Noether in planning.
+7c. [x] **PHYS3-POC** (11/18): the Roche law, mass segregation (beats LRU by 21%), resonance binding, merge tree (chaos kept), lensing. **Still unmapped:** T-duality, SUSY, area law, fast scrambling, Eddington, inflation, recombination.
 8. **128-bit reruns** (the precision note): the chaos arms, the long thermal runs, the ENT-1 search.
 9. **Small items:**
    - ENT-1 seed 15 stayed on the saddle;
