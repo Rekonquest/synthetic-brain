@@ -1,0 +1,15 @@
+[package]
+name = "holor"
+description = "HOLO-R orchestrator: a self-healing holographic store across lifelong damage, composed from quantum, physics, cognition, information theory, mechanics, neuroscience, chemistry and biology (Rules 5-7)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+qb-amplitude = { path = "../qb-amplitude" }
+qb-bind = { path = "../qb-bind" }
+qb-quantize = { path = "../qb-quantize" }
+qb-classical = { path = "../qb-classical" }
+qb-chaos = { path = "../qb-chaos" }
+astro-virial = { path = "../astro-virial" }

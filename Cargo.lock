@@ -403,6 +403,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "holor"
+version = "0.1.0"
+dependencies = [
+ "astro-virial",
+ "qb-amplitude",
+ "qb-bind",
+ "qb-chaos",
+ "qb-classical",
+ "qb-quantize",
+]
+
+[[package]]
 name = "hybrid1"
 version = "0.1.0"
 dependencies = [
