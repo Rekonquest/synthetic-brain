@@ -1,0 +1,10 @@
+[package]
+name = "qb-bind"
+description = "Binding: the elementwise product of two amplitude vectors (FOLD-6's superposition folding)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+qb-amplitude = { path = "../qb-amplitude" }

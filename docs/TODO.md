@@ -75,8 +75,12 @@ Started 2026-10-18. Each item is precommitted before it is built, as usual.
 - [x] **FOLD-5: done** (5 of 6; `docs/FOLD-5-PRECOMMIT.md`). Outside the thermal state (the quantum base):
   - 256 per region, so 4,096 memories at 103 bytes each, at 0.947 with the phase-locked reading;
   - no maintenance needed, and heat only costs.
-- [ ] **FOLD-6, does folding save data?** Store key → value content in the fold, recall the values,
-  and measure the bits recalled per byte against raw and compressed size.
+- [x] **FOLD-6: done** (4 of 5; `docs/FOLD-6-PRECOMMIT.md`). **Folding does not save data:**
+  - storing bytes exactly takes 8 stored bytes per byte at best (1–2 bits per amplitude), which is
+    8× raw and 19× xz; full precision takes 341×.
+  - What it buys is damage tolerance (30% of the store destroyed, recall 1.000), association, and
+    no growth.
+  - Next: quantize the FOLD-5 store to 1–2 bits (about 8 KB for 4,096 memories); then cue robustness.
 - **FOLD-1, folding data smaller** (Jesse: "can we fold data to make it smaller").
   - Measure each form on the brain's own data (fields, scars, memories), for size against fidelity:
     1. lossless: entropy coding and delta encoding;

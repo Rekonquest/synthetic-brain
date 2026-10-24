@@ -1,0 +1,35 @@
+FOLD-6: one phase store of D 4096, byte values (M 256) bound to recipe keys; test seeds 10-17; raw = 1 byte per byte, xz on the glossary = 0.426
+
+Random content: accuracy p(N) per precision
+   f64: 32:1.000 64:1.000 96:1.000 128:1.000 192:1.000 256:0.996 384:0.954 512:0.869 768:0.669 1024:0.500 1536:0.319 2048:0.221
+        lossless N_exact 192: 341.3 stored bytes per content byte; best lossy efficiency 0.0065 recalled bits per stored bit
+   8 b: 32:1.000 64:1.000 96:1.000 128:1.000 192:0.995 256:0.977 384:0.881 512:0.754 768:0.528 1024:0.387 1536:0.234 2048:0.165
+        lossless N_exact 128: 32.0 stored bytes per content byte; best lossy efficiency 0.0818 recalled bits per stored bit
+   4 b: 32:1.000 64:1.000 96:1.000 128:1.000 192:0.996 256:0.974 384:0.880 512:0.747 768:0.521 1024:0.381 1536:0.230 2048:0.164
+        lossless N_exact 128: 16.0 stored bytes per content byte; best lossy efficiency 0.1614 recalled bits per stored bit
+   2 b: 32:1.000 64:1.000 96:1.000 128:0.998 192:0.986 256:0.937 384:0.800 512:0.636 768:0.425 1024:0.301 1536:0.184 2048:0.126
+        lossless N_exact 96: 10.7 stored bytes per content byte; best lossy efficiency 0.2664 recalled bits per stored bit
+   1 b: 32:1.000 64:1.000 96:0.984 128:0.953 192:0.793 256:0.637 384:0.424 512:0.301 768:0.175 1024:0.127 1536:0.075 2048:0.056
+        lossless N_exact 64: 8.0 stored bytes per content byte; best lossy efficiency 0.2629 recalled bits per stored bit
+
+Glossary (real) content: accuracy p(N) per precision
+   f64: 32:1.000 64:1.000 96:1.000 128:1.000 192:1.000 256:0.996 384:0.950 512:0.867 768:0.666 1024:0.511 1536:0.319 2048:0.231
+        lossless N_exact 192: 341.3 stored bytes per content byte
+   8 b: 32:1.000 64:1.000 96:1.000 128:1.000 192:0.997 256:0.980 384:0.883 512:0.756 768:0.535 1024:0.385 1536:0.236 2048:0.167
+        lossless N_exact 128: 32.0 stored bytes per content byte
+   4 b: 32:1.000 64:1.000 96:1.000 128:1.000 192:0.997 256:0.978 384:0.878 512:0.745 768:0.528 1024:0.381 1536:0.234 2048:0.164
+        lossless N_exact 128: 16.0 stored bytes per content byte
+   2 b: 32:1.000 64:1.000 96:1.000 128:1.000 192:0.986 256:0.945 384:0.798 512:0.637 768:0.425 1024:0.305 1536:0.185 2048:0.128
+        lossless N_exact 128: 8.0 stored bytes per content byte
+   1 b: 32:1.000 64:0.998 96:0.988 128:0.950 192:0.794 256:0.656 384:0.434 512:0.299 768:0.178 1024:0.125 1536:0.076 2048:0.055
+        lossless N_exact 32: 16.0 stored bytes per content byte
+
+Damage: 1-bit store, N 32, 30% of amplitudes overwritten: accuracy 1.000 (raw storage keeps about 0.70)
+
+HOLDS  R1 full precision lossless cost >= 100 bytes per byte (341.3)
+HOLDS  R2 best of 1-2 bits: lossless 2-10 bytes per byte (8.00 at 1 b) and lossy 0.1-0.5 bits per bit (0.266)
+HOLDS  R3 never beats raw on random data (best 0.266 < 1)
+FAILS  R4 redundancy ignored (glossary N_exact within 20% of random) and xz beats the best fold by >= 5x (18.8x)
+HOLDS  R5 30% damage, recall >= 0.95 (1.000)
+
+4 of 5 hold (186 s)

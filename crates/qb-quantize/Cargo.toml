@@ -1,0 +1,10 @@
+[package]
+name = "qb-quantize"
+description = "Phase quantization: each amplitude to unit magnitude at the nearest of 2^b phases (FOLD-6)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+qb-amplitude = { path = "../qb-amplitude" }

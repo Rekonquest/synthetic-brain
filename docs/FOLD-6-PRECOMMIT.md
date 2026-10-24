@@ -74,3 +74,51 @@ FOLD-4's best fresh setup holds 128 region memories (about 4 bits each, at 0.948
 stored bits: about 0.0001 recalled bits per stored bit.
 
 CPU only, 8 threads, a few minutes.
+
+## Results (2026-10-23, `evidence/fold-6/results.txt`, 3 min on 8 threads)
+
+**Lossless cost (random bytes): stored bytes per content byte at N_exact.** Raw storage is 1.0; xz on
+the glossary is 0.43.
+
+| precision per amplitude | N_exact | stored bytes per byte | best lossy efficiency (recalled bits per stored bit) |
+|---|---|---|---|
+| complex f64 (128 bits) | 192 | 341 | 0.0065 |
+| 8 bits | 128 | 32 | 0.082 |
+| 4 bits | 128 | 16 | 0.161 |
+| 2 bits | 96 | 10.7 | **0.266** |
+| 1 bit | 64 | **8.0** | 0.263 |
+
+- **Glossary (real data):** the accuracy curve matches random content within 0.02 at every N and
+  every precision. The best lossless cost is 8.0 bytes per byte (2 bits, N_exact 128).
+- **Damage:** in the 1-bit store at N 32, with 30% of the amplitudes overwritten, recall is still
+  **1.000**. Raw storage keeps about 70%.
+
+| # | Result |
+|---|---|
+| R1 full precision ≥ 100 bytes per byte | MEASURED: 341 |
+| R2 1–2 bits: lossless 2–10, lossy 0.1–0.5 | MEASURED: 8.0 bytes per byte (1 bit); 0.266 bits per bit (2 bits) |
+| R3 never beats raw on random data | MEASURED: best 0.266 bits per bit |
+| R4 redundancy ignored, and xz ≥ 5× better | **FAILED on its check, not its substance.** The accuracy curves match within 0.02, but N_exact (all 8 seeds perfect) is a knife edge at the grid's resolution: 128 against 96 at 2 bits, 32 against 64 at 1 bit. xz beats the best fold by **18.8×** |
+| R5 30% damage, recall ≥ 0.95 | MEASURED: 1.000 |
+
+**4 of 5 hold.**
+
+### The answer to Jesse's question
+
+**Folding does not save data. It costs space.**
+- At its best (1–2 bits per amplitude), storing bytes exactly takes about **8 stored bytes per byte**:
+  8× raw storage, and about 19× what xz needs for the same text.
+- At the full precision the brain's stores use now, it is 341×.
+- No form of folding can beat raw storage on random data, and folding ignores the redundancy that
+  compressors use.
+
+**What folding buys for that space:**
+- **Damage tolerance:** 30% of the store destroyed and nothing lost, where raw storage loses 30%.
+- **Recall by association,** in place of an address.
+- **No growth:** memories are added without enlarging the medium; they fade together instead of one
+  failing outright.
+- **Precision is the cheap lever:** going from f64 to 1–2 bits makes the fold 40× smaller with
+  little loss. This matches the about 4.7 bits per synapse of real brains (glossary 22).
+
+**Next, if wanted:** quantize the FOLD-5 capacity store to 1–2 bits (it would hold 4,096 memories in
+about 8 KB instead of 422 KB); and test cue robustness (recall from a partial or noisy key).
