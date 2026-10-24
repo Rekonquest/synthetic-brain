@@ -10,8 +10,17 @@ mechanism in the stack. That does not test whether the theory is true of nature.
 mathematics can be useful even if the theory is wrong, as epicycles were.
 
 **For every test:** plain is the bar, with the same seeds. Each runs in seconds, on CPU only.
-Chaos and amplification arms are deferred to full experiments; heat (noise level) is swept where it
-is the natural knob.
+
+**Amended before any code (2026-10-24).** Jesse: "Was chaos and amplification used on the
+astrophysics axioms? Were they logically composed?" They were not, and this doc first deferred them
+too. Each test is now composed in Jesse's order:
+1. **The law as its own stack:** the plain unit against the law's unit, the law kept only if it wins
+   on its own check.
+2. **Chaos, off against on,** on that stack: a small mean-preserving logistic perturbation every
+   step, with the stack's own check selecting and plain winning ties (dev seeds 0–3, then test 10–17).
+3. **Amplification, on against off,** on what was kept.
+
+Heat (the noise level) is swept where it is the natural knob.
 
 ## PHYS-1: the quantum Zeno effect (attention holds a thought)
 
@@ -87,3 +96,22 @@ is the natural knob.
 - **The honest limit:** the medium is linear and lossless, so a full inverse of its evolution would
   decode position bits too. The test is whether a bit can be read from its own channel alone. The
   modes are the channels that hold still.
+
+## The chaos and amplification arms (amended before code)
+
+| test | chaos (on against off; the stack's own check selects) | amplification (on against off) |
+|---|---|---|
+| PHYS-1 Zeno | the attention interval jittered per measurement, k·(1 + 0.5(u − ½)) (mean-preserving); selected by survival on a dev batch | Born power 2 → 4 in the measurement (`power_magnitudes`, "more of what is there") |
+| PHYS-2 gauge | 3 variants of the cue's phases jittered by 0.2·(u − ½), selected by the reading's own margin | the Wilson line summed over lags 1 and 2 (more of the invariant) |
+| PHYS-3 topology | J jittered per step and per ring, J·(1 + 0.5(u − ½)); the relaxation itself is the selector (a smooth flow that keeps what is stable) | J × 2 (stronger coupling) |
+| PHYS-4 strings | frozen disorder in c², ±1% per site (frozen chaos; QB-2: it localizes) | the write amplitude A × 2 |
+
+**Predictions:**
+- **C1, chaos:**
+  - not kept in PHYS-1, PHYS-2 and PHYS-3;
+  - **harmful** in PHYS-4, because frozen disorder localizes the waves and so mixes the modes.
+- **A1, amplification:**
+  - kept in PHYS-1 (a power above Born biases each measurement toward the held option);
+  - not kept in PHYS-2 (the lag-2 step drifts twice as far);
+  - kept in PHYS-3 at σ ≥ 0.2 (stiffer rings slip less);
+  - kept in PHYS-4 at σ 0.01 (signal against noise).
