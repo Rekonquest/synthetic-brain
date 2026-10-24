@@ -1,0 +1,19 @@
+HYBRID-1: 768 memories (256 exact, 256 associative with a quarter cue, 256 recognition); raw 768 B, association 1 KB, recognition 1 KB
+  dev tau [0.005, 0.01, 0.015, 0.02, 0.03] -> recognition [0.729, 0.837, 0.922, 0.965, 0.984]; chosen 0.03
+
+  router                         exact  assoc  recog  overall  trial writes (test, seeds 10-17)
+  all in raw (bar)               1.000  0.000  0.498  0.499    0
+  all in association (bar)       0.407  0.075  0.735  0.406    0
+  R-fixed, by kind               1.000  0.293  0.981  0.758    0
+  R-shine, per memory            1.000  0.296  0.983  0.760    1280
+  R-learn, over time             1.000  0.293  0.981  0.758    260
+
+HOLDS  H1 R-fixed beats both bars by >= 0.15 (0.758 vs 0.499, 0.406)
+HOLDS  H2 R-shine >= R-fixed - 0.02 (0.760 vs 0.758)
+HOLDS  H3 R-learn within 0.02 of R-shine (0.758 vs 0.760) with >= 70% fewer trials (260 vs 1280)
+
+3 of 3 hold (8 s)
+
+real	0m7.987s
+user	0m48.575s
+sys	0m1.921s

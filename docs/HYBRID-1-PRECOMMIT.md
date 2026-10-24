@@ -66,3 +66,45 @@ associative memories have nowhere to overflow to; the prediction would fail by c
 Overflow needs a second store with that ability (HYBRID-2, with the thermal store).
 
 A new orchestrator crate, `hybrid1`. CPU, a few minutes.
+
+## Results (2026-10-24, `evidence/hybrid-1/results.txt`, 8 s)
+
+Dev chose τ 0.03 for recognition (dev recognition 0.729 → 0.984 over τ 0.005 → 0.03).
+
+| router (test) | exact | associative (¼ cue) | recognition | overall | trial writes |
+|---|---|---|---|---|---|
+| all in raw (bar) | 1.000 | 0.000 | 0.498 | 0.499 | 0 |
+| all in association (bar) | 0.407 | 0.075 | 0.735 | 0.406 | 0 |
+| **R-fixed, by kind** | 1.000 | 0.293 | 0.981 | **0.758** | 0 |
+| **R-shine, per memory** | 1.000 | 0.296 | 0.983 | **0.760** | 1,280 |
+| **R-learn, over time** | 1.000 | 0.293 | 0.981 | **0.758** | 260 |
+
+| # | Result |
+|---|---|
+| H1 R-fixed beats both bars by ≥ 0.15 | MEASURED: 0.758 against 0.499 and 0.406 |
+| H2 R-shine ≥ R-fixed − 0.02, without being told the kinds | MEASURED: 0.760 |
+| H3 R-learn within 0.02 of R-shine with ≥ 70% fewer trials | MEASURED: 0.758 with 260 trials against 1,280 (−80%) |
+
+**3 of 3 hold.**
+
+### What it settles
+
+- **A hybrid beats any single store** by a wide margin (0.76 against 0.50 and 0.41), because each
+  store does what it is best at.
+- **Jesse's "where it shines" router finds the right assignment by itself,** from readbacks alone,
+  with no kinds given. It matches the designer's fixed assignment (0.760 against 0.758).
+- **His open question, learn or decide fresh: learning is as good and 80% cheaper.** Once a kind's
+  best store is reinforced, trial writes stop with no loss.
+- **The weak spot is the associative query from a quarter cue at this load** (0.29). 256 bound
+  values plus the crosstalk of everything else is past this store's quarter-cue capacity (FOLD-7 B
+  measured 0.984 at N 48). This is the place for FOLD-9's gated recall stack, and for a second
+  associative store to overflow into (HYBRID-2).
+
+**Niches:**
+- raw: exact recall from an address;
+- association: the only store that answers a partial cue;
+- recognition: "seen before?" at 0.98;
+- the shine router: finds niches by itself;
+- the learned router: the same result at a fifth of the cost.
+
+*Precision: f64 throughout (see `docs/TODO.md`, the precision note).*

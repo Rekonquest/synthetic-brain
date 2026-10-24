@@ -24,6 +24,22 @@ in a hybrid set up. Like the brain, no one thing excels at everything."
   - entangled pairs: coordination with no message;
   - Zeno attention: holding a state.
 
+## Precision note (Jesse, 2026-10-24): "all this may work differently because we are using 128bit"
+
+- **Every run from FOLD-1 to HYBRID-1 used f64 (64-bit).** None used the 128-bit capability
+  (GPU-1b's `gpu-cap-binary128` and the `f128` crates).
+- **Where 128-bit is likely to change a result** (GPU-1b: "128 bits matter only where chaotic or
+  critical dynamics run long before use"):
+  - long thermal runs (SCAR-1 and FOLD-4 at t 20,000);
+  - every chaos arm (the logistic source diverges from its 128-bit twin at the Lyapunov rate,
+    ln 2 per step);
+  - ENT-1's chaos search off the saddle.
+- **Unlikely to change:**
+  - the 2-bit stores (the stored value is 2 bits);
+  - the recall arithmetic (rounding about 1e-16 against crosstalk about 1e-2).
+- **To do:** rerun the chaos arms and the long thermal runs at 128 bits, and compare against the f64
+  results.
+
 ## Next session (written 2026-10-24)
 
 Where we stopped: the PHYS-POC precommit (`docs/PHYS-POC.md`) is committed, amended so each law is
