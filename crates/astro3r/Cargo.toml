@@ -1,0 +1,15 @@
+[package]
+name = "astro3r"
+description = "ASTRO-3 orchestrator: Jeans instability as the scar-formation law in the thermal medium (true against false scars)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+thermo-host = { path = "../thermo-host" }
+spec-step = { path = "../spec-step" }
+spec-trap = { path = "../spec-trap" }
+spec-stir = { path = "../spec-stir" }
+astro-jeans = { path = "../astro-jeans" }
+qb-chaos = { path = "../qb-chaos" }

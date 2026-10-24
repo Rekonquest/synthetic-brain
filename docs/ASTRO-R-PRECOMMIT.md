@@ -68,3 +68,79 @@ new orchestrators `astro1r`, `astro2r`, `astro3r`. CPU, 8 threads, time-boxed to
     near 0.
   - **R3b:** chaos not kept.
   - **R3c:** amplification raises side-3 true without raising false by more than 0.01.
+
+## Results (2026-10-24; `evidence/astro-r/`; 67 s, 107 s, 34 s on 8 threads)
+
+### ASTRO-1R, degeneracy pressure, pushes divided by each item's collisions: 3 of 4
+
+| arm (test) | N 384 | N 512 | N 768 |
+|---|---|---|---|
+| plain | 0.800 | 0.636 | 0.425 |
+| **pressure (γ 0.5, chosen on dev)** | **0.898** | **0.728** | 0.430 |
+| + amplification (η × 2) | 0.938 | 0.733 | 0.405 |
+
+Collisions per iteration (seed 10) fall every iteration: N 384 1,046 → 608; N 512 3,746 → 2,411;
+N 768 13,844 → 10,660.
+
+- **R1a HOLDS:** the oscillation is gone.
+- **R1b FAILED at N 768:** +0.098 at N 384 and +0.092 at N 512, but +0.005 at N 768, FOLD-8's
+  tipping point again.
+- **R1c HOLDS:** chaos (N 512) gives dev 0.722 → 0.717 and test 0.728 → 0.730; not kept.
+- **R1d HOLDS:** amplification is not kept on the mean over N. It helps light loads (N 384 0.938)
+  and hurts N 768.
+
+### ASTRO-2R, the virial law as each item's own temperature: 2 of 4
+
+Dev chose **L2, T_i = κσ²/m at κ 0.1**. L1 (bound → hot) was identical at every c tried: at
+c ≤ 0.1 its temperatures are so low that it acts as hard cancellation.
+
+| arm (test) | N 512 | N 768 |
+|---|---|---|
+| plain | 0.636 | 0.425 |
+| hard K1 (FOLD-8) | 0.894 | 0.407 |
+| K6 schedule (FOLD-8) | 0.884 | 0.334 |
+| **the virial law** | **0.904** | 0.359 |
+| chaos on the temperatures | 0.903 | 0.359 |
+| **amplification: rounds × 2** | **0.966** | 0.381 |
+
+The law's median item temperature per round (N 512): **0.0020 → 0.0012 → 0.0006**. It cools itself,
+which the POC's version never did.
+
+- **R2a FAILED, upward:** 0.904 is above K6 by more than the predicted ±0.02. It is the best recall
+  stack yet at N 512.
+- **R2b HOLDS:** nothing beats plain at N 768.
+- **R2c HOLDS:** chaos is not kept.
+- **R2d FAILED, upward:** doubling the rounds lifts N 512 to **0.966** (+0.062).
+
+### ASTRO-3R, the Jeans law in bursty media: 2 of 3
+
+The bursty stir did not remove the bistability. In every medium the dev sweep shows a cliff
+between E_ref 0.6 and 0.9: below it the far field carves, above it nothing false does. Matching on
+side-7 blobs puts every law at E_ref 1.35, where every false rate is 0.
+
+At the cliff edge (E_ref 0.6, dev), the Jeans window does help, and more in bursty media:
+
+| medium (q, ε) | local false | Jeans R 3 false |
+|---|---|---|
+| control (0.02, 0.05) | 0.548 | 0.476 (−13%) |
+| bursty (0.005, 0.2) | 0.775 | 0.566 (−27%) |
+| burstiest (0.002, 0.5) | 0.949 | 0.737 (−22%) |
+
+- **R3a FAILED:** at the matched threshold there is nothing to remove, and at the edge the
+  reduction is short of half.
+- **R3b HOLDS:** chaos on μ is not kept.
+- **R3c HOLDS:** gain × 2 carves side-3 blobs (0.000 → 1.000) with no false scars.
+- **Diagnosis:** what keeps the medium bistable is the trap law's own positive feedback (a carved
+  site leaks 100× less, so any spike that carves seals itself), not the noise. A Jeans law needs a
+  trap law without that runaway.
+
+### What ASTRO-R settles (7 of 11 hold)
+
+**Composed properly, two of the three laws are load-bearing:**
+- **Pauli pressure:** +0.09–0.10 at light and moderate load.
+- **The virial self-set temperature:** the best recall stack at N 512, 0.904, and **0.966 with
+  rounds × 2**.
+
+Both stop at FOLD-8's tipping point (N 768). The Jeans law has a modest effect only at the edge of a
+bistable medium. Chaos was kept nowhere; amplification helped where the stack still had room
+(rounds × 2, the gain for small blobs).

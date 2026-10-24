@@ -59,6 +59,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "astro1r"
+version = "0.1.0"
+dependencies = [
+ "astro-exclude",
+ "astro-pressure",
+ "qb-amplitude",
+ "qb-bind",
+ "qb-chaos",
+ "qb-quantize",
+]
+
+[[package]]
 name = "astro2"
 version = "0.1.0"
 dependencies = [
@@ -70,10 +82,34 @@ dependencies = [
 ]
 
 [[package]]
+name = "astro2r"
+version = "0.1.0"
+dependencies = [
+ "astro-virial",
+ "qb-amplitude",
+ "qb-bind",
+ "qb-chaos",
+ "qb-classical",
+ "qb-quantize",
+]
+
+[[package]]
 name = "astro3"
 version = "0.1.0"
 dependencies = [
  "astro-jeans",
+ "spec-step",
+ "spec-stir",
+ "spec-trap",
+ "thermo-host",
+]
+
+[[package]]
+name = "astro3r"
+version = "0.1.0"
+dependencies = [
+ "astro-jeans",
+ "qb-chaos",
  "spec-step",
  "spec-stir",
  "spec-trap",

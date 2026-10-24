@@ -1,0 +1,15 @@
+[package]
+name = "astro2r"
+description = "ASTRO-2 orchestrator: the virial theorem as a self-regulating hot/cold governor in FOLD-8's recall loop."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+qb-amplitude = { path = "../qb-amplitude" }
+qb-bind = { path = "../qb-bind" }
+qb-quantize = { path = "../qb-quantize" }
+qb-classical = { path = "../qb-classical" }
+astro-virial = { path = "../astro-virial" }
+qb-chaos = { path = "../qb-chaos" }
