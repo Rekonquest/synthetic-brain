@@ -4,10 +4,10 @@ Status: PRECOMMITTED (2026-10-24), before any PROB-1 code.
 
 Jesse (2026-10-24): "lets try making a better probability stack, and remember to keep reaching for
 theoretical physics axioms. Because it's turning out to be rather fruitful." Asked which one: "both,
-brain first". This is the brain's. The winner is then ported to the creativity lane
-(`atom-creative-paths`).
+brain first", then (2026-10-24) **"No, leave the creativity lane out for now."** So this is the
+synthetic brain's probability stack only; no port is planned.
 
-**The target is his creativity lane's form:** up to 5 candidate answers, each with an independent
+**The target borrows his creativity lane's form (the lane itself is left out):** up to 5 candidate answers, each with an independent
 probability score (like 70 and 20), with no winner declared; the user chooses. **Honest means
 calibrated:** of the answers scored 70%, about 70% are right.
 
