@@ -53,21 +53,16 @@ but not run. `phys2`–`phys4` have manifests only and are left out of the works
    - the proposed four (Zeno blockade as a GATE, gauge-invariant perception, topological counting,
      parallel string lanes).
 2. [x] **PHYS-POC done** (13 of 21; commit c1ea89e). All four laws are load-bearing for something; chaos was kept nowhere. Discovery used the four probes Jesse chose.
-3. **Redo the three astrophysics laws properly:** each as its own stack, then chaos off/on, then
-   amplification on/off.
-   - Fix ASTRO-1 arm B's step size.
-   - Virial in the real direction (bound → hotter), at K6's scale.
-   - Jeans in a medium where it can matter.
-4. **FOLD-8 follow-up:** a PERCEPTION gate, "store recoverable", so explaining away is never worse
-   than plain.
-5. **HYBRID-1 precommit:** route each memory to the store where it shines. Open question: should the
-   router learn over time, or decide per memory?
-6. **The next physics batch:**
-   - quark confinement, holographic codes, T-duality, supersymmetric cancellation;
-   - the black-hole set;
-   - the rest of the astrophysics list.
-7. **Add these to `docs/AXIOM-ATLAS.md`.**
-8. **Small items:**
+3. [x] **ASTRO-R** (7/11): Pauli pressure +0.09; the virial self-set temperature is the best recall stack (0.904; 0.966 with rounds × 2).
+4. [x] **FOLD-9** (3/4): the perception gate keeps the gains; gate + ATTEND is the best on real data at every depth. Open: a finer θ (about 0.65) or a reading with more contrast.
+5. [x] **HYBRID-1** (3/3): the hybrid 0.76 against 0.50 for one store; the shine router finds the assignment itself; learned at a fifth of the cost. **Next, HYBRID-2:**
+   - the thermal store as the lasting-memory specialist;
+   - a second associative store to overflow into;
+   - FOLD-9's gated recall in the association store.
+6. [x] **PHYS2-POC** (10/13): confinement as an error flag, asymptotic freedom as flexible concepts, no-hair consolidation (new recall 0.65 → 0.94), holographic region-loss survival (0.96 against 0.75). **Still queued:** T-duality, supersymmetric cancellation, the black-hole area law and fast scrambling, lensing, Eddington, Roche, inflation, the renormalization group, Noether, symmetry breaking, least action.
+7. [x] **Atlas updated.** Also done: **PROB-1** (5/8), maximum entropy as a self-calibrating probability layer. Open: its "70%" band drifts low at depth (0.634). The creativity lane is left out (Jesse).
+8. **128-bit reruns** (the precision note): the chaos arms, the long thermal runs, the ENT-1 search.
+9. **Small items:**
    - ENT-1 seed 15 stayed on the saddle;
    - ENT-1 distillation as amplification;
    - background agents get a hard time box.
