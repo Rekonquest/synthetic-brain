@@ -3,6 +3,9 @@ name: hybrid-specialists
 description: Jesse's standing principle that every stack is a specialist for a hybrid, like brain regions - never write a stack off for losing overall; record its niche (what it is best at, with numbers) and route work to the specialist where it shines. Covers the router designs measured in HYBRID-1 (fixed by kind, per-memory "shine" by trial readback, learned/REINFORCE) and the complementary-learning-systems idea. Use whenever a stack wins in one area and loses elsewhere, when writing up any result (add a niche line), when designing a system with several stores/engines/models, when Jesse says "hybrid", "assign memories where they shine", "use stacks for what they are strongest for", or when choosing between components; also transferable to any multi-component system (caches, model routing, storage tiers).
 ---
 
+> **Drift note (2026-10-24):** much of the work behind this skill was engineered pipelines rather than Atom stacks (see the DRIFT WARNING in `complex-stack-composition`). The measurements are honest; rebuild mechanisms the Atom way before treating them as emergent.
+
+
 # Hybrid specialists
 
 Jesse (2026-10-24): "treat all stacks like we intended to use them for memory, a hybrid, use stacks

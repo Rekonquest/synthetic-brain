@@ -3,6 +3,9 @@ name: associative-folding
 description: What was learned building associative ("folded") memory - many memories superposed in one fixed medium and recalled by association, not address - in Jesse's synthetic brain (FOLD-1..9, HYBRID-1, PROB-1). Covers capacity vs compression (folding costs space, buys damage tolerance and association), the thermal shape code, phase stores read phase-locked, 2-bit phase quantization, the explaining-away recall loop and its tipping point, the perception gate, ATTEND priors, self-calibrated probabilities, and the pitfalls. Use whenever Jesse mentions folding, scars, superposition memory, holographic/vector-symbolic memory, "recall by association", capacity, compression or "saving data"; when building any associative store, hashing/embedding memory, or cache of patterns; and before claiming a memory scheme saves space.
 ---
 
+> **Drift note (2026-10-24):** much of the work behind this skill was engineered pipelines rather than Atom stacks (see the DRIFT WARNING in `complex-stack-composition`). The measurements are honest; rebuild mechanisms the Atom way before treating them as emergent.
+
+
 # Associative folding — lessons
 
 ## The big three

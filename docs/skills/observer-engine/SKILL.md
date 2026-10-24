@@ -3,6 +3,9 @@ name: observer-engine
 description: How to build an observer that senses data or ideas, perceives named behaviours (citing evidence) and reacts - Jesse's sensing → perception → judgment separation applied to streams of numbers, symbols ("ideas") and the brain's own hypotheses ("thoughts"). Records what OBS-1 measured, including why it failed (the sensing did not separate behaviours) and the fixes. Use whenever Jesse asks for something that can "observe", "measure ideas or data", "detect behaviours", "react", monitor a stack, watch for drift, tipping points, oscillation, novelty, contradiction, false certainty or collapse; and for any monitoring/anomaly/change-detection design in any project.
 ---
 
+> **Drift note (2026-10-24):** much of the work behind this skill was engineered pipelines rather than Atom stacks (see the DRIFT WARNING in `complex-stack-composition`). The measurements are honest; rebuild mechanisms the Atom way before treating them as emergent.
+
+
 # Observer engines
 
 ## Architecture (his class separation)

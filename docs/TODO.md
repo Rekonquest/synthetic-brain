@@ -2,6 +2,27 @@
 
 Started 2026-10-18. Each item is precommitted before it is built, as usual.
 
+## DRIFT NOTE (2026-10-24): read first
+
+Jesse asked whether the stacks were composed the Atom way; they were not. From FOLD-6 onward, and
+most in PHYS/ASTRO/GEO/OBS/HOLO-R:
+- the stacks were engineered pipelines, with if-then gates and weight formulas in a heavy
+  orchestrator;
+- several "mechanisms" are known algorithms renamed;
+- chaos was tested only on finished chains.
+
+The measurements are honest, but most are not evidence of emergence. Genuinely emergent: least
+action as relaxation, thermal scars, resonance locking, interference, topological winding,
+entanglement correlations.
+
+**Rule for what comes next:**
+- build one stack at a time in logical order, each optimized with chaos and amplification before the
+  next;
+- genuine dynamics only;
+- a select-only orchestrator;
+- emergence controls (no-base, reorder, a labelled programmed baseline);
+- today's engineered results serve as baselines to beat.
+
 ## Standing principle (Jesse, 2026-10-24): every stack is a specialist for a hybrid
 
 "Treat all stacks like we intended to use them for memory, a hybrid, use stacks for what they are

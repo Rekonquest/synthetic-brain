@@ -3,6 +3,15 @@ name: complex-stack-composition
 description: Jesse's Rules 5, 6 and 7 in practice - every principal Atom candidate is a complex composition of genuine mechanisms from quantum, mechanics, physics, information theory, chemistry, cognition, plus neuroscience and biology, with per-domain ablations, at least two chaos mechanisms of different dynamics at different positions, a real amplification arm, and one to three declared orders; single-law stacks are only controls; there is no limit to complexity. Use whenever designing ANY experiment, stack, engine or feature in Jesse's projects (and as a design discipline elsewhere), whenever he asks "did you try chaos and amplification", "did you add cognitive/neuroscience/chemistry/biology", "remember my complexity rules", "repair/healing axioms", or when a proposed design has one mechanism or one domain. Includes the precommit template and cross-domain mechanisms that worked.
 ---
 
+## DRIFT WARNING (added 2026-10-24)
+HOLO-R/R2 were **not** composed the Atom way, despite the label: an engineered pipeline with if-then
+gates and formula "mechanisms" in a heavy orchestrator, chaos tested only on the finished chain. The
+Rules 5–7 checklist above is necessary but not sufficient: also build **one stack at a time in logical
+order, optimizing each with chaos (off/on) and amplification before stacking the next**, keep
+mechanisms as genuine dynamics (no renamed algorithms), keep the orchestrator select-only, and add
+emergence controls (no-base, reorder, a labelled programmed baseline).
+
+
 # Complex stack composition (Rules 5–7)
 
 Jesse's rules (`~/Documents/first priniples/05_Cognitive_and_Quantum_Roots/Atom_Architecture_Rules/`):

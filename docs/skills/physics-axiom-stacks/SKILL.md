@@ -3,6 +3,20 @@ name: physics-axiom-stacks
 description: How to turn laws of theoretical physics, astrophysics and black-hole physics into working stacks (mechanisms) and which mappings proved load-bearing in Jesse's synthetic-brain work - Noether conserved charges, least action as a sum over paths, gauge-invariant (Wilson-line) reading, topological winding, string modes, quantum Zeno, the virial self-set temperature, Jaynes maximum entropy, holography, no-hair consolidation, the Roche limit, mass segregation, resonance binding. Use whenever Jesse asks to "try physics axioms", "quarks", "strings", "black holes", "astrophysics", "theoretical physics", "is it load bearing", or wants a new mechanism for memory, recall, perception, planning, calibration or caching; and whenever designing a stack where a physics law might be the mechanism. Includes the mapping method, the measured catalogue, the laws still unmapped, and the honesty rule (a load-bearing law proves a mechanism, not the theory).
 ---
 
+## DRIFT WARNING (added 2026-10-24, read before using the catalogue)
+Jesse asked "so you drifted?" — yes. Many entries above were built as **engineered pipelines with
+physics names**, not as Atom stacks: if-then gates, weight formulas and known algorithms relabelled
+(mass segregation ≈ an LFU-with-aging cache; Le Chatelier ≈ a weighting formula; kinetic proofreading
+≈ an agreement check; maximum entropy ≈ a Gaussian likelihood ratio; Noether moments ≈ classical
+complex/Zernike moment invariants). Rule 6 says a renamed algorithm does not count.
+**Genuinely emergent** (behaviour from a local law, authored nowhere): least action as relaxation,
+thermal scars and noise maintenance, resonance locking, interference cancelling crosstalk,
+topological winding refusing smooth change, entanglement correlations.
+Before reusing an entry, rebuild it the Atom way (atom-architecture, atom-build-rule): one stack at a
+time in logical order, each optimized with chaos/amplification before the next, select-only
+orchestrator, emergence controls (no-base, reorder, a labelled programmed baseline).
+
+
 # Physics laws as stacks
 
 Jesse (2026-10-24): "if they are load bearing, then we know there is a there, there" and "keep
