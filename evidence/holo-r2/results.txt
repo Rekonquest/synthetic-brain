@@ -1,0 +1,50 @@
+HOLO-R2: the self-healing store's composition on the decode-first order (C2)
+  dev kappa [0.5, 0.6, 0.7, 0.8] -> final recall [0.570, 0.580, 0.598, 0.604]; chosen 0.8
+
+  N 192: recall after episodes 1 / 2 / 3
+    plain holographic (control)                  0.863 / 0.445 / 0.077
+    local layout (control)                       0.742 / 0.495 / 0.247
+    C2 principal (all eight domains)             1.000 / 0.994 / 0.939
+    minimal healer (physics, cognition, neuro)   0.945 / 0.906 / 0.869
+    ablate cognition: random mask                0.800 / 0.238 / 0.075
+    ablate information: no mask                  0.969 / 0.886 / 0.579
+    ablate mechanics: plain read                 0.945 / 0.671 / 0.454
+    ablate neuroscience: no replay               1.000 / 0.999 / 0.066
+    ablate biology: no proofreading              1.000 / 1.000 / 1.000
+    ablate chemistry: uniform weights            1.000 / 0.995 / 0.962
+    ablate physics: local layout                 0.751 / 0.502 / 0.252
+    chaos 1 (logistic at perception)             1.000 / 0.994 / 0.939
+    chaos 2 (Henon at repair)                    1.000 / 0.993 / 0.932
+    chaos 1 + 2                                  1.000 / 0.993 / 0.932
+    amplification: decoder rounds x 2            1.000 / 0.994 / 0.951
+    repair law: autocatalysis                    1.000 / 0.994 / 0.939
+    repair law: annealing                        1.000 / 0.998 / 0.980
+
+  N 256: recall after episodes 1 / 2 / 3
+    plain holographic (control)                  0.710 / 0.329 / 0.054
+    local layout (control)                       0.705 / 0.470 / 0.234
+    C2 principal (all eight domains)             1.000 / 0.564 / 0.282
+    minimal healer (physics, cognition, neuro)   0.854 / 0.769 / 0.712
+    ablate cognition: random mask                0.625 / 0.168 / 0.053
+    ablate information: no mask                  0.846 / 0.421 / 0.232
+    ablate mechanics: plain read                 0.854 / 0.497 / 0.292
+    ablate neuroscience: no replay               1.000 / 0.734 / 0.049
+    ablate biology: no proofreading              1.000 / 0.999 / 0.995
+    ablate chemistry: uniform weights            1.000 / 0.571 / 0.282
+    ablate physics: local layout                 0.751 / 0.501 / 0.251
+    chaos 1 (logistic at perception)             1.000 / 0.585 / 0.225
+    chaos 2 (Henon at repair)                    1.000 / 0.569 / 0.290
+    chaos 1 + 2                                  1.000 / 0.590 / 0.239
+    amplification: decoder rounds x 2            1.000 / 0.542 / 0.269
+    repair law: autocatalysis                    1.000 / 0.564 / 0.282
+    repair law: annealing                        1.000 / 0.951 / 0.594
+
+HOLDS  H1 C2 final >= 0.9 at 192 (0.939), >= 0.25 at 256 (0.282)
+FAILS  H2 cognition/information/mechanics/neuro/biology each >= 0.03 at 192 ([0.075, 0.579, 0.454, 0.066, 1.000] vs 0.939); chemistry ties (0.962); local >= 0.3 worse (0.252)
+FAILS  H3 complexity: full >= minimal + 0.05 at both N (0.939/0.282 vs 0.869/0.712)
+HOLDS  H4 no chaos arm promoted
+FAILS  H5 rounds x 2 raise final at 256 by >= 0.01 (0.269 vs 0.282)
+FAILS  H6 autocatalysis >= replay + 0.02 at 256 (0.282 vs 0.282)
+FAILS  H7 annealing ties autocatalysis +-0.02 at 256 (0.594 vs 0.282)
+
+2 of 7 hold (1174 s)
