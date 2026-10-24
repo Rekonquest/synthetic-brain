@@ -363,7 +363,12 @@ fn run(arm: Arm, n: usize, kappa: f64, seed: u64) -> [f64; EPISODES] {
                 }
                 Perc::Perceive => perceive(&q, &w, arm.local, k).0,
                 Perc::Random => {
-                    let cnt = perceive(&q, &w, arm.local, k).0.iter().filter(|x| **x).count();
+                    let cnt = if arm.order2 {
+                        let full = decode(&q, &all, arm.local, &w, arm.relax, arm.rounds);
+                        perceive_by_residual(&q, &w, arm.local, &full, k).iter().filter(|x| **x).count()
+                    } else {
+                        perceive(&q, &w, arm.local, k).0.iter().filter(|x| **x).count()
+                    };
                     let mut rr = Rng(seed ^ (ep as u64 + 1) * 0xBADD);
                     let mut idx: Vec<usize> = (0..R).collect();
                     for i in (1..R).rev() {
@@ -524,9 +529,71 @@ fn diag() {
     }
 }
 
+/// HOLO-R2 (docs/HOLO-R2-PRECOMMIT.md): everything on C2's order.
+fn r2() {
+    let t0 = std::time::Instant::now();
+    let c2 = Arm { order2: true, ..C1 };
+    println!("HOLO-R2: the self-healing store's composition on the decode-first order (C2)");
+    let kappas = [0.5, 0.6, 0.7, 0.8];
+    let dev: Vec<f64> = kappas.iter().map(|&k| (mean_runs(c2, 192, k, 0..4)[2] + mean_runs(c2, 256, k, 0..4)[2]) / 2.0).collect();
+    let kappa = kappas[(0..4).max_by(|&a, &b| dev[a].partial_cmp(&dev[b]).unwrap()).unwrap()];
+    println!("  dev kappa {kappas:?} -> final recall {dev:.3?}; chosen {kappa}");
+    let arms: Vec<(&str, Arm)> = vec![
+        ("plain holographic (control)", PLAIN),
+        ("local layout (control)", Arm { local: true, ..PLAIN }),
+        ("C2 principal (all eight domains)", c2),
+        ("minimal healer (physics, cognition, neuro)", Arm { relax: false, proofread: false, lechat: false, ..c2 }),
+        ("ablate cognition: random mask", Arm { perc: Perc::Random, ..c2 }),
+        ("ablate information: no mask", Arm { mask_read: false, ..c2 }),
+        ("ablate mechanics: plain read", Arm { relax: false, ..c2 }),
+        ("ablate neuroscience: no replay", Arm { repair: Repair::None, ..c2 }),
+        ("ablate biology: no proofreading", Arm { proofread: false, ..c2 }),
+        ("ablate chemistry: uniform weights", Arm { lechat: false, ..c2 }),
+        ("ablate physics: local layout", Arm { local: true, ..c2 }),
+        ("chaos 1 (logistic at perception)", Arm { chaos1: true, ..c2 }),
+        ("chaos 2 (Henon at repair)", Arm { chaos2: true, ..c2 }),
+        ("chaos 1 + 2", Arm { chaos1: true, chaos2: true, ..c2 }),
+        ("amplification: decoder rounds x 2", Arm { rounds: 12, ..c2 }),
+        ("repair law: autocatalysis", Arm { repair: Repair::Autocatalysis, ..c2 }),
+        ("repair law: annealing", Arm { repair: Repair::Anneal, ..c2 }),
+    ];
+    let mut res = std::collections::HashMap::new();
+    for &n in &[192usize, 256] {
+        println!("\n  N {n}: recall after episodes 1 / 2 / 3");
+        for (name, a) in &arms {
+            let m = mean_runs(*a, n, kappa, 10..18);
+            println!("    {name:<44} {:.3} / {:.3} / {:.3}", m[0], m[1], m[2]);
+            res.insert((name.to_string(), n), m);
+        }
+    }
+    let f = |name: &str, n: usize| res[&(name.to_string(), n)][2];
+    let p = "C2 principal (all eight domains)";
+    let abl = ["ablate cognition: random mask", "ablate information: no mask", "ablate mechanics: plain read", "ablate neuroscience: no replay", "ablate biology: no proofreading"];
+    let h2 = abl.iter().all(|a| f(a, 192) <= f(p, 192) - 0.03) && (f("ablate chemistry: uniform weights", 192) - f(p, 192)).abs() <= 0.02 && f("ablate physics: local layout", 192) <= f(p, 192) - 0.3;
+    let ch = ["chaos 1 (logistic at perception)", "chaos 2 (Henon at repair)", "chaos 1 + 2"];
+    let promoted = ch.iter().any(|a| f(a, 192) > f(p, 192) && f(a, 256) > f(p, 256));
+    let v = [
+        (format!("H1 C2 final >= 0.9 at 192 ({:.3}), >= 0.25 at 256 ({:.3})", f(p, 192), f(p, 256)), f(p, 192) >= 0.9 && f(p, 256) >= 0.25),
+        (format!("H2 cognition/information/mechanics/neuro/biology each >= 0.03 at 192 ({:.3?} vs {:.3}); chemistry ties ({:.3}); local >= 0.3 worse ({:.3})", abl.map(|a| f(a, 192)), f(p, 192), f("ablate chemistry: uniform weights", 192), f("ablate physics: local layout", 192)), h2),
+        (format!("H3 complexity: full >= minimal + 0.05 at both N ({:.3}/{:.3} vs {:.3}/{:.3})", f(p, 192), f(p, 256), f("minimal healer (physics, cognition, neuro)", 192), f("minimal healer (physics, cognition, neuro)", 256)), f(p, 192) >= f("minimal healer (physics, cognition, neuro)", 192) + 0.05 && f(p, 256) >= f("minimal healer (physics, cognition, neuro)", 256) + 0.05),
+        ("H4 no chaos arm promoted".to_string(), !promoted),
+        (format!("H5 rounds x 2 raise final at 256 by >= 0.01 ({:.3} vs {:.3})", f("amplification: decoder rounds x 2", 256), f(p, 256)), f("amplification: decoder rounds x 2", 256) >= f(p, 256) + 0.01),
+        (format!("H6 autocatalysis >= replay + 0.02 at 256 ({:.3} vs {:.3})", f("repair law: autocatalysis", 256), f(p, 256)), f("repair law: autocatalysis", 256) >= f(p, 256) + 0.02),
+        (format!("H7 annealing ties autocatalysis +-0.02 at 256 ({:.3} vs {:.3})", f("repair law: annealing", 256), f("repair law: autocatalysis", 256)), (f("repair law: annealing", 256) - f("repair law: autocatalysis", 256)).abs() <= 0.02),
+    ];
+    println!();
+    for (n, ok) in &v {
+        println!("{} {n}", if *ok { "HOLDS " } else { "FAILS " });
+    }
+    println!("\n{} of {} hold ({:.0} s)", v.iter().filter(|x| x.1).count(), v.len(), t0.elapsed().as_secs_f64());
+}
+
 fn main() {
     if std::env::var_os("DIAG").is_some() {
         return diag();
+    }
+    if std::env::var_os("R2").is_some() {
+        return r2();
     }
     let t0 = std::time::Instant::now();
     println!("HOLO-R: a self-healing holographic store; 2-bit, D {D}, {R} regions; 3 episodes each erasing 2 fresh regions");
