@@ -320,6 +320,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "phys1"
+version = "0.1.0"
+dependencies = [
+ "qb-amplitude",
+ "qb-classical",
+]
+
+[[package]]
 name = "qb-amplitude"
 version = "0.1.0"
 
@@ -376,6 +384,13 @@ dependencies = [
 [[package]]
 name = "qb-task"
 version = "0.1.0"
+
+[[package]]
+name = "qb-wilson"
+version = "0.1.0"
+dependencies = [
+ "qb-amplitude",
+]
 
 [[package]]
 name = "qb1"
@@ -705,6 +720,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "wave-mode"
+version = "0.1.0"
+
+[[package]]
 name = "wave-resonator"
 version = "0.1.0"
 
@@ -729,4 +748,12 @@ version = "0.1.0"
 
 [[package]]
 name = "web-perceive"
+version = "0.1.0"
+
+[[package]]
+name = "winding"
+version = "0.1.0"
+
+[[package]]
+name = "xy-relax"
 version = "0.1.0"

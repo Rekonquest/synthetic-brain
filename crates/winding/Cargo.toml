@@ -1,0 +1,10 @@
+[package]
+name = "winding"
+description = "The winding number of a closed ring of phases: sum of wrapped neighbour steps over 2 pi (PHYS-3)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+

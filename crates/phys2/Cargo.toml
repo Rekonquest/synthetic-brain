@@ -1,0 +1,13 @@
+[package]
+name = "phys2"
+description = "PHYS-2 orchestrator: gauge invariance - the Wilson-line reading against the plain reading under a smooth local phase drift."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+qb-amplitude = { path = "../qb-amplitude" }
+qb-bind = { path = "../qb-bind" }
+qb-overlap-phase = { path = "../qb-overlap-phase" }
+qb-wilson = { path = "../qb-wilson" }

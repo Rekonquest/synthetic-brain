@@ -2,6 +2,39 @@
 
 Started 2026-10-18. Each item is precommitted before it is built, as usual.
 
+## Next session (written 2026-10-24)
+
+Where we stopped: the PHYS-POC precommit (`docs/PHYS-POC.md`) is committed, amended so each law is
+built as its own stack, then chaos off/on, then amplification on/off. Its four function crates
+(`qb-wilson`, `xy-relax`, `winding`, `wave-mode`) are built and tested. `phys1` (Zeno) is written
+but not run. `phys2`–`phys4` have manifests only and are left out of the workspace for now.
+
+1. **How discovery is done is Jesse's call:** "don't limit discovery to memory". Options:
+   - open-ended observation of each law's stack;
+   - probes Jesse picks;
+   - the proposed four (Zeno blockade as a GATE, gauge-invariant perception, topological counting,
+     parallel string lanes).
+2. **Finish PHYS-POC:** run `phys1` (switch to the `qb-chaos` crate); write and run `phys2`–`phys4`;
+   write up.
+3. **Redo the three astrophysics laws properly:** each as its own stack, then chaos off/on, then
+   amplification on/off.
+   - Fix ASTRO-1 arm B's step size.
+   - Virial in the real direction (bound → hotter), at K6's scale.
+   - Jeans in a medium where it can matter.
+4. **FOLD-8 follow-up:** a PERCEPTION gate, "store recoverable", so explaining away is never worse
+   than plain.
+5. **HYBRID-1 precommit:** route each memory to the store where it shines. Open question: should the
+   router learn over time, or decide per memory?
+6. **The next physics batch:**
+   - quark confinement, holographic codes, T-duality, supersymmetric cancellation;
+   - the black-hole set;
+   - the rest of the astrophysics list.
+7. **Add these to `docs/AXIOM-ATLAS.md`.**
+8. **Small items:**
+   - ENT-1 seed 15 stayed on the saddle;
+   - ENT-1 distillation as amplification;
+   - background agents get a hard time box.
+
 ## Now
 
 - [x] **T6 THERMO-1** (`docs/T6-THERMO-1.md`): done (run 2, 3 of 6). There is an inverted U in both

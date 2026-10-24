@@ -1,0 +1,11 @@
+[package]
+name = "phys3"
+description = "PHYS-3 orchestrator: topological (winding) memory against local (mean-phase) memory on noisy rings."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+xy-relax = { path = "../xy-relax" }
+winding = { path = "../winding" }

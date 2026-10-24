@@ -1,0 +1,10 @@
+[package]
+name = "xy-relax"
+description = "One relaxation step of a ring of phases toward its neighbours, theta_i += J sum sin(theta_nb - theta_i) (PHYS-3)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+

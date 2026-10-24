@@ -1,0 +1,10 @@
+[package]
+name = "wave-mode"
+description = "Project a 1D periodic field onto the standing mode cos(2 pi n x / L) (PHYS-4)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+

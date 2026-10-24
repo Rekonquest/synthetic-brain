@@ -1,0 +1,11 @@
+[package]
+name = "phys1"
+description = "PHYS-1 orchestrator: the quantum Zeno effect as attention holding a thought, against the classical twin."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+qb-amplitude = { path = "../qb-amplitude" }
+qb-classical = { path = "../qb-classical" }

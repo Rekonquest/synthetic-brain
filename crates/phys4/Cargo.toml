@@ -1,0 +1,12 @@
+[package]
+name = "phys4"
+description = "PHYS-4 orchestrator: closed-string mode memory against position memory in the wave medium."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+thermo-lattice = { path = "../thermo-lattice" }
+wave-lattice = { path = "../wave-lattice" }
+wave-mode = { path = "../wave-mode" }
