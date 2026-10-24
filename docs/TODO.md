@@ -61,6 +61,13 @@ but not run. `phys2`–`phys4` have manifests only and are left out of the works
    - FOLD-9's gated recall in the association store.
 6. [x] **PHYS2-POC** (10/13): confinement as an error flag, asymptotic freedom as flexible concepts, no-hair consolidation (new recall 0.65 → 0.94), holographic region-loss survival (0.96 against 0.75). **Still queued:** T-duality, supersymmetric cancellation, the black-hole area law and fast scrambling, lensing, Eddington, Roche, inflation, the renormalization group, Noether, symmetry breaking, least action.
 7. [x] **Atlas updated.** Also done: **PROB-1** (5/8), maximum entropy as a self-calibrating probability layer. Open: its "70%" band drifts low at depth (0.634). The creativity lane is left out (Jesse).
+7b. [x] **GEO-1** (6/11) and **GEO-2** (2/5): geometric and spatial reasoning from physics, with no existing stack reused (Jesse).
+   - Least action as a sum over paths plans perfectly.
+   - Noether charges + the grid-cell phase code recognise shape and handedness at 1.000 with 6 checks, against the search's ~2,200.
+   - **Next:**
+     - a dual process gated on the verify's own Chamfer, with the 4-module verify as System 2;
+     - G2 with neuroscience and chemistry compositions (place cells, chemotaxis);
+     - the remaining laws: T-duality, the black-hole area law, Noether in planning.
 8. **128-bit reruns** (the precision note): the chaos arms, the long thermal runs, the ENT-1 search.
 9. **Small items:**
    - ENT-1 seed 15 stayed on the saddle;
