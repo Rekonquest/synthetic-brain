@@ -1,0 +1,13 @@
+[package]
+name = "r1roche"
+description = "PHYS3 R1 orchestrator: the Roche limit as memory placement (strong and weak memories in 2-bit stores)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+qb-amplitude = { path = "../qb-amplitude" }
+qb-bind = { path = "../qb-bind" }
+qb-quantize = { path = "../qb-quantize" }
+qb-overlap-phase = { path = "../qb-overlap-phase" }

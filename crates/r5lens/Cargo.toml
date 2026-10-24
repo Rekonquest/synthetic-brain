@@ -1,0 +1,13 @@
+[package]
+name = "r5lens"
+description = "PHYS3 R5 orchestrator: gravitational lensing composed with REINFORCE as priming in noisy recognition."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+shape-rotate = { path = "../shape-rotate" }
+shape-moments = { path = "../shape-moments" }
+shape-distances = { path = "../shape-distances" }
+qb-chaos = { path = "../qb-chaos" }

@@ -671,6 +671,47 @@ dependencies = [
 ]
 
 [[package]]
+name = "r1roche"
+version = "0.1.0"
+dependencies = [
+ "qb-amplitude",
+ "qb-bind",
+ "qb-overlap-phase",
+ "qb-quantize",
+]
+
+[[package]]
+name = "r2merge"
+version = "0.1.0"
+dependencies = [
+ "qb-chaos",
+ "shape-distances",
+ "shape-moments",
+ "shape-rotate",
+]
+
+[[package]]
+name = "r3segr"
+version = "0.1.0"
+dependencies = [
+ "qb-chaos",
+]
+
+[[package]]
+name = "r4reson"
+version = "0.1.0"
+
+[[package]]
+name = "r5lens"
+version = "0.1.0"
+dependencies = [
+ "qb-chaos",
+ "shape-distances",
+ "shape-moments",
+ "shape-rotate",
+]
+
+[[package]]
 name = "scar-tap"
 version = "0.1.0"
 dependencies = [

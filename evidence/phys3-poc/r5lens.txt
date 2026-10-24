@@ -1,0 +1,16 @@
+PHYS3 R5: lensing (+ REINFORCE) as priming; 32 shapes, Noether identity at noise 0.05, 512 queries per seed
+  dev beta [0.002, 0.005, 0.01, 0.02, 0.05] -> [0.785, 0.785, 0.792, 0.799, 0.777]; chosen 0.02
+  Zipf queries:    no lensing 0.787, lensing 0.807, beta x 2 0.810
+  uniform queries: no lensing 0.781, lensing 0.771, beta x 2 0.750
+  chaos on beta (Zipf): dev 0.799 -> 0.799; test 0.807 -> 0.807; kept true
+
+FAILS  R5a Zipf: lensing raises identity >= 0.05 (0.807 vs 0.787)
+HOLDS  R5b uniform: within +-0.02 (0.771 vs 0.781)
+HOLDS  R5c beta x 2 overshoots under uniform (<= -0.02: -0.032)
+FAILS  R5d chaos not kept
+
+2 of 4 hold (0 s)
+
+real	0m0.087s
+user	0m0.085s
+sys	0m0.002s

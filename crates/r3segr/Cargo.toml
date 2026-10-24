@@ -1,0 +1,10 @@
+[package]
+name = "r3segr"
+description = "PHYS3 R3 orchestrator: mass segregation (dynamical friction) as a memory cache, against LRU and random placement."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+qb-chaos = { path = "../qb-chaos" }

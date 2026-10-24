@@ -1,0 +1,9 @@
+[package]
+name = "r4reson"
+description = "PHYS3 R4 orchestrator: orbital resonance composed with binding by synchrony (neuroscience) for the binding problem."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]

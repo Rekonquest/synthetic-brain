@@ -1,0 +1,13 @@
+[package]
+name = "r2merge"
+description = "PHYS3 R2 orchestrator: hierarchical merging as a memory index for 1,024 shapes, against a linear scan."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+shape-rotate = { path = "../shape-rotate" }
+shape-moments = { path = "../shape-moments" }
+shape-distances = { path = "../shape-distances" }
+qb-chaos = { path = "../qb-chaos" }

@@ -1,0 +1,26 @@
+PHYS3 R3: mass segregation as a cache; 4096 memories, core 256 (cost 1), halo cost 20; 200000 accesses
+  dev gamma: 0.9999
+
+  stationary stream: mean access cost
+    random core (bar)                  18.317
+    LRU (status quo)                   9.046
+    segregation (dynamical friction)   7.134
+    segregation + chaos interval       7.134
+    segregation, settle every 250      7.091
+
+  shifting stream: mean access cost
+    random core (bar)                  18.811
+    LRU (status quo)                   9.058
+    segregation (dynamical friction)   7.681
+    segregation + chaos interval       7.645
+    segregation, settle every 250      7.541
+
+HOLDS  R3a stationary: segregation <= LRU - 5% (7.134 vs 9.046)
+HOLDS  R3b shifting: within 10% of LRU (7.681 vs 9.058)
+HOLDS  R3c chaos not kept (7.134/7.645 vs 7.134/7.681)
+
+3 of 3 hold (6 s)
+
+real	0m6.495s
+user	0m6.477s
+sys	0m0.017s

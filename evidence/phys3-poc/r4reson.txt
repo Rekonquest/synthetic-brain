@@ -1,0 +1,17 @@
+PHYS3 R4: binding 3 objects (colour + shape) by resonance; 1000 scenes per seed
+  bar (rate code, random pairing): 0.037
+  noise 0.1: resonance K 1: 0.877; K x 2: 0.909
+  noise 0.3: resonance K 1: 0.652; K x 2: 0.742
+  noise 0.6: resonance K 1: 0.379; K x 2: 0.522
+  chaos on K (noise 0.6): dev 0.373 -> 0.369; test 0.379 -> 0.377; kept false
+
+HOLDS  R4d chaos not kept
+FAILS  R4a all pairs right >= 0.95 at noise 0.1 (0.877; bar 0.037)
+FAILS  R4b still >= 0.6 at noise 0.6 (0.379)
+HOLDS  R4c K x 2 kept at noise 0.6 (0.522 vs 0.379)
+
+2 of 4 hold (7 s)
+
+real	0m6.879s
+user	0m6.877s
+sys	0m0.001s

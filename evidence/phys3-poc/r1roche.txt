@@ -1,0 +1,15 @@
+PHYS3 R1: the Roche limit; 16 regions x 32 memories (2-bit, D 1024); a quarter strong (x3)
+  random placement (bar): weak 0.793, strong 1.000
+  Roche law, r 2:         weak 1.000, strong 1.000
+  gentler limit, r 4:     weak 0.793, strong 1.000
+  Roche + chaos placement:  weak 1.000, strong 0.999 (variants chosen [2, 0, 2, 3, 3, 3, 1, 3])
+  amplification, weak x 2:  random weak 0.995, strong 1.000; Roche weak 1.000, strong 1.000
+HOLDS  R1c chaos not kept
+HOLDS  R1d weak x 2 lifts random-placement weak (0.995 vs 0.793), ties under Roche (1.000 vs 1.000)
+HOLDS  R1a weak recall rises >= 0.1 (1.000 vs 0.793)
+HOLDS  R1b strong recall >= plain - 0.02 (1.000 vs 1.000)
+4 of 4 hold (5 s)
+
+real	0m4.620s
+user	0m12.799s
+sys	0m0.179s

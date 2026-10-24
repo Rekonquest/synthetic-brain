@@ -1,0 +1,16 @@
+PHYS3 R2: hierarchical merging as an index; 1024 shapes, Noether features, noise 0.02, 256 queries per seed
+  linear scan (bar)                identity 0.979, comparisons 1024
+  merge tree, greedy (b 1)         identity 0.263, comparisons 43
+  merge tree, beam 4 (amplified)   identity 0.696, comparisons 211
+  greedy + chaos child             identity 0.310, comparisons 84
+  beam 4 + chaos child             identity 0.722, comparisons 254
+
+FAILS  R2a greedy >= 0.9 x scan (0.263 vs 0.979) at <= 3% comparisons (4.2%)
+FAILS  R2b beam 4 within 0.01 of scan (0.696) at <= 10% (20.6%)
+FAILS  R2c chaos not kept (greedy 0.263 -> 0.310; beam 0.696 -> 0.722)
+
+0 of 3 hold (2 s)
+
+real	0m1.622s
+user	0m1.620s
+sys	0m0.001s
