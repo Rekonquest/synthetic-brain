@@ -1,0 +1,17 @@
+Q2 asymptotic freedom: 16 concepts x 8 members, noise 0.1, T 20000; binding and inside spread (RMS within 2 r0)
+  free inside, constant pull outside: binding 1.000, spread 0.786
+  spring (equal force at r0):         binding 1.000, spread 0.444
+  Coulomb 1/r^2 (equal force at r0):  binding 1.000, spread 0.140
+  chaos on sigma: dev 1.000/0.792 -> 1.000/0.792; test -> 1.000/0.786; kept false
+  amplification sigma x 2: binding 1.000, spread 0.734
+
+HOLDS  F1 free law binding >= 0.99 (1.000), spread >= 1.5x spring (1.77x)
+FAILS  F2 Coulomb binding <= 0.8 (1.000)
+HOLDS  F3 chaos not kept
+HOLDS  F4 sigma x 2 tightens without gain (binding 1.000 vs 1.000)
+
+3 of 4 hold (1 s)
+
+real	0m0.830s
+user	0m5.199s
+sys	0m0.004s

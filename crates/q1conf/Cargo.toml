@@ -1,0 +1,14 @@
+[package]
+name = "q1conf"
+description = "PHYS2-POC orchestrator (q1conf): see docs/PHYS2-POC.md."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+qb-amplitude = { path = "../qb-amplitude" }
+qb-bind = { path = "../qb-bind" }
+qb-quantize = { path = "../qb-quantize" }
+qb-overlap-phase = { path = "../qb-overlap-phase" }
+qb-chaos = { path = "../qb-chaos" }

@@ -416,6 +416,46 @@ dependencies = [
 ]
 
 [[package]]
+name = "q1conf"
+version = "0.1.0"
+dependencies = [
+ "qb-amplitude",
+ "qb-bind",
+ "qb-chaos",
+ "qb-overlap-phase",
+ "qb-quantize",
+]
+
+[[package]]
+name = "q2free"
+version = "0.1.0"
+dependencies = [
+ "qb-chaos",
+]
+
+[[package]]
+name = "q3nohair"
+version = "0.1.0"
+dependencies = [
+ "qb-amplitude",
+ "qb-bind",
+ "qb-chaos",
+ "qb-overlap-phase",
+ "qb-quantize",
+]
+
+[[package]]
+name = "q4holo"
+version = "0.1.0"
+dependencies = [
+ "qb-amplitude",
+ "qb-bind",
+ "qb-chaos",
+ "qb-overlap-phase",
+ "qb-quantize",
+]
+
+[[package]]
 name = "qb-amplitude"
 version = "0.1.0"
 

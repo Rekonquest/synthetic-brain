@@ -1,0 +1,10 @@
+[package]
+name = "q2free"
+description = "PHYS2-POC orchestrator (q2free): asymptotic freedom as concept clusters - see docs/PHYS2-POC.md."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+qb-chaos = { path = "../qb-chaos" }

@@ -1,0 +1,16 @@
+Q3 no-hair consolidation: 256 old then 256 new memories in a 2-bit store (D 4096); old reduced to their class at amplitude 0.25
+  plain: new recall 0.652, old class recall 0.660
+  no-hair: new recall 0.936, old class recall 0.273
+  chaos on a: dev best variant 0 (0.942 vs 0.942); test 0.936/0.273; kept false
+  amplification a x 2: new 0.877, old class 0.609
+
+HOLDS  N1 new recall rises >= 0.1 (0.936 vs 0.652)
+FAILS  N2 old class recall >= 0.3 (0.273)
+HOLDS  N3 chaos not kept
+HOLDS  N4 a x 2 trades: new down >= 0.03 (-0.058), old class up >= 0.03 (+0.336)
+
+3 of 4 hold (5 s)
+
+real	0m4.987s
+user	0m30.255s
+sys	0m0.655s

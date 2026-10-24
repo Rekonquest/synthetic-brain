@@ -1,0 +1,17 @@
+Q1 colour confinement: records (x, y, z) in a 2-bit store (D 4096); an answer is accepted only if its loop closes
+  N  64: plain accuracy 1.000; closed-loop precision 1.000 at coverage 1.000
+  N 128: plain accuracy 0.995; closed-loop precision 0.995 at coverage 0.990
+  N 192: plain accuracy 0.984; closed-loop precision 0.988 at coverage 0.965
+  N 256: plain accuracy 0.928; closed-loop precision 0.956 at coverage 0.905
+  chaos (N 192): dev prec/cov 0.985/0.958 -> 0.985/0.958; test 0.988/0.965 -> 0.986/0.967; kept false
+  amplification, close twice (N 192): dev 0.985/0.958 -> 0.985/0.958; test 0.988/0.965 -> 0.988/0.965; kept false
+
+FAILS  C1 N 192: precision >= 0.98 (0.988) where plain <= 0.9 (0.984), coverage >= 0.5 (0.965)
+HOLDS  C2 chaos not kept
+HOLDS  C3 amplification not kept
+
+2 of 3 hold (11 s)
+
+real	0m10.697s
+user	1m7.210s
+sys	0m1.545s

@@ -96,3 +96,70 @@ Test seeds 10–17; dev 0–3. Each run takes seconds to a minute.
   - **H2:** with no damage the two layouts tie (±0.02). Each holds the same items per amplitude
     (D/N is the same), so their signal-to-crosstalk is the same. *Corrected before code:* first
     written as "local already worse (≤ 0.9)".
+
+## Results (2026-10-24, `evidence/phys2-poc/`; each run 1–11 s)
+
+### Q1, colour confinement as a closed-loop check: 2 of 3
+
+| N | plain accuracy | closed-loop precision | coverage |
+|---|---|---|---|
+| 64 | 1.000 | 1.000 | 1.000 |
+| 128 | 0.995 | 0.995 | 0.990 |
+| 192 | 0.984 | 0.988 | 0.965 |
+| 256 | 0.928 | **0.956** | 0.905 |
+
+- **C1 FAILED on its condition:** the record store is stronger than I derived, so plain is still
+  0.984 at N 192.
+- Where plain does err (N 256), the closed loop lifts precision 0.928 → 0.956 and flags about 10%
+  of answers. The rejected answers are mostly the wrong ones.
+- **C2 and C3 HOLD:** chaos and closing twice are not kept.
+- **Niche:** an error flag that needs no outside check. A record that does not close is suspect. It
+  is modest at this load and should grow past it.
+
+### Q2, asymptotic freedom as concept clusters: 3 of 4
+
+| law | binding | spread inside (RMS within 2 r₀) |
+|---|---|---|
+| **free inside, constant pull outside** | **1.000** | **0.786** |
+| spring (equal force at r₀) | 1.000 | 0.444 |
+| Coulomb 1/r² (equal force at r₀) | 1.000 | 0.140 |
+
+- **F1 HOLDS:** full binding with 1.77× the spring's freedom inside.
+- **F2 FAILED:** Coulomb lost no members. At this noise its strong close-range pull holds them tight
+  (spread 0.140), and nothing reached the weak far field. My derivation used the far-field escape
+  only.
+- **F3 and F4 HOLD:** chaos is not kept; σ × 2 tightens without gain.
+- **Niche:** concepts that hold their members and let them vary freely. Of the three laws, it has
+  the most internal flexibility at full binding.
+
+### Q3, no-hair forgetting as consolidation: 3 of 4
+
+| | new recall | old class recall |
+|---|---|---|
+| plain (old kept whole) | 0.652 | 0.660 |
+| **no-hair at a 0.25** | **0.936** | 0.273 |
+| no-hair at a 0.5 (amplification) | 0.877 | **0.609** |
+
+- **N1 HOLDS:** new recall rises by +0.28.
+- **N2 FAILED by margin:** 0.273 (bar 0.3).
+- **N3 HOLDS:** chaos is not kept.
+- **N4 HOLDS:** a × 2 trades −0.058 new for +0.336 old class.
+- **At a 0.5, no-hair beats plain on both counts:** new recall 0.877 against 0.652, and old class
+  recall 0.609 against 0.660 (nearly kept). Forgetting the detail and keeping the class frees room.
+- **Niche:** consolidation, or "sleep". It makes room for new memories by reducing old ones to what
+  is conserved.
+
+### Q4, holographic recovery: 2 of 2
+
+| N 128 | intact | one region of four erased |
+|---|---|---|
+| **holographic (spread over all)** | 1.000 | **0.961** |
+| local (each in one region) | 0.999 | 0.750 |
+
+At N 64 the holographic store loses nothing (1.000) while the local one still loses a quarter
+(0.750).
+- **H1 and H2 HOLD.**
+- **Niche:** surviving the loss of a whole region, like the brain's resilience to focal damage.
+
+**PHYS2-POC: 10 of 13 hold.** Every law is load-bearing for something, and no two have the same
+niche: an error flag, flexible concepts, consolidation, and region-loss survival.

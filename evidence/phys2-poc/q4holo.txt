@@ -1,0 +1,18 @@
+Q4 holographic recovery: 2-bit store (D 4096) in 4 regions; one region erased
+  N 128 holographic  intact   : 1.000
+  N 128 holographic  damaged  : 0.961
+  N 128 local        intact   : 0.999
+  N 128 local        damaged  : 0.750
+  N  64 holographic  intact   : 1.000
+  N  64 holographic  damaged  : 1.000
+  N  64 local        intact   : 1.000
+  N  64 local        damaged  : 0.750
+
+HOLDS  H1 N 128 damaged: holographic >= 0.95 (0.961), local <= 0.78 (0.750)
+HOLDS  H2 N 128 intact: the layouts tie +-0.02 (1.000 vs 0.999)
+
+2 of 2 hold (2 s)
+
+real	0m2.088s
+user	0m14.696s
+sys	0m0.483s
