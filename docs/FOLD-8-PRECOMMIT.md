@@ -105,11 +105,11 @@ items. Errors in the passed hypotheses take part of that.
    a convex fit.
 9. **K6a, annealing beats hard cancellation:** random content, N 768: annealed soft ≥ hard K1 (with
    its gate) + 0.03. Soft decisions keep wrong hypotheses from cancelling at full weight.
+10. **K6b, cooling is load-bearing:** annealed ≥ hot-only (fixed T₀) + 0.03 at N 768. A store read
+    hot to the end never settles.
 11. **K7a, amplification alone is an exact tie at every N.** The 2-bit quantizer keeps phase only,
     and a louder write has the same phase.
 12. **K7b, together: not kept** (≤ +0.01). The least-squares α is already the best scale.
-10. **K6b, cooling is load-bearing:** annealed ≥ hot-only (fixed T₀) + 0.03 at N 768. A store read
-    hot to the end never settles.
 
 Amplification is not rerun (FOLD-5 measured it inert on this store).
 
