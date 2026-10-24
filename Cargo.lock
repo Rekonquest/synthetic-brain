@@ -117,6 +117,7 @@ dependencies = [
  "qb-chaos",
  "qb-overlap",
  "qb-overlap-phase",
+ "qb-quantize",
  "spec-correlate",
 ]
 
@@ -126,6 +127,17 @@ version = "0.1.0"
 dependencies = [
  "qb-amplitude",
  "qb-bind",
+ "qb-overlap-phase",
+ "qb-quantize",
+]
+
+[[package]]
+name = "fold7"
+version = "0.1.0"
+dependencies = [
+ "qb-amplitude",
+ "qb-bind",
+ "qb-chaos",
  "qb-overlap-phase",
  "qb-quantize",
 ]

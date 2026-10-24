@@ -24,6 +24,8 @@ const WRITE: usize = 250;
 const THREADS: usize = 8;
 const CHAOS_ALPHA: f64 = 0.1;
 const CHAOS_VARIANTS: usize = 3;
+const DITHER_ALPHA: f64 = 0.5;
+const DITHER_VARIANTS: usize = 3;
 
 struct Rng(u64);
 impl Rng {
@@ -54,11 +56,15 @@ struct Setup {
     chaos: bool,
     /// The phase-locked reading (Re⟨c, a⟩) in place of the magnitude (FOLD-5's diagnosis).
     lock: bool,
+    /// FOLD-7 A: quantize each region's state to this many bits of phase at read time (0 = none).
+    bits: u32,
+    /// FOLD-7 A4: chaos before the quantizer, selected by the region's own readback.
+    dither: bool,
 }
 
 impl Setup {
     fn new(kind: Kind, f: usize) -> Setup {
-        Setup { kind, f, gain: GAIN, eps: EPS, chaos: false, lock: false }
+        Setup { kind, f, gain: GAIN, eps: EPS, chaos: false, lock: false, bits: 0, dither: false }
     }
 }
 
@@ -205,7 +211,48 @@ fn simulate(st: &Setup, ks: &Keys, reads: &[u64], seed: u64) -> Vec<Vec<[f64; 16
         .iter()
         .map(|&d| {
             heat_to(&mut regs, end + d);
-            (0..n).map(|m| std::array::from_fn(|r| score(&regs, m, r))).collect()
+            if st.bits == 0 {
+                return (0..n).map(|m| std::array::from_fn(|r| score(&regs, m, r))).collect();
+            }
+            // FOLD-7 A: the store as held in b bits of phase; A4: chaos before the quantizer.
+            let Regions::Phase(states) = &regs else { unreachable!() };
+            let q: Vec<State> = states
+                .iter()
+                .enumerate()
+                .map(|(r, s)| {
+                    let quant = |v: usize| -> State {
+                        let mut a = s.a.clone();
+                        if v > 0 {
+                            let step = 2.0 * std::f64::consts::PI / (1u64 << st.bits) as f64;
+                            for (i, c) in a.iter_mut().enumerate() {
+                                let key = seed.wrapping_mul(0xD1B5_4A32_D192_ED03) ^ ((r * 8 + v) as u64).wrapping_mul(0x9FB2_1C65_1E98_DF25) ^ (i as u64).wrapping_mul(0x1656_67B1_9E37_79F9);
+                                *c = c.mul(C::polar(1.0, DITHER_ALPHA * (qb_chaos::keyed_unit(key) - 0.5) * step));
+                            }
+                        }
+                        qb_quantize::quantize(&mut a, st.bits);
+                        State { a }
+                    };
+                    let plain = quant(0);
+                    if !st.dither {
+                        return plain;
+                    }
+                    let readback = |cand: &State| -> f64 {
+                        let one = Regions::Phase(vec![cand.clone()]);
+                        (r * st.f..(r + 1) * st.f).map(|m| score(&one, m, 0)).sum::<f64>() / st.f as f64
+                    };
+                    let mut best = (readback(&plain), plain);
+                    for v in 1..=DITHER_VARIANTS {
+                        let c = quant(v);
+                        let sc = readback(&c);
+                        if sc > best.0 {
+                            best = (sc, c);
+                        }
+                    }
+                    best.1
+                })
+                .collect();
+            let qr = Regions::Phase(q);
+            (0..n).map(|m| std::array::from_fn(|r| score(&qr, m, r))).collect()
         })
         .collect()
 }
@@ -323,6 +370,38 @@ fn main() {
         let dchaos = tv[2][0].0 - tv[0][0].0;
         verdicts.push((format!("Q5 amplification a tie (test change {dgain:+.3}, |.| <= 0.01)"), dgain.abs() <= 0.01));
         verdicts.push((format!("Q6 chaos not kept or <= 0.01 (test change {dchaos:+.3})"), !kept[1] || dchaos <= 0.01));
+    }
+
+    if part == "quant" {
+        say("\nFOLD-7 A (docs/FOLD-7-PRECOMMIT.md): the phase store held in b bits of phase, read phase-locked, t 250 (region top-1, set recall):".into());
+        let ff = [16usize, 64, 128, 256, 512];
+        let bs = [0u32, 8, 4, 2, 1];
+        let setups: Vec<Setup> = bs.iter().flat_map(|&b| ff.iter().map(move |&f| Setup { lock: true, bits: b, ..Setup::new(Kind::Phase, f) })).collect();
+        let rows = run(&setups, &test, &[250]);
+        let at = |bi: usize, fi: usize| rows[bi * ff.len() + fi][0].0;
+        for (bi, &b) in bs.iter().enumerate() {
+            let bytes = 16 * D_PHASE * if b == 0 { 128 } else { b as usize } / 8;
+            let line: String = ff.iter().enumerate().map(|(fi, f)| format!(" F {f}: {:.3} ({:.3})", at(bi, fi), rows[bi * ff.len() + fi][0].1)).collect();
+            say(format!("  {:>3} ({bytes} bytes):{line}", if b == 0 { "f64".to_string() } else { format!("{b} b") }));
+        }
+        let i256 = 3;
+        verdicts.push((format!("A1 2 bits at F 256 >= 0.90 ({:.3})", at(3, i256)), at(3, i256) >= 0.90));
+        verdicts.push((format!("A2 1 bit at F 256 >= 0.80 ({:.3}): 4,096 memories in 3,300 bytes", at(4, i256)), at(4, i256) >= 0.80));
+        let a3 = (0..ff.len()).map(|fi| (at(1, fi) - at(0, fi)).abs()).fold(0.0, f64::max);
+        verdicts.push((format!("A3 8 bits within 0.01 of f64 at every F (largest gap {a3:.3})"), a3 <= 0.01));
+        say("\nA4, chaos before the quantizer at F 256 (dev 0-3, then test; region top-1, then set recall; plain wins ties):".into());
+        let mut gains = Vec::new();
+        for b in [1u32, 2] {
+            let plain = Setup { lock: true, bits: b, ..Setup::new(Kind::Phase, 256) };
+            let on = Setup { dither: true, ..plain };
+            let dv = run(&[plain, on], &dev, &[250]);
+            let tv = run(&[plain, on], &test, &[250]);
+            let beats = |a: &(f64, f64), b: &(f64, f64)| a.0 > b.0 || (a.0 == b.0 && a.1 > b.1);
+            let kept = beats(&dv[1][0], &dv[0][0]) && beats(&tv[1][0], &tv[0][0]);
+            say(format!("  {b} b: dev plain {:.3} on {:.3}; test plain {:.3} on {:.3}; kept {kept}", dv[0][0].0, dv[1][0].0, tv[0][0].0, tv[1][0].0));
+            gains.push((kept, tv[1][0].0 - tv[0][0].0));
+        }
+        verdicts.push((format!("A4 chaos kept at 1 bit with test gain 0.005-0.03 ({:+.3}), tie or <= 0.005 at 2 bits ({:+.3})", gains[0].1, gains[1].1), gains[0].0 && (0.005..=0.03).contains(&gains[0].1) && (!gains[1].0 || gains[1].1 <= 0.005)));
     }
 
     if part == "phaselock" {

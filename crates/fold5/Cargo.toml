@@ -11,4 +11,5 @@ qb-amplitude = { path = "../qb-amplitude" }
 qb-overlap = { path = "../qb-overlap" }
 qb-overlap-phase = { path = "../qb-overlap-phase" }
 qb-chaos = { path = "../qb-chaos" }
+qb-quantize = { path = "../qb-quantize" }
 spec-correlate = { path = "../spec-correlate" }

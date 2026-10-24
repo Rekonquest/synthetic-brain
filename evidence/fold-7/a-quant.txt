@@ -1,0 +1,19 @@
+FOLD-5: outside the thermal state, 422400 bytes (phase: 16 x 1650 complex; classical: 16 x 3300 reals); test seeds 10-17
+
+FOLD-7 A (docs/FOLD-7-PRECOMMIT.md): the phase store held in b bits of phase, read phase-locked, t 250 (region top-1, set recall):
+  f64 (422400 bytes): F 16: 1.000 (1.000) F 64: 1.000 (1.000) F 128: 0.998 (0.981) F 256: 0.947 (0.881) F 512: 0.758 (0.687)
+  8 b (26400 bytes): F 16: 1.000 (1.000) F 64: 1.000 (0.999) F 128: 0.992 (0.960) F 256: 0.895 (0.821) F 512: 0.675 (0.615)
+  4 b (13200 bytes): F 16: 1.000 (1.000) F 64: 1.000 (0.998) F 128: 0.991 (0.957) F 256: 0.891 (0.817) F 512: 0.671 (0.611)
+  2 b (6600 bytes): F 16: 1.000 (1.000) F 64: 1.000 (0.994) F 128: 0.980 (0.930) F 256: 0.838 (0.761) F 512: 0.602 (0.554)
+  1 b (3300 bytes): F 16: 1.000 (1.000) F 64: 0.979 (0.930) F 128: 0.841 (0.761) F 256: 0.606 (0.555) F 512: 0.395 (0.378)
+
+A4, chaos before the quantizer at F 256 (dev 0-3, then test; region top-1, then set recall; plain wins ties):
+  1 b: dev plain 0.599 on 0.599; test plain 0.606 on 0.606; kept false
+  2 b: dev plain 0.838 on 0.838; test plain 0.838 on 0.838; kept false
+
+FAILS  A1 2 bits at F 256 >= 0.90 (0.838)
+FAILS  A2 1 bit at F 256 >= 0.80 (0.606): 4,096 memories in 3,300 bytes
+FAILS  A3 8 bits within 0.01 of f64 at every F (largest gap 0.082)
+FAILS  A4 chaos kept at 1 bit with test gain 0.005-0.03 (+0.000), tie or <= 0.005 at 2 bits (+0.000)
+
+0 of 4 hold (419 s)

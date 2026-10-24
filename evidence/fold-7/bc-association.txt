@@ -1,0 +1,30 @@
+FOLD-7 B and C: one phase store of D 4096 in 2 bits (1024 bytes); test seeds 10-17
+
+B, 48 bytes bound to keys; recall from a partial cue (fraction of the key known):
+  c 1.00: 1.000
+  c 0.50: 1.000
+  c 0.25: 0.984
+  c 0.10: 0.654
+  from a noisy cue (fraction of the key's phases random):
+  eta 0.0: 1.000
+  eta 0.3: 1.000
+  eta 0.5: 0.982
+  eta 0.7: 0.607
+  eta 0.9: 0.070
+  B5 chaos on the cue at eta 0.7: dev plain 0.646 on 0.604; test plain 0.581 on 0.560; kept false
+
+C, records (x, y, z); recall each field from the other two (x | y | z):
+  N 16: 1.000 | 1.000 | 1.000
+  N 32: 1.000 | 1.000 | 1.000
+  N 48: 1.000 | 1.000 | 1.000
+  N 64: 1.000 | 1.000 | 1.000
+
+HOLDS  B1 a quarter of the key recalls >= 0.95 (0.984)
+HOLDS  B2 a tenth of the key recalls 0.4-0.85 (0.654)
+HOLDS  B3 half the key's phases wrong recalls >= 0.95 (0.982)
+HOLDS  B4 graceful: eta 0.7 in 0.3-0.9 (0.607), eta 0.9 <= 0.15 (0.070)
+HOLDS  B5 chaos on the cue not kept (test -0.021)
+HOLDS  C1 each direction >= 0.95 at N 48 ([1.000, 1.000, 1.000])
+HOLDS  C2 the three directions within 0.03 at every N (largest spread 0.000)
+
+7 of 7 hold (4 s)
