@@ -120,5 +120,5 @@ the glossary is 0.43.
 - **Precision is the cheap lever:** going from f64 to 1–2 bits makes the fold 40× smaller with
   little loss. This matches the about 4.7 bits per synapse of real brains (glossary 22).
 
-**Next, if wanted:** quantize the FOLD-5 capacity store to 1–2 bits (it would hold 4,096 memories in
-about 8 KB instead of 422 KB); and test cue robustness (recall from a partial or noisy key).
+**Next, if wanted:** quantize the FOLD-5 capacity store to 1–2 bits (its 26,400 amplitudes would take
+3.3–6.6 KB instead of 422 KB, if the 4,096 memories survive it); and test cue robustness (recall from a partial or noisy key).

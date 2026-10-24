@@ -80,7 +80,7 @@ Started 2026-10-18. Each item is precommitted before it is built, as usual.
     8× raw and 19× xz; full precision takes 341×.
   - What it buys is damage tolerance (30% of the store destroyed, recall 1.000), association, and
     no growth.
-  - Next: quantize the FOLD-5 store to 1–2 bits (about 8 KB for 4,096 memories); then cue robustness.
+  - Next: quantize the FOLD-5 store to 1–2 bits (3.3–6.6 KB in place of 422 KB, if the 4,096 memories survive it); then cue robustness.
 - **FOLD-1, folding data smaller** (Jesse: "can we fold data to make it smaller").
   - Measure each form on the brain's own data (fields, scars, memories), for size against fidelity:
     1. lossless: entropy coding and delta encoding;
