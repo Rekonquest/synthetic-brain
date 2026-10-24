@@ -1,0 +1,10 @@
+[package]
+name = "obs-habituate"
+description = "Habituation: a response that weakens with each repetition and recovers with rest (OBS-1)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+

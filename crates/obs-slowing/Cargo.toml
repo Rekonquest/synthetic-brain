@@ -1,0 +1,10 @@
+[package]
+name = "obs-slowing"
+description = "Critical slowing down: lag-1 autocorrelation and variance of a window, and Kendall's tau trend of a series (OBS-1)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+

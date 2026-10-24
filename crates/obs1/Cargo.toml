@@ -1,0 +1,16 @@
+[package]
+name = "obs1"
+description = "OBS-1 orchestrator: an observer that senses, perceives named behaviours (citing evidence) and reacts, on synthetic data, idea and thought streams."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+qb-amplitude = { path = "../qb-amplitude" }
+qb-chaos = { path = "../qb-chaos" }
+obs-predict = { path = "../obs-predict" }
+obs-slowing = { path = "../obs-slowing" }
+obs-resonators = { path = "../obs-resonators" }
+obs-novelty = { path = "../obs-novelty" }
+obs-habituate = { path = "../obs-habituate" }

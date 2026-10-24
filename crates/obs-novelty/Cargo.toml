@@ -1,0 +1,10 @@
+[package]
+name = "obs-novelty"
+description = "Ideas as phase codes: a memory of superposed ideas and its overlap with a new one (OBS-1)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+qb-amplitude = { path = "../qb-amplitude" }

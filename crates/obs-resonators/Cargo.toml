@@ -1,0 +1,10 @@
+[package]
+name = "obs-resonators"
+description = "A bank of damped resonators at log-spaced frequencies driven by a signal; each band's absorbed energy (OBS-1)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+

@@ -413,6 +413,42 @@ dependencies = [
 ]
 
 [[package]]
+name = "obs-habituate"
+version = "0.1.0"
+
+[[package]]
+name = "obs-novelty"
+version = "0.1.0"
+dependencies = [
+ "qb-amplitude",
+]
+
+[[package]]
+name = "obs-predict"
+version = "0.1.0"
+
+[[package]]
+name = "obs-resonators"
+version = "0.1.0"
+
+[[package]]
+name = "obs-slowing"
+version = "0.1.0"
+
+[[package]]
+name = "obs1"
+version = "0.1.0"
+dependencies = [
+ "obs-habituate",
+ "obs-novelty",
+ "obs-predict",
+ "obs-resonators",
+ "obs-slowing",
+ "qb-amplitude",
+ "qb-chaos",
+]
+
+[[package]]
 name = "path-climb"
 version = "0.1.0"
 

@@ -1,0 +1,10 @@
+[package]
+name = "obs-predict"
+description = "Predictive coding: an online level-and-trend forecaster with its own error variance; surprise = error / expected error (OBS-1)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+
