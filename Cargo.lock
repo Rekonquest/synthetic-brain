@@ -26,6 +26,61 @@ dependencies = [
 ]
 
 [[package]]
+name = "astro-exclude"
+version = "0.1.0"
+dependencies = [
+ "qb-amplitude",
+]
+
+[[package]]
+name = "astro-jeans"
+version = "0.1.0"
+
+[[package]]
+name = "astro-pressure"
+version = "0.1.0"
+dependencies = [
+ "qb-amplitude",
+]
+
+[[package]]
+name = "astro-virial"
+version = "0.1.0"
+
+[[package]]
+name = "astro1"
+version = "0.1.0"
+dependencies = [
+ "astro-exclude",
+ "astro-pressure",
+ "qb-amplitude",
+ "qb-bind",
+ "qb-quantize",
+]
+
+[[package]]
+name = "astro2"
+version = "0.1.0"
+dependencies = [
+ "astro-virial",
+ "qb-amplitude",
+ "qb-bind",
+ "qb-classical",
+ "qb-quantize",
+]
+
+[[package]]
+name = "astro3"
+version = "0.1.0"
+dependencies = [
+ "astro-jeans",
+ "spec-step",
+ "spec-stir",
+ "spec-trap",
+ "thermo-host",
+]
+
+[[package]]
 name = "beat1"
 version = "0.1.0"
 dependencies = [
@@ -38,6 +93,16 @@ dependencies = [
  "sdr-frames",
  "thermo-bath",
  "thermo-host",
+]
+
+[[package]]
+name = "ent1"
+version = "0.1.0"
+dependencies = [
+ "qb-amplitude",
+ "qb-chaos",
+ "qb-local-rotate",
+ "qb-measure-qubit",
 ]
 
 [[package]]
@@ -272,6 +337,20 @@ version = "0.1.0"
 [[package]]
 name = "qb-classical"
 version = "0.1.0"
+
+[[package]]
+name = "qb-local-rotate"
+version = "0.1.0"
+dependencies = [
+ "qb-amplitude",
+]
+
+[[package]]
+name = "qb-measure-qubit"
+version = "0.1.0"
+dependencies = [
+ "qb-amplitude",
+]
 
 [[package]]
 name = "qb-overlap"

@@ -1,0 +1,9 @@
+[package]
+name = "astro-jeans"
+description = "ASTRO-3: the Jeans drive - a field with its modes shorter than the Jeans length removed (an R^d box mean on a periodic lattice)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]

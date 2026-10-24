@@ -1,0 +1,9 @@
+[package]
+name = "astro-virial"
+description = "ASTRO-2: a hypothesis's own temperature from its own binding - T = kappa * sigma^2 / margin over its readings."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]

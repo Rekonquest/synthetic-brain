@@ -1,0 +1,10 @@
+[package]
+name = "astro-exclude"
+description = "ASTRO-1 arm A: one Pauli-exclusion step - each item's crosstalk (the overlap of everything but its own target component with its bound vector) is pushed out of the store."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+qb-amplitude = { path = "../qb-amplitude" }

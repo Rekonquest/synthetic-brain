@@ -1,0 +1,10 @@
+[package]
+name = "qb-local-rotate"
+description = "Rotate one qubit of a register by an angle in the real plane (a local unitary; ENT-1)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+qb-amplitude = { path = "../qb-amplitude" }

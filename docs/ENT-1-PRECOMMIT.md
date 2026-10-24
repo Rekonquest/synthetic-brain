@@ -72,3 +72,47 @@ Amplification is not run: for entanglement it means distilling several pairs int
 one-pair stack does not have.
 
 CPU only, one thread, seconds.
+
+## Results (2026-10-24, `evidence/ent-1/results.txt`, 1.3 s on one thread)
+
+| arm | win rate | law |
+|---|---|---|
+| **entangled pair, textbook angles** | **0.8527** (S 2.822) | 0.8536 (S 2.828) |
+| classical best | 0.7501 | 0.75 |
+| unentangled pair, same angles | 0.6772 | ≤ 0.75 |
+| heat p 0.1 / 0.2 / 0.3 / 0.5 | 0.8178 / 0.7837 / 0.7469 / 0.6777 | 0.8182 / 0.7828 / 0.7475 / 0.6768 |
+| tapped | 0.6775 | 0.6768 |
+
+**Chaos from the classical saddle** (fresh 200,000-round scores, test seeds 10–17):
+
+| seed | plain | chaos on | classical twin under chaos |
+|---|---|---|---|
+| 10 | 0.7494 | 0.8465 | 0.7463 |
+| 11 | 0.7521 | 0.8497 | 0.7469 |
+| 12 | 0.7486 | 0.8523 | 0.7470 |
+| 13 | 0.7491 | 0.8510 | 0.7474 |
+| 14 | 0.7513 | 0.8512 | 0.7506 |
+| 15 | 0.7513 | 0.7501 (stayed on the saddle) | 0.7512 |
+| 16 | 0.7491 | 0.8520 | 0.7474 |
+| 17 | 0.7501 | 0.8474 | 0.7466 |
+
+**6 of 6 hold.**
+
+### What it settles
+
+- **Two co-engines that share an entangled pair coordinate better than any classical pair can,
+  with no message between them:** 85.3% against the classical ceiling of 75%.
+- **Heat erodes it exactly by the law** (S = 2√2(1 − p)). The edge is gone at p ≈ 0.3, and cold is
+  best (no inverted U, as in FOLD-5).
+- **A tap is detectable by the coordination itself:** a tapped link scores 67.7%, *below* classical.
+- **Chaos discovers the quantum strategy on its own,** from the classical one, in 7 of 8 seeds.
+  - The classical strategy is a saddle where the win rate's slope is zero, so a plain step never
+    leaves it.
+  - The angles found differ from the textbook's but are equivalent (the same relative angles,
+    rotated or mirrored).
+  - Seed 15 drifted too little to leave the saddle in 300 steps.
+  - The classical twin under the same chaos never passes 75%, so the gain belongs to the substrate,
+    not the search.
+- **For the brain:** entanglement is a way for co-engines to agree without talking, and its
+  failure flags interference. This is Rule 4's boundary again: on this PC it is the mathematics, and
+  the separation is enforced by code structure.

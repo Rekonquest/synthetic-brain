@@ -1,0 +1,10 @@
+[package]
+name = "astro-pressure"
+description = "ASTRO-1 arm B: degeneracy pressure - move a store along (own state - rival state) by a given amount."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+qb-amplitude = { path = "../qb-amplitude" }

@@ -1,0 +1,32 @@
+ASTRO-1: Pauli exclusion at write time; 2-bit store D 4096; N [384, 512, 768]; 4 threads
+
+Dev (seeds 0-3):
+  Plain                                        0.787 0.635 0.434
+  Exclude(0.05)                                0.835 0.652 0.414
+  Exclude(0.1)                                 0.847 0.644 0.380
+  Exclude(0.25)                                0.850 0.614 0.324
+  Exclude(0.5)                                 0.854 0.582 0.278
+  Pressure { gamma: 0.5, random: false }       0.411 0.286 0.323
+  Pressure { gamma: 1.0, random: false }       0.339 0.387 0.361
+  Pressure { gamma: 2.0, random: false }       0.508 0.480 0.410
+  chosen: eta per N [0.5, 0.05, 0.0] (0 = plain); gamma 2  (45 s)
+
+Test (seeds 10-17), accuracy at N [384, 512, 768]:
+  plain (eta 0, the ablation of A)             0.800 0.636 0.425
+  A: full exclusion (eta 0.5, K 8)             0.829 0.600 0.267
+  B: pressure on colliding states              0.524 0.480 0.399
+  B ablation: same pushes, random rivals       0.498 0.469 0.396
+  A at dev-chosen eta                          0.829 0.650 0.425
+  B collisions per iteration at N 384: [11036, 64219, 39260, 64609]
+  B collisions per iteration at N 512: [25742, 93414, 55000, 87793]
+  B collisions per iteration at N 768: [65130, 142205, 94195, 133498]
+
+HOLDS  X1 full exclusion at N 384: +0.02..+0.07 (+0.029)
+HOLDS  X2 at N 512 no gain: -0.07..+0.02 (-0.036)
+HOLDS  X3 at N 768 loses >= 0.08 (-0.158)
+HOLDS  X4 dev-chosen eta, test gain at N 768 <= +0.01 (+0.000)
+FAILS  X5 B >= plain + 0.10 at N 512 (-0.156)
+FAILS  X6 B >= plain + 0.05 at N 768 (-0.025)
+FAILS  X7 B >= ablation + 0.08 at N 512 (+0.010) and ablation within 0.05 of plain (-0.167)
+
+4 of 7 hold (133 s)

@@ -1,0 +1,33 @@
+ASTRO-2: virial governor in FOLD-8's recall loop; N [512, 768]; 3 rounds; 4 threads
+
+Dev (seeds 0-3):
+  Virial(2.0)                                    0.622 0.394
+  Virial(4.0)                                    0.559 0.319
+  Virial(8.0)                                    0.565 0.387
+  Literal(0.25)                                  0.821 0.354
+  Literal(0.5)                                   0.629 0.303
+  Literal(1.0)                                   0.496 0.253
+  chosen: kappa 2, c 0.25  (44 s)
+
+Test (seeds 10-17), accuracy at N [512, 768]:
+  plain                                          0.636 0.425
+  hard K1 (gate rho 0.75)                        0.894 0.407
+  hard, no gate (rho 1)                          0.857 0.369
+  fixed schedule K6 (T0 0.005, /2, /4)           0.884 0.334
+  virial: T_i = kappa sigma_i^2 / m_i            0.631 0.382
+  ablation: one T for all (round median)         0.320 0.211
+  literal virial: T_i = c m_i (bound -> hot)     0.818 0.363
+
+Median item temperature per round (test mean), N 512 | N 768:
+  fixed schedule K6 (T0 0.005, /2, /4)           [0.00500, 0.00250, 0.00125] | [0.00500, 0.00250, 0.00125]
+  virial: T_i = kappa sigma_i^2 / m_i            [0.03956, 0.04890, 0.05312] | [0.06278, 0.07840, 0.07427]
+  ablation: one T for all (round median)         [0.03956, 0.07217, 0.06368] | [0.06278, 0.07970, 0.08202]
+  literal virial: T_i = c m_i (bound -> hot)     [0.00152, 0.00216, 0.00416] | [0.00097, 0.00093, 0.00245]
+
+FAILS  V1 N 512: virial >= max(K6, K1) + 0.01 (0.631 vs 0.894)
+FAILS  V2 N 768: virial >= plain + 0.02 (0.382 vs 0.425) and >= K6 + 0.08 (0.334)
+HOLDS  V3 N 768: virial >= one-T ablation + 0.03 (0.382 vs 0.211)
+FAILS  V4 N 512: median T falls round 1 -> 3 (0.03956 -> 0.05312)
+FAILS  V5 N 768: literal <= virial - 0.03 (0.363 vs 0.382)
+
+1 of 5 hold (124 s)

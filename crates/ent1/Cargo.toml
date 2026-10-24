@@ -1,0 +1,13 @@
+[package]
+name = "ent1"
+description = "ENT-1 orchestrator: entanglement as coordination between two co-engines (the CHSH game), with heat, a tap, and chaos from the classical saddle."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+qb-amplitude = { path = "../qb-amplitude" }
+qb-local-rotate = { path = "../qb-local-rotate" }
+qb-measure-qubit = { path = "../qb-measure-qubit" }
+qb-chaos = { path = "../qb-chaos" }
