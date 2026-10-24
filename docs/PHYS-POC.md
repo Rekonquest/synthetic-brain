@@ -115,3 +115,23 @@ Heat (the noise level) is swept where it is the natural knob.
   - not kept in PHYS-2 (the lag-2 step drifts twice as far);
   - kept in PHYS-3 at σ ≥ 0.2 (stiffer rings slip less);
   - kept in PHYS-4 at σ 0.01 (signal against noise).
+
+## Discovery beyond memory (amended before code, 2026-10-24; Jesse chose these four probes)
+
+Jesse: "And don't limit discovery to memory. Key word 'discovery'." (Rule 3: from the known into the
+unknown.) Each law's stack is also probed for one behaviour outside memory, chosen by what it
+consumes and produces (Rule 2), against a plain or classical twin.
+
+| law | probe | capacity (atlas) | the bar |
+|---|---|---|---|
+| Zeno | **blockade as a GATE:** a walker starts at option 0 of a 16-ring and spreads by `ring_mix`; attention on option 4 (measured every step: "is it here?"; on a yes, the run ends there) | 4 attention; 10 control | the classical twin, a diffusing walker watched the same way |
+| gauge | **invariant perception:** classify 64 random phasor shapes (length 512) received through an unknown smooth phase channel (step σ) | 1 perception | the plain correlation reading |
+| topology | **robust counting:** 50 events, each a full twist added smoothly over 100 steps, then rest, under noise σ; the count is the winding | 8 number | an analog accumulator gaining 2π per event under the same noise, read as round(φ/2π) |
+| strings | **parallel lanes:** 8 messages (64 one-bit symbols each) sent at once on one closed string, each at its own harmonic; one listener decodes all 8 from its site | 9 composition; signalling | the same messages time-shared on one harmonic (8× the time) |
+
+**Predictions:**
+- **D1:** with attention on option 4 every step, the walker reaches options 6–10 by T 200 ≥ 50% less
+  often than with no attention; the classical twin ≤ 10% less (only what is caught at option 4).
+- **D2:** at σ 0.1, Wilson classification ≥ 0.95 and plain ≤ 0.1.
+- **D3:** at σ 0.1, the winding counter is exact in ≥ 0.95 of rings, and the analog counter in ≤ 0.6.
+- **D4:** all 8 lanes decode ≥ 0.95 of their bits, in 1/8 of the time-shared duration.
