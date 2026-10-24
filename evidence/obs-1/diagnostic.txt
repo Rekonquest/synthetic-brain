@@ -1,0 +1,5 @@
+Diagnostic after the run (labelled): per kind, 40 streams (dev seeds), after warm-up
+  none         median max |surprise| 3.56, median max resonator ratio 10.0, median max slowing evidence 0.68
+  step         median max |surprise| 3.11, median max resonator ratio 7.7, median max slowing evidence 0.46
+  oscillation  median max |surprise| 2.97, median max resonator ratio 7.1, median max slowing evidence 0.62
+  tipping      median max |surprise| 3.08, median max resonator ratio 6.4, median max slowing evidence 0.68

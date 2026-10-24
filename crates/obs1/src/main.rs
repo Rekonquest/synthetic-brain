@@ -704,7 +704,28 @@ fn mean(v: &[f64]) -> f64 {
     v.iter().sum::<f64>() / v.len() as f64
 }
 
+fn diag() {
+    println!("Diagnostic after the run (labelled): per kind, 40 streams (dev seeds), after warm-up");
+    for k in [0usize, 2, 3, 5] {
+        let (mut ms, mut mo, mut mt) = (Vec::new(), Vec::new(), Vec::new());
+        for i in 0..40u64 {
+            let (x, start) = f1_stream(k, i * 31 + 5, 1.0);
+            let rd = f1_sense(&x, None, 1.0, 16);
+            let from = if k == 0 { WARM } else { start };
+            let to = if k == 0 { F1_LEN } else { (start + WINDOW).min(F1_LEN) };
+            ms.push((from..to).map(|t| rd.s[t].abs()).fold(0.0, f64::max));
+            mo.push((from..to).map(|t| rd.osc[t]).fold(0.0, f64::max));
+            mt.push((from..to).map(|t| rd.tau[t].0.min(rd.tau[t].1)).fold(-1.0, f64::max));
+        }
+        let med = |v: &mut Vec<f64>| { v.sort_by(|a, b| a.partial_cmp(b).unwrap()); v[v.len() / 2] };
+        println!("  {:<12} median max |surprise| {:.2}, median max resonator ratio {:.1}, median max slowing evidence {:.2}", F1_KINDS[k], med(&mut ms), med(&mut mo), med(&mut mt));
+    }
+}
+
 fn main() {
+    if std::env::var_os("DIAG").is_some() {
+        return diag();
+    }
     let t0 = std::time::Instant::now();
     println!("OBS-1: an observer (sense -> perceive -> react) on synthetic streams; {PER_KIND} streams per behaviour per seed");
     // F1.

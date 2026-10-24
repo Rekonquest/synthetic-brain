@@ -122,3 +122,74 @@ time in the stream's second half.
 **New function crates:** `obs-predict`, `obs-slowing`, `obs-resonators`, `obs-novelty`,
 `obs-habituate`. Orchestrator `obs1`, holding perception and judgment (labelled). CPU, about a
 minute.
+
+## Results (2026-10-24, `evidence/obs-1/results.txt`, 24 s)
+
+| F1 data (test) | drift | step | oscillation | burst | tipping | false alarms |
+|---|---|---|---|---|---|---|
+| observer | 0.623 | 0.000 | 0.010 | 0.772 | 0.035 | 0.297 |
+| status-quo bars | 0.795 | 0.825 | 0.415 | 0.637 | 0.235 | 0.205 |
+
+Early warning before the tip: the observer 0.215, the variance bar 0.858.
+
+| F2 written ideas | repetition | novelty | topic drift | contradiction | false alarms |
+|---|---|---|---|---|---|
+| observer (phase codes only) | 0.875 | 0.985 | 0.050 | 0.950 | 0.048 |
+| bars (with symbol ids) | 1.000 | 1.000 | 0.432 | 1.000 | 0.000 |
+
+| F3 thoughts | settling | flip-flop | collapse | false certainty | false alarms |
+|---|---|---|---|---|---|
+| **observer** | **0.998** | 0.270 | 0.010 | **0.998** | 0.007 |
+| bars | 0.995 | 0.000 | 0.000 | 0.000 | 0.000 |
+
+Settling was not flagged as a problem in 0.998 of streams.
+
+- **O5:** benign-oscillation alarms 0 habituated against 7,258 unhabituated, but the later step was
+  detected 0.000 (the step rule never fires; see below).
+- **O6** (collapse rate / load kept): no reaction 1.000 / 0; observer 0.015 / 0.304; variance bar
+  0.010 / 0.335.
+- **O7:** chaos not kept (dev surprise 388,143 → 388,166).
+- **O8:** amplification is harmful: oscillation 0.000 with a false-alarm rate of 1.000.
+
+**1 of 8 hold** (O7).
+
+### The cause, measured (`evidence/obs-1/diagnostic.txt`; after the run, labelled)
+
+Median over 40 dev streams of each reading's maximum (on "none" over the whole stream after
+warm-up; on the others within the 200 steps after the start):
+
+| stream | max \|surprise\| | max resonator ratio | max slowing evidence |
+|---|---|---|---|
+| none | **3.56** | **10.0** | **0.68** |
+| step | 3.11 | 7.7 | 0.46 |
+| oscillation | 2.97 | 7.1 | 0.62 |
+| tipping | 3.08 | 6.4 | 0.68 |
+
+**The sensing does not separate the behaviours: plain noise looks more alarming than the planted
+behaviours on every reading.** It is a gap in what perception was handed, not in its thresholds:
+1. **A single-step surprise** is swamped by chance maxima over a long quiet stream. A moderate step
+   (2 units against noise of 1.15) never stands out in one step, because the predictor adapts within
+   a few steps. It needs **evidence accumulation**.
+2. **The resonator bank is not adapted per band.** With red (AR) noise, the slow bands always hold
+   the most energy, so "the loudest band against the median" is always high. Each band needs its own
+   baseline (**sensory adaptation**).
+3. **Kendall's τ over 20 points** is too noisy to separate tipping from chance at the needed false-
+   alarm rate. It needs a longer baseline and a contrast against it.
+4. **Rules judged alone on dev add their false alarms** (0.297 in all). The thresholds need choosing
+   jointly, against one false-alarm budget.
+5. **O8's amplification doubled the surprise under fixed thresholds,** so every rule fired.
+
+**What worked:**
+- the thoughts observer (F3): it detects false certainty at **0.998**, where the entropy bars score
+  0.000, and leaves healthy settling unflagged (0.998);
+- idea novelty and contradiction on phase codes alone (0.985, 0.950), close to bars that see exact
+  symbol ids;
+- habituation silenced a benign rhythm completely.
+
+### Niches
+
+- **The thoughts observer:** catches false certainty, which the status quo cannot.
+- **The idea observer:** novelty and contradiction with no symbol table.
+- **Habituation:** silences repeated harmless signals.
+
+OBS-1b fixes the five gaps above under a new precommit.
