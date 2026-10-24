@@ -69,6 +69,15 @@ loop, which K1 makes iterative.
 - **The cold end** is K1's hard cancellation of every hypothesis without a gate (the ρ = 1
   ablation). Hot-only (T fixed at T₀, no cooling) is run beside it.
 
+### K7: amplification on and off (added before any code, 2026-10-23)
+
+Jesse: "And amplification". His build rule's matrix:
+- **plain:** the single read;
+- **amplification alone:** write gain × 2, single read;
+- **cognitive alone:** the best of K1 and K6;
+- **together:** the best cognitive stack, with its predicted interference amplified by G ∈ {1.25, 1.5}
+  (over-cancellation, "more of what exists"), G chosen on dev.
+
 ### Chaos last, on the kept stack
 
 Each round, each item's cancellation scale is α·(1 + 0.3(u − ½)), with u from
@@ -96,6 +105,9 @@ items. Errors in the passed hypotheses take part of that.
    a convex fit.
 9. **K6a, annealing beats hard cancellation:** random content, N 768: annealed soft ≥ hard K1 (with
    its gate) + 0.03. Soft decisions keep wrong hypotheses from cancelling at full weight.
+11. **K7a, amplification alone is an exact tie at every N.** The 2-bit quantizer keeps phase only,
+    and a louder write has the same phase.
+12. **K7b, together: not kept** (≤ +0.01). The least-squares α is already the best scale.
 10. **K6b, cooling is load-bearing:** annealed ≥ hot-only (fixed T₀) + 0.03 at N 768. A store read
     hot to the end never settles.
 
